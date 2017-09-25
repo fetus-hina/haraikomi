@@ -1,0 +1,14 @@
+{
+    "name": "jp3cki/haraikomi",
+    "type": "project",
+    "require": {
+        "tecnickcom/tcpdf": "^6.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "AIZAWA Hina",
+            "email": "hina@bouhime.com"
+        }
+    ]
+}
