@@ -87,7 +87,7 @@ define('SUB_ACCOUNT_1_LEFT', SUB_COMMON_LEFT);
 define('SUB_ACCOUNT_1_RIGHT', SUB_COMMON_LEFT + 5.08 * 5);
 define('SUB_ACCOUNT_2_LEFT', SUB_ACCOUNT_1_RIGHT + 2.54);
 define('SUB_ACCOUNT_2_RIGHT', SUB_ACCOUNT_2_LEFT + 5.08);
-define('SUB_ACCOUNT_3_LEFT', SUB_COMMON_LEFT + 5.08 * 2);
+define('SUB_ACCOUNT_3_LEFT', SUB_COMMON_LEFT + 5.08);
 define('SUB_ACCOUNT_3_RIGHT', SUB_COMMON_RIGHT);
 define('SUB_PRICE_TOP', 15 + 8 + 3 + 8 + 10 + 3);
 define('SUB_PRICE_BOTTOM', SUB_PRICE_TOP + 8);
@@ -127,7 +127,7 @@ if (false) {
 
 
 // 番号（メイン） {{{
-$pdf->SetFont('ocrb_aizu_1_1', '', mm2pt(7));
+$pdf->SetFont('ocrb_aizu_1_1', '', mm2pt(5));
 cellNumber(
     $pdf,
     MAIN_ACCOUNT_1_LEFT,
@@ -157,7 +157,7 @@ cellNumber(
 );
 // }}}
 // 金額（メイン） {{{
-$pdf->SetFont('ocrb_aizu_1_1', '', mm2pt(7));
+$pdf->SetFont('ocrb_aizu_1_1', '', mm2pt(5));
 cellNumber(
     $pdf,
     MAIN_PRICE_LEFT,
@@ -171,7 +171,7 @@ cellNumber(
 );
 // }}}
 // 番号（サブ） {{{
-$pdf->SetFont('ocrb_aizu_1_1', '', mm2pt(7));
+$pdf->SetFont('ocrb_aizu_1_1', '', mm2pt(5));
 cellNumber(
     $pdf,
     SUB_ACCOUNT_1_LEFT,
@@ -195,13 +195,13 @@ cellNumber(
     SUB_ACCOUNT_3_RIGHT - SUB_ACCOUNT_3_LEFT,
     SUB_ACCOUNT_3_BOTTOM - SUB_ACCOUNT_3_TOP,
     substr(
-        str_repeat(' ', 6) . ltrim($data['dst']['number3'], '0'),
-        -6
+        str_repeat(' ', 7) . ltrim($data['dst']['number3'], '0'),
+        -7
     )
 );
 // }}}
 // 金額（サブ） {{{
-$pdf->SetFont('ocrb_aizu_1_1', '', mm2pt(7));
+$pdf->SetFont('ocrb_aizu_1_1', '', mm2pt(5));
 cellNumber(
     $pdf,
     SUB_COMMON_LEFT,
