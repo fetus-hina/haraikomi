@@ -10,6 +10,7 @@ return [
         'postal_number1' => '100',
         'postal_number2' => '8926',
         'address' => "東京都　千代田区　霞が関\n２－１－２",
+        'address2' => "東京都　千代田区　霞が関\n２－１－２",
         'name' => '山田　太郎',
         'phone1' => '090',
         'phone2' => '9999',
