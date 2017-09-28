@@ -1,0 +1,1 @@
+../ocr-b/ocrb_aizu_1_1.php

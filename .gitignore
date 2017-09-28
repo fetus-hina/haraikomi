@@ -1,4 +1,11 @@
-/composer.phar
-/data.php
-/result.pdf
+.DS_Store
+.buildpath
+.idea
+.project
+.settings
+/config/cookie.php
+/config/debug-ips.php
 /vendor
+Thumbs.db
+composer.phar
+nbproject
