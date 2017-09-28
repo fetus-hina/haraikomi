@@ -1,0 +1,16 @@
+{
+  "name": "haraikomi",
+  "version": "1.0.0",
+  "author": "AIZAWA Hina",
+  "license": "MIT",
+  "dependencies": {
+    "autoprefixer": "^7.1.4",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "clean-css": "^4.1.9",
+    "clean-css-cli": "^4.1.10",
+    "node-sass": "^4.5.3",
+    "postcss-cli": "^4.1.1",
+    "uglify-js": "^3.1.1"
+  }
+}

@@ -5,6 +5,7 @@
 .settings
 /config/cookie.php
 /config/debug-ips.php
+/node_modules
 /vendor
 Thumbs.db
 composer.phar
