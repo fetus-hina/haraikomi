@@ -3,6 +3,7 @@ $config = [
     'id' => 'haraikomi',
     'name' => '払込取扱票印刷用PDF作成機',
     'basePath' => dirname(__DIR__),
+    'language' => 'ja-JP',
     'bootstrap' => ['log'],
     'components' => [
         'request' => [
