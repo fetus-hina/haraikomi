@@ -10,7 +10,7 @@ $this->title = Yii::$app->name;
   <h2>作成フォーム</h2>
   <?php $_ = ActiveForm::begin(); echo "\n" ?>
     <div class="row">
-      <div class="col-6">
+      <div class="col-12 col-lg-6">
         <label>記号・番号</label>
         <div class="row">
           <div class="col-5">
@@ -30,6 +30,10 @@ $this->title = Yii::$app->name;
               ->textInput(['placeholder' => '98765']) . "\n" ?>
           </div>
         </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <?= $_->field($form, 'amount')
+            ->textInput(['placeholder' => '3000']) . "\n" ?>
       </div>
     </div>
     <?= Html::submitButton('作成', ['class' => 'btn btn-primary']) . "\n" ?>

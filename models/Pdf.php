@@ -15,6 +15,10 @@ class Pdf extends Model
     const MAIN_ACCOUNT_2_RIGHT      = self::MAIN_ACCOUNT_2_LEFT + 5.08;
     const MAIN_ACCOUNT_3_LEFT       = self::MAIN_ACCOUNT_2_RIGHT + 2.54;
     const MAIN_ACCOUNT_3_RIGHT      = self::MAIN_ACCOUNT_3_LEFT + 5.08 * 7;
+    const MAIN_AMOUNT_TOP           = self::MAIN_ACCOUNT_TOP;
+    const MAIN_AMOUNT_BOTTOM        = self::MAIN_ACCOUNT_BOTTOM;
+    const MAIN_AMOUNT_LEFT          = self::MAIN_ACCOUNT_3_RIGHT + 5.08;
+    const MAIN_AMOUNT_RIGHT         = self::MAIN_AMOUNT_LEFT + 5.08 * 8;
 
     const SUB_LEFT                  = 180 - 55;
     const SUB_COMMON_LEFT           = self::SUB_LEFT + 6 + 5.08;
@@ -31,6 +35,10 @@ class Pdf extends Model
     const SUB_ACCOUNT_2_RIGHT       = self::SUB_ACCOUNT_2_LEFT + 5.08;
     const SUB_ACCOUNT_3_LEFT        = self::SUB_COMMON_LEFT + 5.08;
     const SUB_ACCOUNT_3_RIGHT       = self::SUB_COMMON_RIGHT;
+    const SUB_AMOUNT_TOP            = 15 + 8 + 3 + 8 + 10 + 3;
+    const SUB_AMOUNT_BOTTOM         = self::SUB_AMOUNT_TOP + 8;
+    const SUB_AMOUNT_LEFT           = self::SUB_COMMON_LEFT;
+    const SUB_AMOUNT_RIGHT          = self::SUB_COMMON_RIGHT;
 
     public $debug = false;
     private $pdf;
@@ -102,6 +110,28 @@ class Pdf extends Model
             self::SUB_ACCOUNT_3_RIGHT,
             self::SUB_ACCOUNT_3_BOTTOM,
             $account3
+        );
+        return $this;
+        // }}}
+    }
+
+    public function setAmount(string $amount) : self
+    {
+        // {{{
+        $amount = substr(str_repeat(' ', 8) . $amount, -8);
+        $this->drawNumbersToCells(
+            self::MAIN_AMOUNT_LEFT,
+            self::MAIN_AMOUNT_TOP,
+            self::MAIN_AMOUNT_RIGHT,
+            self::MAIN_AMOUNT_BOTTOM,
+            $amount
+        );
+        $this->drawNumbersToCells(
+            self::SUB_AMOUNT_LEFT,
+            self::SUB_AMOUNT_TOP,
+            self::SUB_AMOUNT_RIGHT,
+            self::SUB_AMOUNT_BOTTOM,
+            $amount
         );
         return $this;
         // }}}
