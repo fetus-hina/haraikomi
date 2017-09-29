@@ -42,6 +42,14 @@ $this->title = Yii::$app->name;
     <?= $_->field($form, 'postal_code')
       ->textInput(['placeholder' => '1230001']) . "\n" ?>
 
+    <?= $_->field($form, 'pref_id')
+      ->dropDownList($form->getPrefList()) . "\n" ?>
+
+    <?= $_->field($form, 'address1')->textInput() . "\n" ?>
+    <?= $_->field($form, 'address2')->textInput() . "\n" ?>
+    <?= $_->field($form, 'address3')->textInput() . "\n" ?>
+    <?= $_->field($form, 'name')->textInput() . "\n" ?>
+
     <div class="form-group">
       <label>電話番号</label>
       <div class="form-inline">

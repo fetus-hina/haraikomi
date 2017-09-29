@@ -29,7 +29,14 @@ class Pdf extends Model
     const MAIN_POSTALCODE_1_RIGHT   = 22.0;
     const MAIN_POSTALCODE_2_LEFT    = 25.5;
     const MAIN_POSTALCODE_2_RIGHT   = self::MAIN_AMOUNT_RIGHT;
-
+    const MAIN_ADDRESS_TOP          = 62.0;
+    const MAIN_ADDRESS_BOTTOM       = 75.0;
+    const MAIN_ADDRESS_LEFT         = 15.5;
+    const MAIN_ADDRESS_RIGHT        = 85.4;
+    const MAIN_NAME_TOP             = 75.5;
+    const MAIN_NAME_BOTTOM          = 85.0;
+    const MAIN_NAME_LEFT            = self::MAIN_ADDRESS_LEFT;
+    const MAIN_NAME_RIGHT           = 79.0;
     const MAIN_PHONE_MIDDLE         = 87.0;
     const MAIN_PHONE_1_LEFT         = 31.0;
     const MAIN_PHONE_1_RIGHT        = self::MAIN_PHONE_1_LEFT + 8.0;
@@ -37,7 +44,6 @@ class Pdf extends Model
     const MAIN_PHONE_2_RIGHT        = self::MAIN_PHONE_2_LEFT + 8.0;
     const MAIN_PHONE_3_LEFT         = self::MAIN_PHONE_2_RIGHT + 2.25;
     const MAIN_PHONE_3_RIGHT        = self::MAIN_PHONE_3_LEFT + 8.0;
-
 
     const SUB_LEFT                  = 180 - 55;
     const SUB_COMMON_LEFT           = self::SUB_LEFT + 6 + 5.08;
@@ -60,6 +66,10 @@ class Pdf extends Model
     const SUB_AMOUNT_RIGHT          = self::SUB_COMMON_RIGHT;
     const SUB_ACCOUNT_NAME_TOP      = self::SUB_ACCOUNT_3_BOTTOM;
     const SUB_ACCOUNT_NAME_BOTTOM   = self::SUB_ACCOUNT_NAME_TOP + 10;
+    const SUB_NAME_TOP              = self::SUB_AMOUNT_BOTTOM + 3.5;
+    const SUB_NAME_BOTTOM           = self::SUB_AMOUNT_BOTTOM + 24 - 2;
+    const SUB_NAME_LEFT             = self::SUB_COMMON_LEFT + 2.5;
+    const SUB_NAME_RIGHT            = self::SUB_COMMON_RIGHT - 2;
 
     public $debug = false;
     private $pdf;
@@ -181,115 +191,78 @@ class Pdf extends Model
         // }}}
     }
 
-    public function setPostalCode(string $code) : self
-    {
-        $code1 = substr($code, 0, 3);
-        $code2 = substr($code, 3, 4);
-       
-        // main {{{
-        $this->pdf->SetFont('ocrb_aizu_1_1', '', 0);
-        $fontSize = $this->calcFontSize(
-            $code1,
-            static::MAIN_POSTALCODE_1_RIGHT - static::MAIN_POSTALCODE_1_LEFT,
-            INF
-        );
-        $this->pdf->SetFont('', '', static::mm2pt($fontSize));
-        list(, $textHeight) = $this->calcTextSize($code1);
-        $yPos = static::MAIN_POSTALCODE_MIDDLE - $textHeight / 2;
-        $this->pdf->SetXY(static::MAIN_POSTALCODE_1_LEFT, $yPos);
-        $this->pdf->Cell(
-            static::MAIN_POSTALCODE_1_RIGHT - static::MAIN_POSTALCODE_1_LEFT,
-            $textHeight,
-            $code1,
-            0,      // border
-            0,      // ln
-            'R',    // align
-            false,  // fill
-            '',     // link
-            0,      // stretch
-            false,  // ignore_min_height
-            'T',    // calign
-            'M'     // valign
-        );
-        $this->pdf->SetXY(static::MAIN_POSTALCODE_2_LEFT, $yPos);
-        $this->pdf->Cell(
-            0,
-            $textHeight,
-            $code2,
-            0,      // border
-            0,      // ln
-            'L',    // align
-            false,  // fill
-            '',     // link
-            0,      // stretch
-            false,  // ignore_min_height
-            'T',    // calign
-            'M'     // valign
-        );
-        // }}}
-        return $this;
-    }
-
-    public function setPhone(string $phone1, string $phone2, string $phone3) : self
+    public function setAddress(
+        string $postalCode,
+        string $prefecture,
+        string $address1,
+        string $address2,
+        string $address3,
+        string $name,
+        string $phone1,
+        string $phone2,
+        string $phone3
+    ) : self
     {
         // main {{{
-        $this->pdf->SetFont('ocrb_aizu_1_1', '', 0);
-        $fontSize = min(
-            $this->calcFontSize(
-                $phone1,
-                static::MAIN_PHONE_1_RIGHT - static::MAIN_PHONE_1_LEFT,
-                INF
-            ),
-            $this->calcFontSize(
-                $phone2,
-                static::MAIN_PHONE_2_RIGHT - static::MAIN_PHONE_2_LEFT,
-                INF
-            ),
-            $this->calcFontSize(
-                $phone3,
-                static::MAIN_PHONE_3_RIGHT - static::MAIN_PHONE_3_LEFT,
-                INF
-            )
+        $address1 = trim($address1);
+        $address2 = trim($address2);
+        $address3 = trim($address3);
+        $address = mb_convert_kana(
+            trim(implode("\n", [
+                $prefecture . ' ' . $address1,
+                $address2,
+                $address3,
+            ])),
+            'ASKV',
+            Yii::$app->charset
         );
-        $this->pdf->SetFont('', '', static::mm2pt($fontSize));
-        list(, $textHeight) = $this->calcTextSize($phone1);
-        $yPos = static::MAIN_PHONE_MIDDLE - $textHeight / 2;
-        $list = [
-            [
-                'text' => $phone1,
-                'left' => static::MAIN_PHONE_1_LEFT,
-                'right' => static::MAIN_PHONE_1_RIGHT,
-            ],
-            [
-                'text' => $phone2,
-                'left' => static::MAIN_PHONE_2_LEFT,
-                'right' => static::MAIN_PHONE_2_RIGHT,
-            ],
-            [
-                'text' => $phone3,
-                'left' => static::MAIN_PHONE_3_LEFT,
-                'right' => static::MAIN_PHONE_3_RIGHT,
-            ],
-        ];
-        foreach ($list as $item) {
-            $this->pdf->SetXY($item['left'], $yPos);
-            $this->pdf->Cell(
-                $item['right'] - $item['left'],
-                $textHeight,
-                $item['text'],
-                0,      // border
-                0,      // ln
-                'C',    // align
-                false,  // fill
-                '',     // link
-                0,      // stretch
-                false,  // ignore_min_height
-                'T',    // calign
-                'M'     // valign
-            );
-        }
+        $this->drawPostalCode($postalCode);
+        $this->drawTextToBox(
+            static::MAIN_ADDRESS_LEFT,
+            static::MAIN_ADDRESS_TOP,
+            static::MAIN_ADDRESS_RIGHT,
+            static::MAIN_ADDRESS_BOTTOM,
+            $address,
+            'T'
+        );
+        $this->drawTextToBox(
+            static::MAIN_NAME_LEFT,
+            static::MAIN_NAME_TOP,
+            static::MAIN_NAME_RIGHT,
+            static::MAIN_NAME_BOTTOM,
+            $name,
+            'M',
+            20.0
+        );
+        $this->drawPhone($phone1, $phone2, $phone3);
         // }}}
-
+        // sub {{{
+        $text = mb_convert_kana(
+            trim(implode("\n", array_filter(
+                [
+                    // '〒' . substr($postalCode, 0, 3) . '-' . substr($postalCode, 3),
+                    $prefecture . ' ' . $address1,
+                    $address2,
+                    $address3,
+                    $name,
+                    // $phone1 . '-' . $phone2 . '-' . $phone3 . '　', // 「様」よけのスペース
+                ],
+                function (string $text) : bool {
+                    return $text !== '';
+                }
+            ))),
+            'ASKV',
+            Yii::$app->charset
+        );
+        $this->drawTextToBox(
+            static::SUB_NAME_LEFT,
+            static::SUB_NAME_TOP,
+            static::SUB_NAME_RIGHT,
+            static::SUB_NAME_BOTTOM,
+            $text,
+            'M'
+        );
+        // }}}
         return $this;
     }
 
@@ -347,6 +320,57 @@ class Pdf extends Model
                 );
             }
         }
+        return $this;
+        // }}}
+    }
+
+    private function drawTextToBox(
+        float $left,
+        float $top,
+        float $right,
+        float $bottom,
+        string $text,
+        string $valign = 'M',
+        float $maxFontSize = 0) : self
+    {
+        // {{{
+        if ($maxFontSize <= 0.1) {
+            $maxFontSize = static::pt2mm(10.5);
+        }
+        $left = (float)number_format($left, 2, '.', '');
+        $top = (float)number_format($top, 2, '.', '');
+        $right = (float)number_format($right, 2, '.', '');
+        $bottom = (float)number_format($bottom, 2, '.', '');
+        $width = (float)number_format($right - $left, 2, '.', '');
+        $height = (float)number_format($bottom - $top, 2, '.', '');
+        if ($this->debug) {
+            $this->pdf->Rect($left, $top, $width, $height, 'D');
+            Yii::warning('Debug rect: ' . json_encode([
+                'left' => $left,
+                'top' => $top,
+                'width' => $width,
+                'height' => $height,
+            ]));
+        }
+        $this->pdf->SetFont('ipaexm', '', 0);
+        $fontSize = $this->calcFontSize($text, $width, $height, $maxFontSize);
+        $this->pdf->SetFont('', '', static::mm2pt($fontSize));
+        list ($textWidth, $textHeight) = $this->calcTextSize($text);
+        $this->pdf->SetXY(
+            $left,
+            $valign === 'T'
+                ? $top
+                : ($top + ($height / 2 - $textHeight / 2))
+        );
+        $this->pdf->MultiCell(
+            0,
+            $textHeight,
+            $text,
+            0,      // border
+            'L',    // align
+            false,  // fill
+            0       // ln
+        );
         return $this;
         // }}}
     }
@@ -414,6 +438,116 @@ class Pdf extends Model
         // }}}
     }
 
+    public function drawPostalCode(string $code) : self
+    {
+        // {{{
+        $code1 = substr($code, 0, 3);
+        $code2 = substr($code, 3, 4);
+        $this->pdf->SetFont('ocrb_aizu_1_1', '', 0);
+        $fontSize = $this->calcFontSize(
+            $code1,
+            static::MAIN_POSTALCODE_1_RIGHT - static::MAIN_POSTALCODE_1_LEFT,
+            INF
+        );
+        $this->pdf->SetFont('', '', static::mm2pt($fontSize));
+        list(, $textHeight) = $this->calcTextSize($code1);
+        $yPos = static::MAIN_POSTALCODE_MIDDLE - $textHeight / 2;
+        $this->pdf->SetXY(static::MAIN_POSTALCODE_1_LEFT, $yPos);
+        $this->pdf->Cell(
+            static::MAIN_POSTALCODE_1_RIGHT - static::MAIN_POSTALCODE_1_LEFT,
+            $textHeight,
+            $code1,
+            0,      // border
+            0,      // ln
+            'R',    // align
+            false,  // fill
+            '',     // link
+            0,      // stretch
+            false,  // ignore_min_height
+            'T',    // calign
+            'M'     // valign
+        );
+        $this->pdf->SetXY(static::MAIN_POSTALCODE_2_LEFT, $yPos);
+        $this->pdf->Cell(
+            0,
+            $textHeight,
+            $code2,
+            0,      // border
+            0,      // ln
+            'L',    // align
+            false,  // fill
+            '',     // link
+            0,      // stretch
+            false,  // ignore_min_height
+            'T',    // calign
+            'M'     // valign
+        );
+        return $this;
+        // }}}
+    }
+
+    public function drawPhone(string $phone1, string $phone2, string $phone3) : self
+    {
+        // {{{
+        $this->pdf->SetFont('ocrb_aizu_1_1', '', 0);
+        $fontSize = min(
+            $this->calcFontSize(
+                $phone1,
+                static::MAIN_PHONE_1_RIGHT - static::MAIN_PHONE_1_LEFT,
+                INF
+            ),
+            $this->calcFontSize(
+                $phone2,
+                static::MAIN_PHONE_2_RIGHT - static::MAIN_PHONE_2_LEFT,
+                INF
+            ),
+            $this->calcFontSize(
+                $phone3,
+                static::MAIN_PHONE_3_RIGHT - static::MAIN_PHONE_3_LEFT,
+                INF
+            )
+        );
+        $this->pdf->SetFont('', '', static::mm2pt($fontSize));
+        list(, $textHeight) = $this->calcTextSize($phone1);
+        $yPos = static::MAIN_PHONE_MIDDLE - $textHeight / 2;
+        $list = [
+            [
+                'text' => $phone1,
+                'left' => static::MAIN_PHONE_1_LEFT,
+                'right' => static::MAIN_PHONE_1_RIGHT,
+            ],
+            [
+                'text' => $phone2,
+                'left' => static::MAIN_PHONE_2_LEFT,
+                'right' => static::MAIN_PHONE_2_RIGHT,
+            ],
+            [
+                'text' => $phone3,
+                'left' => static::MAIN_PHONE_3_LEFT,
+                'right' => static::MAIN_PHONE_3_RIGHT,
+            ],
+        ];
+        foreach ($list as $item) {
+            $this->pdf->SetXY($item['left'], $yPos);
+            $this->pdf->Cell(
+                $item['right'] - $item['left'],
+                $textHeight,
+                $item['text'],
+                0,      // border
+                0,      // ln
+                'C',    // align
+                false,  // fill
+                '',     // link
+                0,      // stretch
+                false,  // ignore_min_height
+                'T',    // calign
+                'M'     // valign
+            );
+        }
+        return $this;
+        // }}}
+    }
+
     private function calcTextSize(string $text) : array
     {
         // {{{
@@ -474,5 +608,10 @@ class Pdf extends Model
     private static function mm2pt(float $mm) : float
     {
         return $mm * 72.0 / 25.4;
+    }
+
+    private static function pt2mm(float $pt) : float
+    {
+        return $pt * 25.4 / 72.0;
     }
 }
