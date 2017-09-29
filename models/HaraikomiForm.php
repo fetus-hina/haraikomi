@@ -11,6 +11,7 @@ class HaraikomiForm extends Model
     public $account3;
     public $amount;
     public $account_name;
+    public $postal_code;
 
     public function rules()
     {
@@ -27,6 +28,10 @@ class HaraikomiForm extends Model
 
             [['account_name'], 'required'],
             [['account_name'], 'string', 'min' => 1],
+
+            [['postal_code'], 'required'],
+            [['postal_code'], 'integer'],
+            [['postal_code'], 'string', 'min' => 7, 'max' => 7],
         ];
     }
 
@@ -38,6 +43,7 @@ class HaraikomiForm extends Model
             'account3' => '番号',
             'amount' => '払込金額',
             'account_name' => '加入者名',
+            'postal_code' => '依頼人郵便番号',
         ];
     }
 
@@ -46,7 +52,8 @@ class HaraikomiForm extends Model
         $pdf = Yii::createObject(Pdf::class)
             ->setAccount($this->account1, $this->account2, $this->account3)
             ->setAccountName($this->account_name)
-            ->setAmount($this->amount);
+            ->setAmount($this->amount)
+            ->setPostalCode($this->postal_code);
         return $pdf->render();
     }
 }

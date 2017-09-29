@@ -39,6 +39,9 @@ $this->title = Yii::$app->name;
     <?= $_->field($form, 'account_name')
       ->textInput(['placeholder' => '㈱月極定礎ホールディングス']) . "\n" ?>
 
+    <?= $_->field($form, 'postal_code')
+      ->textInput(['placeholder' => '1230001']) . "\n" ?>
+
     <?= Html::submitButton('作成', ['class' => 'btn btn-primary']) . "\n" ?>
   <?php ActiveForm::end(); echo "\n" ?>
 </div>

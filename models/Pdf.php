@@ -24,6 +24,12 @@ class Pdf extends Model
     const MAIN_ACCOUNT_NAME_LEFT    = self::MAIN_ACCOUNT_1_LEFT + 5.08;
     const MAIN_ACCOUNT_NAME_RIGHT   = self::MAIN_ACCOUNT_3_RIGHT;
 
+    const MAIN_POSTALCODE_MIDDLE    = 60.2;
+    const MAIN_POSTALCODE_1_LEFT    = 15.0;
+    const MAIN_POSTALCODE_1_RIGHT   = 22.0;
+    const MAIN_POSTALCODE_2_LEFT    = 25.5;
+    const MAIN_POSTALCODE_2_RIGHT   = self::MAIN_AMOUNT_RIGHT;
+
     const SUB_LEFT                  = 180 - 55;
     const SUB_COMMON_LEFT           = self::SUB_LEFT + 6 + 5.08;
     const SUB_COMMON_RIGHT          = self::SUB_COMMON_LEFT + 5.08 * 8;
@@ -145,6 +151,7 @@ class Pdf extends Model
 
     public function setAccountName(string $name) : self
     {
+        // {{{
         return $this
             ->drawAccountName(
                 self::MAIN_ACCOUNT_NAME_LEFT,
@@ -162,6 +169,56 @@ class Pdf extends Model
                 1.0, // padding
                 $name
             );
+        // }}}
+    }
+
+    public function setPostalCode(string $code) : self
+    {
+        $code1 = substr($code, 0, 3);
+        $code2 = substr($code, 3, 4);
+       
+        // main {{{
+        $this->pdf->SetFont('ocrb_aizu_1_1', '', 0);
+        $fontSize = $this->calcFontSize(
+            $code1,
+            static::MAIN_POSTALCODE_1_RIGHT - static::MAIN_POSTALCODE_1_LEFT,
+            INF
+        );
+        $this->pdf->SetFont('', '', static::mm2pt($fontSize));
+        list(, $textHeight) = $this->calcTextSize($code1);
+        $yPos = static::MAIN_POSTALCODE_MIDDLE - $textHeight / 2;
+        $this->pdf->SetXY(static::MAIN_POSTALCODE_1_LEFT, $yPos);
+        $this->pdf->Cell(
+            static::MAIN_POSTALCODE_1_RIGHT - static::MAIN_POSTALCODE_1_LEFT,
+            $textHeight,
+            $code1,
+            0,      // border
+            0,      // ln
+            'R',    // align
+            false,  // fill
+            '',     // link
+            0,      // stretch
+            false,  // ignore_min_height
+            'T',    // calign
+            'M'     // valign
+        );
+        $this->pdf->SetXY(static::MAIN_POSTALCODE_2_LEFT, $yPos);
+        $this->pdf->Cell(
+            0,
+            $textHeight,
+            $code2,
+            0,      // border
+            0,      // ln
+            'L',    // align
+            false,  // fill
+            '',     // link
+            0,      // stretch
+            false,  // ignore_min_height
+            'T',    // calign
+            'M'     // valign
+        );
+        // }}}
+        return $this;
     }
 
     private function drawNumbersToCells(
@@ -243,7 +300,7 @@ class Pdf extends Model
             $this->pdf->Rect($left, $top, $width, $height, 'D');
         }
         $this->pdf->SetFont('ipaexm', '', 0);
-        $fontSize = $this->calcFontSizeByHeight($name, $innerHeight);
+        $fontSize = $this->calcFontSize($name, INF, $innerHeight);
         $this->pdf->SetFont('', '', static::mm2pt($fontSize));
         list ($textWidth, $textHeight) = $this->calcTextSize($name);
         $stretch = false;
@@ -310,23 +367,6 @@ class Pdf extends Model
         // }}}
     }
 
-    private function calcFontSizeByHeight(
-        string $text,
-        float $height,
-        float $maxFontSize = 20.0,
-        float $minFontSize = 0.1) : float
-    {
-        // {{{
-        return $this->calcFontSize(
-            $text,
-            INF,
-            $height,
-            $maxFontSize,
-            $minFontSize
-        );
-        // }}}
-    }
-
     private function calcFontSize(
         string $text,
         float $width,
@@ -342,6 +382,16 @@ class Pdf extends Model
             }
             $this->pdf->SetFont('', '', static::mm2pt($fontSize));
             list($textWidth, $textHeight) = $this->calcTextSize($text);
+            // Yii::warning(
+            //     'calcFontSize: ' . json_encode([
+            //         'text'          => $text,
+            //         'width'         => is_infinite($width) ? 'INF' : $width,
+            //         'height'        => is_infinite($height) ? 'INF' : $height,
+            //         'fontSize'      => $fontSize,
+            //         'textWidth'     => $textWidth,
+            //         'textHeight'    => $textHeight,
+            //     ])
+            // );
             if ($textWidth <= $width && $textHeight <= $height) {
                 return $fontSize;
             }
