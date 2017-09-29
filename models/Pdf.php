@@ -19,6 +19,10 @@ class Pdf extends Model
     const MAIN_AMOUNT_BOTTOM        = self::MAIN_ACCOUNT_BOTTOM;
     const MAIN_AMOUNT_LEFT          = self::MAIN_ACCOUNT_3_RIGHT + 5.08;
     const MAIN_AMOUNT_RIGHT         = self::MAIN_AMOUNT_LEFT + 5.08 * 8;
+    const MAIN_ACCOUNT_NAME_TOP     = self::MAIN_ACCOUNT_BOTTOM;
+    const MAIN_ACCOUNT_NAME_BOTTOM  = self::MAIN_ACCOUNT_NAME_TOP + 10;
+    const MAIN_ACCOUNT_NAME_LEFT    = self::MAIN_ACCOUNT_1_LEFT + 5.08;
+    const MAIN_ACCOUNT_NAME_RIGHT   = self::MAIN_ACCOUNT_3_RIGHT;
 
     const SUB_LEFT                  = 180 - 55;
     const SUB_COMMON_LEFT           = self::SUB_LEFT + 6 + 5.08;
@@ -39,6 +43,8 @@ class Pdf extends Model
     const SUB_AMOUNT_BOTTOM         = self::SUB_AMOUNT_TOP + 8;
     const SUB_AMOUNT_LEFT           = self::SUB_COMMON_LEFT;
     const SUB_AMOUNT_RIGHT          = self::SUB_COMMON_RIGHT;
+    const SUB_ACCOUNT_NAME_TOP      = self::SUB_ACCOUNT_3_BOTTOM;
+    const SUB_ACCOUNT_NAME_BOTTOM   = self::SUB_ACCOUNT_NAME_TOP + 10;
 
     public $debug = false;
     private $pdf;
@@ -137,6 +143,27 @@ class Pdf extends Model
         // }}}
     }
 
+    public function setAccountName(string $name) : self
+    {
+        return $this
+            ->drawAccountName(
+                self::MAIN_ACCOUNT_NAME_LEFT,
+                self::MAIN_ACCOUNT_NAME_TOP,
+                self::MAIN_ACCOUNT_NAME_RIGHT,
+                self::MAIN_ACCOUNT_NAME_BOTTOM,
+                1.5, // padding
+                $name
+            )
+            ->drawAccountName(
+                self::SUB_COMMON_LEFT,
+                self::SUB_ACCOUNT_NAME_TOP,
+                self::SUB_COMMON_RIGHT,
+                self::SUB_ACCOUNT_NAME_BOTTOM,
+                1.0, // padding
+                $name
+            );
+    }
+
     private function drawNumbersToCells(
         float $left,
         float $top,
@@ -195,6 +222,69 @@ class Pdf extends Model
         // }}}
     }
 
+    private function drawAccountName(
+        float $left,
+        float $top,
+        float $right,
+        float $bottom,
+        float $padding,
+        string $name) : self
+    {
+        // {{{
+        $left   = (float)number_format($left, 2, '.', '');
+        $top    = (float)number_format($top, 2, '.', '');
+        $right  = (float)number_format($right, 2, '.', '');
+        $bottom = (float)number_format($bottom, 2, '.', '');
+        $width  = (float)number_format($right - $left, 2, '.', '');
+        $height = (float)number_format($bottom - $top, 2, '.', '');
+        $innerWidth  = (float)number_format($width - $padding * 2, 2, '.', '');
+        $innerHeight = (float)number_format($height - $padding * 2, 2, '.', '');
+        if ($this->debug) {
+            $this->pdf->Rect($left, $top, $width, $height, 'D');
+        }
+        $this->pdf->SetFont('ipaexm', '', 0);
+        $fontSize = $this->calcFontSizeByHeight($name, $innerHeight);
+        $this->pdf->SetFont('', '', static::mm2pt($fontSize));
+        list ($textWidth, $textHeight) = $this->calcTextSize($name);
+        $stretch = false;
+        if ($textWidth > $innerWidth) {
+            // 長い文字列だったので横方向が足りていない
+            if ($innerWidth / $textWidth >= 0.75) {
+                // 縦長文字で対応できるレベル
+                $textWidth = $textWidth * 0.75;
+                $stretch = true;
+            } elseif ($innerWidth / $textWidth >= 0.4) {
+                // まあなんとか…
+                $textWidth = $innerWidth;
+                $stretch = true;
+            } else {
+                // 縦長文字で対応できないので普通に縮小する
+                $fontSize = $this->calcFontSize($name, $innerWidth, $innerHeight);
+                list ($textWidth, $textHeight) = $this->calcTextSize($name);
+            }
+        }
+
+        $putLeft = ($left + $padding) + ($innerWidth / 2 - $textWidth / 2);
+        $putTop = ($top + $padding) + ($innerHeight / 2 - $textHeight / 2);
+        $this->pdf->SetXY($putLeft, $putTop);
+        $this->pdf->Cell(
+            $textWidth,
+            $textHeight,
+            $name,
+            0,      // border
+            0,      // ln
+            'C',    // align
+            false,  // fill
+            '',     // link
+            $stretch ? 2 : 0, // stretch
+            false,  // ignore_min_height
+            'T',    // calign
+            'M'     // valign
+        );
+        return $this;
+        // }}}
+    }
+
     private function calcTextSize(string $text) : array
     {
         // {{{
@@ -217,6 +307,45 @@ class Pdf extends Model
                 0.0
             ),
         ];
+        // }}}
+    }
+
+    private function calcFontSizeByHeight(
+        string $text,
+        float $height,
+        float $maxFontSize = 20.0,
+        float $minFontSize = 0.1) : float
+    {
+        // {{{
+        return $this->calcFontSize(
+            $text,
+            INF,
+            $height,
+            $maxFontSize,
+            $minFontSize
+        );
+        // }}}
+    }
+
+    private function calcFontSize(
+        string $text,
+        float $width,
+        float $height,
+        float $maxFontSize = 20.0,
+        float $minFontSize = 0.1) : float
+    {
+        // {{{
+        for ($i = 0; ; ++$i) {
+            $fontSize = (float)number_format($maxFontSize - 0.1 * $i, 2, '.', '');
+            if ($fontSize <= $minFontSize || $fontSize <= 0) {
+                return $minFontSize;
+            }
+            $this->pdf->SetFont('', '', static::mm2pt($fontSize));
+            list($textWidth, $textHeight) = $this->calcTextSize($text);
+            if ($textWidth <= $width && $textHeight <= $height) {
+                return $fontSize;
+            }
+        }
         // }}}
     }
 

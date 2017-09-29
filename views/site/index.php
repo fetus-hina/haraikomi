@@ -33,9 +33,12 @@ $this->title = Yii::$app->name;
       </div>
       <div class="col-12 col-lg-6">
         <?= $_->field($form, 'amount')
-            ->textInput(['placeholder' => '3000']) . "\n" ?>
+          ->textInput(['placeholder' => '3000']) . "\n" ?>
       </div>
     </div>
+    <?= $_->field($form, 'account_name')
+      ->textInput(['placeholder' => '㈱月極定礎ホールディングス']) . "\n" ?>
+
     <?= Html::submitButton('作成', ['class' => 'btn btn-primary']) . "\n" ?>
   <?php ActiveForm::end(); echo "\n" ?>
 </div>
