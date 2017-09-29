@@ -12,6 +12,9 @@ class HaraikomiForm extends Model
     public $amount;
     public $account_name;
     public $postal_code;
+    public $phone1;
+    public $phone2;
+    public $phone3;
 
     public function rules()
     {
@@ -32,6 +35,12 @@ class HaraikomiForm extends Model
             [['postal_code'], 'required'],
             [['postal_code'], 'integer'],
             [['postal_code'], 'string', 'min' => 7, 'max' => 7],
+
+            [['phone1', 'phone2', 'phone3'], 'required'],
+            [['phone1', 'phone2', 'phone3'], 'integer'],
+            [['phone1'], 'string', 'min' => 2, 'max' => 5],
+            [['phone2'], 'string', 'min' => 1, 'max' => 4],
+            [['phone3'], 'string', 'min' => 4, 'max' => 4],
         ];
     }
 
@@ -44,6 +53,9 @@ class HaraikomiForm extends Model
             'amount' => '払込金額',
             'account_name' => '加入者名',
             'postal_code' => '依頼人郵便番号',
+            'phone1' => '電話番号(1)',
+            'phone2' => '電話番号(2)',
+            'phone3' => '電話番号(3)',
         ];
     }
 
@@ -53,7 +65,8 @@ class HaraikomiForm extends Model
             ->setAccount($this->account1, $this->account2, $this->account3)
             ->setAccountName($this->account_name)
             ->setAmount($this->amount)
-            ->setPostalCode($this->postal_code);
+            ->setPostalCode($this->postal_code)
+            ->setPhone($this->phone1, $this->phone2, $this->phone3);
         return $pdf->render();
     }
 }

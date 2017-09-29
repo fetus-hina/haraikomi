@@ -42,6 +42,15 @@ $this->title = Yii::$app->name;
     <?= $_->field($form, 'postal_code')
       ->textInput(['placeholder' => '1230001']) . "\n" ?>
 
+    <div class="form-group">
+      <label>電話番号</label>
+      <div class="form-inline">
+        <?= $_->field($form, 'phone1')->label(false)->textInput(['placeholder' => '090', 'size' => 5]) ?> -
+        <?= $_->field($form, 'phone2')->label(false)->textInput(['placeholder' => '1234', 'size' => 5]) ?> -
+        <?= $_->field($form, 'phone3')->label(false)->textInput(['placeholder' => '5678', 'size' => 5]) . "\n" ?>
+      </div>
+    </div>
+
     <?= Html::submitButton('作成', ['class' => 'btn btn-primary']) . "\n" ?>
   <?php ActiveForm::end(); echo "\n" ?>
 </div>

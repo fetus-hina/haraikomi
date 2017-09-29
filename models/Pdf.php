@@ -30,6 +30,15 @@ class Pdf extends Model
     const MAIN_POSTALCODE_2_LEFT    = 25.5;
     const MAIN_POSTALCODE_2_RIGHT   = self::MAIN_AMOUNT_RIGHT;
 
+    const MAIN_PHONE_MIDDLE         = 87.0;
+    const MAIN_PHONE_1_LEFT         = 31.0;
+    const MAIN_PHONE_1_RIGHT        = self::MAIN_PHONE_1_LEFT + 8.0;
+    const MAIN_PHONE_2_LEFT         = self::MAIN_PHONE_1_RIGHT + 2.25;
+    const MAIN_PHONE_2_RIGHT        = self::MAIN_PHONE_2_LEFT + 8.0;
+    const MAIN_PHONE_3_LEFT         = self::MAIN_PHONE_2_RIGHT + 2.25;
+    const MAIN_PHONE_3_RIGHT        = self::MAIN_PHONE_3_LEFT + 8.0;
+
+
     const SUB_LEFT                  = 180 - 55;
     const SUB_COMMON_LEFT           = self::SUB_LEFT + 6 + 5.08;
     const SUB_COMMON_RIGHT          = self::SUB_COMMON_LEFT + 5.08 * 8;
@@ -218,6 +227,69 @@ class Pdf extends Model
             'M'     // valign
         );
         // }}}
+        return $this;
+    }
+
+    public function setPhone(string $phone1, string $phone2, string $phone3) : self
+    {
+        // main {{{
+        $this->pdf->SetFont('ocrb_aizu_1_1', '', 0);
+        $fontSize = min(
+            $this->calcFontSize(
+                $phone1,
+                static::MAIN_PHONE_1_RIGHT - static::MAIN_PHONE_1_LEFT,
+                INF
+            ),
+            $this->calcFontSize(
+                $phone2,
+                static::MAIN_PHONE_2_RIGHT - static::MAIN_PHONE_2_LEFT,
+                INF
+            ),
+            $this->calcFontSize(
+                $phone3,
+                static::MAIN_PHONE_3_RIGHT - static::MAIN_PHONE_3_LEFT,
+                INF
+            )
+        );
+        $this->pdf->SetFont('', '', static::mm2pt($fontSize));
+        list(, $textHeight) = $this->calcTextSize($phone1);
+        $yPos = static::MAIN_PHONE_MIDDLE - $textHeight / 2;
+        $list = [
+            [
+                'text' => $phone1,
+                'left' => static::MAIN_PHONE_1_LEFT,
+                'right' => static::MAIN_PHONE_1_RIGHT,
+            ],
+            [
+                'text' => $phone2,
+                'left' => static::MAIN_PHONE_2_LEFT,
+                'right' => static::MAIN_PHONE_2_RIGHT,
+            ],
+            [
+                'text' => $phone3,
+                'left' => static::MAIN_PHONE_3_LEFT,
+                'right' => static::MAIN_PHONE_3_RIGHT,
+            ],
+        ];
+        foreach ($list as $item) {
+            $this->pdf->SetXY($item['left'], $yPos);
+            $this->pdf->Cell(
+                $item['right'] - $item['left'],
+                $textHeight,
+                $item['text'],
+                0,      // border
+                0,      // ln
+                'C',    // align
+                false,  // fill
+                '',     // link
+                0,      // stretch
+                false,  // ignore_min_height
+                'T',    // calign
+                'M'     // valign
+            );
+        }
+        // }}}
+
         return $this;
     }
 
