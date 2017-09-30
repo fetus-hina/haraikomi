@@ -3,6 +3,7 @@
 .idea
 .project
 .settings
+/.production
 /config/cookie.php
 /config/debug-ips.php
 /node_modules
