@@ -39,6 +39,8 @@ $this->title = Yii::$app->name;
     <?= $_->field($form, 'account_name')
       ->textInput(['placeholder' => '㈱月極定礎ホールディングス']) . "\n" ?>
 
+    <?= $_->field($form, 'note')->textarea(['rows' => 6]) . "\n" ?>
+
     <?= $_->field($form, 'postal_code')
       ->textInput(['placeholder' => '1230001']) . "\n" ?>
 

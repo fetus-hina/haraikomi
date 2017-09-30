@@ -23,7 +23,10 @@ class Pdf extends Model
     const MAIN_ACCOUNT_NAME_BOTTOM  = self::MAIN_ACCOUNT_NAME_TOP + 10;
     const MAIN_ACCOUNT_NAME_LEFT    = self::MAIN_ACCOUNT_1_LEFT + 5.08;
     const MAIN_ACCOUNT_NAME_RIGHT   = self::MAIN_ACCOUNT_3_RIGHT;
-
+    const MAIN_NOTE_TOP             = self::MAIN_ACCOUNT_NAME_BOTTOM;
+    const MAIN_NOTE_BOTTOM          = 57.5;
+    const MAIN_NOTE_LEFT            = self::MAIN_ACCOUNT_NAME_LEFT + 2.0;
+    const MAIN_NOTE_RIGHT           = self::MAIN_AMOUNT_RIGHT;
     const MAIN_POSTALCODE_MIDDLE    = 60.2;
     const MAIN_POSTALCODE_1_LEFT    = 15.0;
     const MAIN_POSTALCODE_1_RIGHT   = 22.0;
@@ -191,6 +194,22 @@ class Pdf extends Model
         // }}}
     }
 
+    public function setNote(?string $note) : self
+    {
+        // {{{
+        $this->drawTextToBox(
+            static::MAIN_NOTE_LEFT,
+            static::MAIN_NOTE_TOP,
+            static::MAIN_NOTE_RIGHT,
+            static::MAIN_NOTE_BOTTOM,
+            $note,
+            'M',
+            static::pt2mm(12)
+        );
+        // }}}
+        return $this;
+    }
+
     public function setAddress(
         string $postalCode,
         string $prefecture,
@@ -276,12 +295,6 @@ class Pdf extends Model
         $height = (float)number_format($bottom - $top, 2, '.', '');
         if ($this->debug) {
             $this->pdf->Rect($left, $top, $width, $height, 'D');
-            Yii::warning('Debug rect: ' . json_encode([
-                'left' => $left,
-                'top' => $top,
-                'width' => $width,
-                'height' => $height,
-            ]));
         }
         $this->pdf->SetFont('ocrb_aizu_1_1', '', static::mm2pt($fontSize));
         if ($numbers != '') {
@@ -296,7 +309,6 @@ class Pdf extends Model
                     $left + $widthPerChar * $i,
                     $top + ($height / 2 - $numbersHeight / 2)
                 );
-                Yii::warning('Put char ' . $char . ' to ' . ($left + $widthPerChar * $i) . ', ' . ($top + ($height / 2 - $numbersHeight / 2)));
                 $this->pdf->Cell(
                     $widthPerChar,
                     $numbersHeight,
@@ -338,12 +350,6 @@ class Pdf extends Model
         $height = (float)number_format($bottom - $top, 2, '.', '');
         if ($this->debug) {
             $this->pdf->Rect($left, $top, $width, $height, 'D');
-            Yii::warning('Debug rect: ' . json_encode([
-                'left' => $left,
-                'top' => $top,
-                'width' => $width,
-                'height' => $height,
-            ]));
         }
         $this->pdf->SetFont('ipaexm', '', 0);
         $fontSize = $this->calcFontSize($text, $width, $height, $maxFontSize);
@@ -481,6 +487,7 @@ class Pdf extends Model
 
     public function drawName(string $name, ?string $kana) : self
     {
+        // {{{
         $name = mb_convert_kana(trim($name), 'ASKV', Yii::$app->charset);
         $kana = mb_convert_kana(trim($kana), 'ASCKV', Yii::$app->charset);
         $boxHeight = static::MAIN_NAME_BOTTOM - static::MAIN_NAME_TOP;
@@ -517,6 +524,7 @@ class Pdf extends Model
             );
         }
         return $this;
+        // }}}
     }
 
     public function drawPhone(string $phone1, string $phone2, string $phone3) : self
@@ -621,16 +629,6 @@ class Pdf extends Model
             }
             $this->pdf->SetFont('', '', static::mm2pt($fontSize));
             list($textWidth, $textHeight) = $this->calcTextSize($text);
-            // Yii::warning(
-            //     'calcFontSize: ' . json_encode([
-            //         'text'          => $text,
-            //         'width'         => is_infinite($width) ? 'INF' : $width,
-            //         'height'        => is_infinite($height) ? 'INF' : $height,
-            //         'fontSize'      => $fontSize,
-            //         'textWidth'     => $textWidth,
-            //         'textHeight'    => $textHeight,
-            //     ])
-            // );
             if ($textWidth <= $width && $textHeight <= $height) {
                 return $fontSize;
             }

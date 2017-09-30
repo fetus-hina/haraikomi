@@ -21,6 +21,7 @@ class HaraikomiForm extends Model
     public $phone1;
     public $phone2;
     public $phone3;
+    public $note;
 
     public function rules()
     {
@@ -56,6 +57,8 @@ class HaraikomiForm extends Model
             [['phone1'], 'string', 'min' => 2, 'max' => 5],
             [['phone2'], 'string', 'min' => 1, 'max' => 4],
             [['phone3'], 'string', 'min' => 4, 'max' => 4],
+
+            [['note'], 'string'],
         ];
     }
 
@@ -77,6 +80,7 @@ class HaraikomiForm extends Model
             'phone1' => '電話番号(1)',
             'phone2' => '電話番号(2)',
             'phone3' => '電話番号(3)',
+            'note' => '通信欄',
         ];
     }
 
@@ -86,6 +90,7 @@ class HaraikomiForm extends Model
             ->setAccount($this->account1, $this->account2, $this->account3)
             ->setAccountName($this->account_name)
             ->setAmount($this->amount)
+            ->setNote($this->note)
             ->setAddress(
                 $this->postal_code,
                 $this->getPrefList()[$this->pref_id],
