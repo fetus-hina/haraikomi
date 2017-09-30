@@ -196,8 +196,9 @@ class Pdf extends Model
         string $prefecture,
         string $address1,
         string $address2,
-        string $address3,
+        ?string $address3,
         string $name,
+        ?string $kana,
         string $phone1,
         string $phone2,
         string $phone3
@@ -225,15 +226,7 @@ class Pdf extends Model
             $address,
             'T'
         );
-        $this->drawTextToBox(
-            static::MAIN_NAME_LEFT,
-            static::MAIN_NAME_TOP,
-            static::MAIN_NAME_RIGHT,
-            static::MAIN_NAME_BOTTOM,
-            $name,
-            'M',
-            20.0
-        );
+        $this->drawName($name, $kana);
         $this->drawPhone($phone1, $phone2, $phone3);
         // }}}
         // sub {{{
@@ -484,6 +477,46 @@ class Pdf extends Model
         );
         return $this;
         // }}}
+    }
+
+    public function drawName(string $name, ?string $kana) : self
+    {
+        $name = mb_convert_kana(trim($name), 'ASKV', Yii::$app->charset);
+        $kana = mb_convert_kana(trim($kana), 'ASCKV', Yii::$app->charset);
+        $boxHeight = static::MAIN_NAME_BOTTOM - static::MAIN_NAME_TOP;
+        $nameMaxHeight = (float)number_format($boxHeight * 2 / 3, 2, '.', '');
+        $kanaMaxHeight = (float)number_format($boxHeight - $nameMaxHeight, 2, '.', '');
+        $top = ($kana === '')
+            ? (static::MAIN_NAME_TOP + ($boxHeight / 2 - $nameMaxHeight / 2))
+            : (static::MAIN_NAME_TOP + $kanaMaxHeight);
+        $this->drawTextToBox(
+            static::MAIN_NAME_LEFT,
+            $top,
+            static::MAIN_NAME_RIGHT,
+            $top + $nameMaxHeight,
+            $name,
+            'M',
+            20.0
+        );
+        if ($kana !== '') {
+            $this->pdf->SetFont('ipaexm', '', 0);
+            $fontSize = $this->calcFontSize(
+                $kana,
+                (static::MAIN_NAME_RIGHT - static::MAIN_NAME_LEFT) / 0.75,
+                $kanaMaxHeight
+            );
+            $this->pdf->SetFont('', '', static::mm2pt($fontSize));
+            list($textWidth, $textHeight) = $this->calcTextSize($kana);
+            $this->drawAccountName(
+                static::MAIN_NAME_LEFT,
+                static::MAIN_NAME_TOP,
+                static::MAIN_NAME_LEFT + $textWidth * 0.75,
+                static::MAIN_NAME_TOP + $kanaMaxHeight,
+                0.0,
+                $kana
+            );
+        }
+        return $this;
     }
 
     public function drawPhone(string $phone1, string $phone2, string $phone3) : self

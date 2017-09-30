@@ -49,6 +49,7 @@ $this->title = Yii::$app->name;
     <?= $_->field($form, 'address2')->textInput() . "\n" ?>
     <?= $_->field($form, 'address3')->textInput() . "\n" ?>
     <?= $_->field($form, 'name')->textInput() . "\n" ?>
+    <?= $_->field($form, 'kana')->textInput() . "\n" ?>
 
     <div class="form-group">
       <label>電話番号</label>

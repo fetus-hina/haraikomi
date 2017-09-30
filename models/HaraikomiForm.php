@@ -17,6 +17,7 @@ class HaraikomiForm extends Model
     public $address2;
     public $address3;
     public $name;
+    public $kana;
     public $phone1;
     public $phone2;
     public $phone3;
@@ -48,6 +49,7 @@ class HaraikomiForm extends Model
             [['address1', 'address2', 'address3'], 'string'],
             [['name'], 'required'],
             [['name'], 'string', 'min' => 1],
+            [['kana'], 'string'],
 
             [['phone1', 'phone2', 'phone3'], 'required'],
             [['phone1', 'phone2', 'phone3'], 'integer'],
@@ -71,6 +73,7 @@ class HaraikomiForm extends Model
             'address2' => '依頼人住所（番地等）',
             'address3' => '依頼人住所（建物名部屋番号等）',
             'name' => '依頼人氏名',
+            'kana' => 'カナ（任意）',
             'phone1' => '電話番号(1)',
             'phone2' => '電話番号(2)',
             'phone3' => '電話番号(3)',
@@ -90,6 +93,7 @@ class HaraikomiForm extends Model
                 $this->address2,
                 $this->address3,
                 $this->name,
+                $this->kana,
                 $this->phone1,
                 $this->phone2,
                 $this->phone3
