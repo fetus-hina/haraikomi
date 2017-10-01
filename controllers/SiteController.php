@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use DateTimeImmutable;
+use DateTimeZone;
 use Yii;
 use app\models\HaraikomiForm;
 use yii\web\Controller;
@@ -23,7 +25,18 @@ class SiteController extends Controller
         if ($form->load($_POST) && $form->validate()) {
             $resp = Yii::$app->response;
             $resp->format = 'raw';
-            $resp->headers->set('Content-Type', 'application/pdf');
+            $resp->setDownloadHeaders(
+                sprintf(
+                    'haraikomi-%s.pdf',
+                    (new DateTimeImmutable())
+                        ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
+                        ->setTimeZone(new DateTimeZone('Asia/Tokyo'))
+                        ->format('Ymd\THis')
+                ),
+                'application/pdf',
+                false,
+                null
+            );
             return $form->makePdf();
         }
 

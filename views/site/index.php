@@ -77,6 +77,13 @@ $this->title = Yii::$app->name;
       </div>
     </div>
 
-    <?= Html::submitButton('作成', ['class' => 'btn btn-primary']) . "\n" ?>
+<?php $this->registerCssFile('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css') ?>
+    <?= Html::submitButton(
+      implode('', [
+        Html::tag('span', '', ['class' => 'fa fa-fw fa-download']),
+        '作成・ダウンロード',
+      ]),
+      ['class' => 'btn btn-primary']
+    ) . "\n" ?>
   <?php ActiveForm::end(); echo "\n" ?>
 </div>

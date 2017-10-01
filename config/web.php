@@ -35,6 +35,10 @@ $config = [
             'rules' => [
             ],
         ],
+        'assetManager' => [
+            'linkAssets' => true,
+            'appendTimestamp' => true,
+        ],
     ],
     'params' => require(__DIR__ . '/params.php'),
 ];

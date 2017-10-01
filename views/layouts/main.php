@@ -27,6 +27,13 @@ AppAsset::register($this);
       <div class="container">
         <?= $content . "\n" ?>
       </div>
+      <hr>
+      <footer>
+        <div class="container">
+          Copyright &copy; 2017 <a href="https://fetus.jp/">AIZAWA Hina</a>.<br>
+          <?= Yii::powered() . "\n" ?>
+        </div>
+      </footer>
     </div>
   <?php $this->endBody(); echo "\n" ?>
   </body>
