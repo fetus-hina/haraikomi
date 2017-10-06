@@ -491,7 +491,7 @@ class Pdf extends Model
         $name = mb_convert_kana(trim($name), 'ASKV', Yii::$app->charset);
         $kana = mb_convert_kana(trim($kana), 'ASCKV', Yii::$app->charset);
         $boxHeight = static::MAIN_NAME_BOTTOM - static::MAIN_NAME_TOP;
-        $nameMaxHeight = (float)number_format($boxHeight * 2 / 3, 2, '.', '');
+        $nameMaxHeight = (float)number_format($boxHeight * 0.618034, 2, '.', '');
         $kanaMaxHeight = (float)number_format($boxHeight - $nameMaxHeight, 2, '.', '');
         $top = ($kana === '')
             ? (static::MAIN_NAME_TOP + ($boxHeight / 2 - $nameMaxHeight / 2))
@@ -510,7 +510,7 @@ class Pdf extends Model
             $fontSize = $this->calcFontSize(
                 $kana,
                 (static::MAIN_NAME_RIGHT - static::MAIN_NAME_LEFT) / 0.75,
-                $kanaMaxHeight
+                $kanaMaxHeight + 0.8
             );
             $this->pdf->SetFont('', '', static::mm2pt($fontSize));
             list($textWidth, $textHeight) = $this->calcTextSize($kana);
@@ -518,7 +518,7 @@ class Pdf extends Model
                 static::MAIN_NAME_LEFT,
                 static::MAIN_NAME_TOP,
                 static::MAIN_NAME_LEFT + $textWidth * 0.75,
-                static::MAIN_NAME_TOP + $kanaMaxHeight,
+                static::MAIN_NAME_TOP + $kanaMaxHeight + 0.8,
                 0.0,
                 $kana
             );
