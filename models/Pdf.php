@@ -19,8 +19,8 @@ class Pdf extends Model
     const MAIN_AMOUNT_BOTTOM        = self::MAIN_ACCOUNT_BOTTOM;
     const MAIN_AMOUNT_LEFT          = self::MAIN_ACCOUNT_3_RIGHT + 5.08;
     const MAIN_AMOUNT_RIGHT         = self::MAIN_AMOUNT_LEFT + 5.08 * 8;
-    const MAIN_ACCOUNT_NAME_TOP     = self::MAIN_ACCOUNT_BOTTOM;
-    const MAIN_ACCOUNT_NAME_BOTTOM  = self::MAIN_ACCOUNT_NAME_TOP + 10;
+    const MAIN_ACCOUNT_NAME_TOP     = self::MAIN_ACCOUNT_BOTTOM + 1.75;
+    const MAIN_ACCOUNT_NAME_BOTTOM  = self::MAIN_ACCOUNT_NAME_TOP - 1.75 + 10;
     const MAIN_ACCOUNT_NAME_LEFT    = self::MAIN_ACCOUNT_1_LEFT + 5.08;
     const MAIN_ACCOUNT_NAME_RIGHT   = self::MAIN_ACCOUNT_3_RIGHT;
     const MAIN_NOTE_TOP             = self::MAIN_ACCOUNT_NAME_BOTTOM;
@@ -67,8 +67,8 @@ class Pdf extends Model
     const SUB_AMOUNT_BOTTOM         = self::SUB_AMOUNT_TOP + 8;
     const SUB_AMOUNT_LEFT           = self::SUB_COMMON_LEFT;
     const SUB_AMOUNT_RIGHT          = self::SUB_COMMON_RIGHT;
-    const SUB_ACCOUNT_NAME_TOP      = self::SUB_ACCOUNT_3_BOTTOM;
-    const SUB_ACCOUNT_NAME_BOTTOM   = self::SUB_ACCOUNT_NAME_TOP + 10;
+    const SUB_ACCOUNT_NAME_TOP      = self::SUB_ACCOUNT_3_BOTTOM + 1.75;
+    const SUB_ACCOUNT_NAME_BOTTOM   = self::SUB_ACCOUNT_NAME_TOP - 1.75 + 10;
     const SUB_NAME_TOP              = self::SUB_AMOUNT_BOTTOM + 3.5;
     const SUB_NAME_BOTTOM           = self::SUB_AMOUNT_BOTTOM + 24 - 2;
     const SUB_NAME_LEFT             = self::SUB_COMMON_LEFT + 2.5;
@@ -284,7 +284,8 @@ class Pdf extends Model
         float $right,
         float $bottom,
         string $numbers,
-        float $fontSize = 4.5) : self
+        float $fontSize = 4.5,
+        float $paddingTop = 2.0) : self
     {
         // {{{
         $left = (float)number_format($left, 2, '.', '');
@@ -295,6 +296,13 @@ class Pdf extends Model
         $height = (float)number_format($bottom - $top, 2, '.', '');
         if ($this->debug) {
             $this->pdf->Rect($left, $top, $width, $height, 'D');
+        }
+        if ($paddingTop > 0) {
+            $top = (float)number_format($top + $paddingTop, 2, '.', '');
+            $height = (float)number_format($bottom - $top, 2, '.', '');
+            if ($this->debug) {
+                $this->pdf->Rect($left, $top, $width, $height, 'D');
+            }
         }
         $this->pdf->SetFont('ocrb_aizu_1_1', '', static::mm2pt($fontSize));
         if ($numbers != '') {
