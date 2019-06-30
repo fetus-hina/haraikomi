@@ -5,23 +5,25 @@
     "license": "MIT",
     "minimum-stability": "stable",
     "require": {
-        "php": ">=7.1.0",
-        "bower-asset/bootstrap": "~4.0.0@beta",
+        "php": ">= 7.3.0,<7.4",
         "tecnickcom/tcpdf": "^6.2",
-        "yiisoft/yii2": "2.0.x-dev",
-        "yiisoft/yii2-bootstrap": "2.1.x-dev"
+        "yiisoft/yii2": "*",
+        "yiisoft/yii2-bootstrap4": "*"
     },
     "require-dev": {
-        "yiisoft/yii2-debug": "~2.0.0",
-        "yiisoft/yii2-gii": "~2.0.0"
+        "yiisoft/yii2-debug": "*",
+        "yiisoft/yii2-gii": "*"
     },
     "config": {
         "process-timeout": 1800,
-        "fxp-asset":{
-            "installer-paths": {
-                "npm-asset-library": "vendor/npm",
-                "bower-asset-library": "vendor/bower"
-            }
+        "fxp-asset": {
+            "enabled": false
         }
-    }
+    },
+    "repositories": [
+      {
+        "type": "composer",
+        "url": "https://asset-packagist.org"
+      }
+    ]
 }

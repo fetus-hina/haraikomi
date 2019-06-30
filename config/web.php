@@ -5,6 +5,10 @@ $config = [
     'basePath' => dirname(__DIR__),
     'language' => 'ja-JP',
     'bootstrap' => ['log'],
+    'aliases' => [
+        '@bower' => '@vendor/bower-asset',
+        '@npm' => '@vendor/npm-asset',
+    ],
     'components' => [
         'request' => [
             'cookieValidationKey' => include(__DIR__ . '/cookie.php'),
