@@ -26,6 +26,20 @@ $this->title = Yii::$app->name;
   <?php $_ = ActiveForm::begin(); echo "\n" ?>
     <div class="card mb-3">
       <div class="card-body">
+        <div class="text-right mb-2">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-sm btn-outline-secondary saver saver-save" data-save="to" data-label="払込先" disabled>
+              <span class="far fa-save"></span> Save
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary saver saver-load" data-save="to" data-label="払込先" disabled>
+              <span class="far fa-folder-open"></span> Load
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#modal-save-help">
+              <span class="fas fa-fw fa-info"></span>
+            </button>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-12 col-lg-6">
             <label>記号・番号</label>
@@ -33,25 +47,38 @@ $this->title = Yii::$app->name;
               <div class="col-4 col-md-5">
                 <?= $_->field($form, 'account1')
                   ->label(false)
-                  ->textInput(['placeholder' => '012345']) . "\n"
+                  ->textInput([
+                    'data-save-to' => 'account1',
+                    'placeholder' => '012345',
+                  ]) . "\n"
                 ?>
               </div>
               <div class="col-4 col-md-2">
                 <?= $_->field($form, 'account2')
                   ->label(false)
-                  ->textInput(['placeholder' => '0']) . "\n" ?>
+                  ->textInput([
+                    'data-save-to' => 'account2',
+                    'placeholder' => '0',
+                  ]) . "\n" ?>
               </div>
               <div class="col-4 col-md-5">
                 <?= $_->field($form, 'account3')
                   ->label(false)
-                  ->textInput(['placeholder' => '98765']) . "\n" ?>
+                  ->textInput([
+                    'data-save-to' => 'account3',
+                    'placeholder' => '98765',
+                  ]) . "\n" ?>
               </div>
             </div>
           </div>
         </div>
 
         <?= $_->field($form, 'account_name')
-          ->textInput(['placeholder' => '㈱月極定礎ホールディングス']) . "\n" ?>
+          ->textInput([
+            'data-save-to' => 'account_name',
+            'placeholder' => '㈱月極定礎ホールディングス',
+          ]) . "\n"
+        ?>
       </div>
     </div>
 
@@ -88,14 +115,84 @@ $this->title = Yii::$app->name;
         </div>
       </div>
     </div>
-
-<?php $this->registerCssFile('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css') ?>
     <?= Html::submitButton(
       implode('', [
-        Html::tag('span', '', ['class' => 'fa fa-fw fa-download']),
+        Html::tag('span', '', ['class' => 'fas fa-fw fa-download']),
         '作成・ダウンロード',
       ]),
       ['class' => 'btn btn-primary']
     ) . "\n" ?>
   <?php ActiveForm::end(); echo "\n" ?>
+</div>
+<div class="modal fade" id="modal-save-help" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">各種データの保存について</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+          <span class="fas fa-times"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>横のボタンで Save したデータは、ブラウザに直接保存され、サーバには一切送信されません。</p>
+        <p>Load するときも含めて、インターネットに送信されることはありません。ご安心ください。</p>
+        <div class="small text-muted">
+          <p>※ブラウザに拡張機能を導入している場合、拡張がデータを監視している可能性があります。</p>
+          <p>※PDFの作成時にはデータをサーバに送信します。</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+          <span class="fas fa-times"></span> 閉じる
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal-save" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">保存</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+          <span class="fas fa-times"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>保存名を入力してください（読込はこの名前で行います）</p>
+        <div class="form-group">
+          <input type="text" class="form-control" name="name">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary btn-save">
+          <span class="fas fa-save"></span> 保存
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal-load" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">読込</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+          <span class="fas fa-times"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>読込対象を選択してください</p>
+        <div class="form-group">
+          <select name="target" class="form-control">
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary btn-load">
+          <span class="fas fa-folder-open"></span> 読込
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
