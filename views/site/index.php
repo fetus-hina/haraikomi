@@ -24,56 +24,68 @@ $this->title = Yii::$app->name;
   <hr>
   <h2>作成フォーム</h2>
   <?php $_ = ActiveForm::begin(); echo "\n" ?>
-    <div class="row">
-      <div class="col-12 col-lg-6">
-        <label>記号・番号</label>
+    <div class="card mb-3">
+      <div class="card-body">
         <div class="row">
-          <div class="col-4 col-md-5">
-            <?= $_->field($form, 'account1')
-              ->label(false)
-              ->textInput(['placeholder' => '012345']) . "\n"
-            ?>
-          </div>
-          <div class="col-4 col-md-2">
-            <?= $_->field($form, 'account2')
-              ->label(false)
-              ->textInput(['placeholder' => '0']) . "\n" ?>
-          </div>
-          <div class="col-4 col-md-5">
-            <?= $_->field($form, 'account3')
-              ->label(false)
-              ->textInput(['placeholder' => '98765']) . "\n" ?>
+          <div class="col-12 col-lg-6">
+            <label>記号・番号</label>
+            <div class="row">
+              <div class="col-4 col-md-5">
+                <?= $_->field($form, 'account1')
+                  ->label(false)
+                  ->textInput(['placeholder' => '012345']) . "\n"
+                ?>
+              </div>
+              <div class="col-4 col-md-2">
+                <?= $_->field($form, 'account2')
+                  ->label(false)
+                  ->textInput(['placeholder' => '0']) . "\n" ?>
+              </div>
+              <div class="col-4 col-md-5">
+                <?= $_->field($form, 'account3')
+                  ->label(false)
+                  ->textInput(['placeholder' => '98765']) . "\n" ?>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-12 col-lg-6">
-        <?= $_->field($form, 'amount')
-          ->textInput(['placeholder' => '3000']) . "\n" ?>
+
+        <?= $_->field($form, 'account_name')
+          ->textInput(['placeholder' => '㈱月極定礎ホールディングス']) . "\n" ?>
       </div>
     </div>
-    <?= $_->field($form, 'account_name')
-      ->textInput(['placeholder' => '㈱月極定礎ホールディングス']) . "\n" ?>
 
-    <?= $_->field($form, 'note')->textarea(['rows' => 6]) . "\n" ?>
+    <div class="card mb-3">
+      <div class="card-body">
+        <?= $_->field($form, 'amount')
+          ->textInput(['placeholder' => '3000']) . "\n" ?>
 
-    <?= $_->field($form, 'postal_code')
-      ->textInput(['placeholder' => '1230001']) . "\n" ?>
+        <?= $_->field($form, 'note')->textarea(['rows' => 6]) . "\n" ?>
+      </div>
+    </div>
 
-    <?= $_->field($form, 'pref_id')
-      ->dropDownList($form->getPrefList()) . "\n" ?>
+    <div class="card mb-3">
+      <div class="card-body">
+        <?= $_->field($form, 'postal_code')
+          ->textInput(['placeholder' => '1230001']) . "\n" ?>
 
-    <?= $_->field($form, 'address1')->textInput() . "\n" ?>
-    <?= $_->field($form, 'address2')->textInput() . "\n" ?>
-    <?= $_->field($form, 'address3')->textInput() . "\n" ?>
-    <?= $_->field($form, 'name')->textInput() . "\n" ?>
-    <?= $_->field($form, 'kana')->textInput() . "\n" ?>
+        <?= $_->field($form, 'pref_id')
+          ->dropDownList($form->getPrefList()) . "\n" ?>
 
-    <div class="form-group">
-      <label>電話番号</label>
-      <div class="form-inline">
-        <?= $_->field($form, 'phone1')->label(false)->textInput(['placeholder' => '090', 'size' => 5]) . "\n" ?>
-        <?= $_->field($form, 'phone2')->label(false)->textInput(['placeholder' => '1234', 'size' => 5]) . "\n" ?>
-        <?= $_->field($form, 'phone3')->label(false)->textInput(['placeholder' => '5678', 'size' => 5]) . "\n" ?>
+        <?= $_->field($form, 'address1')->textInput() . "\n" ?>
+        <?= $_->field($form, 'address2')->textInput() . "\n" ?>
+        <?= $_->field($form, 'address3')->textInput() . "\n" ?>
+        <?= $_->field($form, 'name')->textInput() . "\n" ?>
+        <?= $_->field($form, 'kana')->textInput() . "\n" ?>
+
+        <div class="form-group">
+          <label>電話番号</label>
+          <div class="form-inline">
+            <?= $_->field($form, 'phone1')->label(false)->textInput(['placeholder' => '090', 'size' => 5]) . "\n" ?>
+            <?= $_->field($form, 'phone2')->label(false)->textInput(['placeholder' => '1234', 'size' => 5]) . "\n" ?>
+            <?= $_->field($form, 'phone3')->label(false)->textInput(['placeholder' => '5678', 'size' => 5]) . "\n" ?>
+          </div>
+        </div>
       </div>
     </div>
 
