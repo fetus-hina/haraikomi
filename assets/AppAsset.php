@@ -25,7 +25,8 @@ class AppAsset extends AssetBundle
     public $js = [
     ];
     public $depends = [
-        YiiAsset::class,
         BootstrapAsset::class,
+        GoogleFontsAsset::class,
+        YiiAsset::class,
     ];
 }

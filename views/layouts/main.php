@@ -29,9 +29,9 @@ AppAsset::register($this);
       </div>
       <hr>
       <footer>
-        <div class="container">
-          Copyright &copy; 2017 <a href="https://fetus.jp/">AIZAWA Hina</a>.<br>
-          <?= Yii::powered() . "\n" ?>
+        <div class="container text-right">
+          Copyright &copy; 2017-2019 <a href="https://fetus.jp/">AIZAWA Hina</a>.<br>
+          <?= Yii::powered() ?> and <a href="https://tcpdf.org/">TCPDF</a>.
         </div>
       </footer>
     </div>
