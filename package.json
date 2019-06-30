@@ -4,10 +4,10 @@
   "author": "AIZAWA Hina",
   "license": "MIT",
   "dependencies": {
-    "autoprefixer": "^9.6.0",
-    "@babel/core": "^7.4.0",
     "@babel/cli": "^7.4.0",
+    "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.4.0",
+    "autoprefixer": "^9.6.0",
     "clean-css": "^4.2.1",
     "clean-css-cli": "^4.3.0",
     "node-sass": "^4.12.0",
