@@ -1,6 +1,10 @@
 <?php
+declare(strict_types=1);
+
+use app\models\DestPreset;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Json;
 
 $this->title = Yii::$app->name;
 ?>
@@ -31,13 +35,30 @@ $this->title = Yii::$app->name;
             <button type="button" class="btn btn-sm btn-outline-secondary saver saver-save" data-save="to" data-label="払込先" disabled>
               <span class="far fa-save"></span> Save
             </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary saver saver-load" data-save="to" data-label="払込先" disabled>
+            <button type="button" class="btn btn-sm btn-outline-secondary saver saver-load" data-save="to" data-preset="#dest-preset" data-label="払込先" disabled>
               <span class="far fa-folder-open"></span> Load
             </button>
             <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#modal-save-help">
               <span class="fas fa-fw fa-info"></span>
             </button>
           </div>
+          <script type="application/json" id="dest-preset"><?= Json::encode(
+            array_map(
+              function (DestPreset $model): array {
+                return [
+                  'name' => $model->name,
+                  'mtime' => null,
+                  'data' => [
+                    'account1' => sprintf('%05d', $model->account1),
+                    'account2' => (string)$model->account2,
+                    'account3' => (string)$model->account3,
+                    'account_name' => $model->account_name,
+                  ],
+                ];
+              },
+              DestPreset::find()->valid()->orderBy(['name' => SORT_ASC, 'id' => SORT_ASC])->all()
+            )
+          ) ?></script>
         </div>
 
         <div class="row">

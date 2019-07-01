@@ -1,38 +1,4 @@
 ($ => {
-  // あらかじめ保存された払込先
-  const presavedDest = [
-    {
-      name: '日本赤十字社東日本大震災義援金',
-      mtime: null,
-      data: {
-        account1: '00140',
-        account2: '8',
-        account3: '507',
-        account_name: '日本赤十字社 東日本大震災義援金',
-      },
-    },
-    {
-      name: '東日本大震災義援金政府窓口',
-      mtime: null,
-      data: {
-        account1: '00130',
-        account2: '6',
-        account3: '623461',
-        account_name: '東日本大震災義援金政府窓口',
-      },
-    },
-    {
-      name: '日本赤十字社平成30年7月豪雨災害義援金',
-      mtime: null,
-      data: {
-        account1: '00130',
-        account2: '8',
-        account3: '635289',
-        account_name: '日赤平成30年7月豪雨災害義援金',
-      },
-    },
-  ];
-
   $(() => {
     const $modalSave = $('#modal-save');
     const $modalLoad = $('#modal-load');
@@ -92,7 +58,10 @@
       const saveKey = $this.data('save');
       const $select = $('select[name="target"]', $modalLoad);
       $('.modal-title', $modalLoad).text($this.data('label'));
-      $select.data('save', saveKey).empty();
+      $select
+        .data('save', saveKey)
+        .data('preset', $this.data('preset'))
+        .empty();
       const reqPrefix = `save-${saveKey}-`;
       for (let i = 0; i < localStorage.length; ++i) {
         const dataKey = localStorage.key(i);
@@ -113,18 +82,24 @@
       }
 
       // 払込先指定の読み込みではシステムによるデフォルトも設定する
-      if (presavedDest.length && saveKey === 'to') {
-        const $group = $('<optgroup label="システム">');
-        presavedDest.forEach(current => {
-          $group.append(
-            $('<option>')
-              .attr('value', JSON.stringify(current.data))
-              .attr('data-id', '')
-              .text(current.name)
-          );
-        });
-        $select.append($group);
-      }
+      // try {
+        if ($select.data('preset')) {
+          const presetData = JSON.parse($($select.data('preset')).text());
+          if (presetData.length) {
+            const $group = $('<optgroup label="システム">');
+            presetData.forEach(current => {
+              $group.append(
+                $('<option>')
+                  .attr('value', JSON.stringify(current.data))
+                  .attr('data-id', '')
+                  .text(current.name)
+              );
+            });
+            $select.append($group);
+          }
+        }
+      // } catch (e) {
+      // }
 
       $modalLoad.modal();
     });
