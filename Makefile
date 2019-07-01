@@ -1,4 +1,4 @@
-RESOURCES := web/css/site.css
+RESOURCES := web/css/site.css web/js/save.js
 
 .PHONY: all
 all: vendor app-config resources
@@ -19,7 +19,6 @@ composer.lock: composer.json composer.phar
 
 composer.phar:
 	curl 'https://getcomposer.org/installer' -- | php -- --stable
-	./composer.phar global require 'fxp/composer-asset-plugin:^1.3'
 	touch -r composer.json composer.phar
 
 config/cookie.php: vendor
@@ -30,20 +29,14 @@ config/cookie.php: vendor
 .PHONY: resources
 resources: $(RESOURCES)
 
-BROWSERS_CONFIG := "> 2% in JP,last 2 versions,last 2 Chrome,Firefox ESR,Android>=4.4,iOS>=10"
-RESOURCE_PRECOND := node_modules
-NODE := node_modules/.bin
-
 node_modules: package.json
 	npm install
 	touch -r package-lock.json node_modules
 
-web/css/%.css: resources/css/%.scss $(RESOURCE_PRECOND)
-	$(NODE)/node-sass -q -x $< \
-		| $(NODE)/postcss --no-map \
-			--use autoprefixer --autoprefixer.browsers $(BROWSERS_CONFIG) \
-		| $(NODE)/cleancss --output $@ -O 1 --format "breaks:afterRuleEnds=on"
+web/css/%.css: resources/css/%.scss node_modules
+	npx node-sass -q -x $< \
+		| npx postcss --no-map --use autoprefixer \
+		| npx cleancss --output $@ -O 1 --format "breaks:afterRuleEnds=on"
 
-web/js/%.js: resources/js/%.es
-	$(NODE)/babel -q $< \
-		| $(NODE)/uglifyjs --compress --mangle --beautify ascii_only=true,beautify=false --output $@
+web/js/%.js: resources/js/%.js node_modules
+	npx babel -s false $< | npx uglifyjs -c -m -b beautify=false,ascii_only=true --comments '/license|copyright/i' -o $@

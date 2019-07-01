@@ -1,3 +1,4 @@
+/*! Copyright (C) AIZAWA Hina | MIT License */
 ($ => {
   $(() => {
     const $modalSave = $('#modal-save');
