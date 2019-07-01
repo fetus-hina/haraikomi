@@ -60,7 +60,7 @@
       $('.modal-title', $modalLoad).text($this.data('label'));
       $select
         .data('save', saveKey)
-        .data('preset', $this.data('preset'))
+        .data('preset', $this.data('preset') || null)
         .empty();
       const reqPrefix = `save-${saveKey}-`;
       for (let i = 0; i < localStorage.length; ++i) {
@@ -82,11 +82,12 @@
       }
 
       // 払込先指定の読み込みではシステムによるデフォルトも設定する
-      // try {
+      try {
+        const $presetNotice = $('.preset-notice', $modalLoad).addClass('d-none');
         if ($select.data('preset')) {
           const presetData = JSON.parse($($select.data('preset')).text());
           if (presetData.length) {
-            const $group = $('<optgroup label="システム">');
+            const $group = $('<optgroup label="プリセット">');
             presetData.forEach(current => {
               $group.append(
                 $('<option>')
@@ -96,10 +97,11 @@
               );
             });
             $select.append($group);
+            $presetNotice.removeClass('d-none');
           }
         }
-      // } catch (e) {
-      // }
+      } catch (e) {
+      }
 
       $modalLoad.modal();
     });

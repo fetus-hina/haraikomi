@@ -114,24 +114,54 @@ $this->title = Yii::$app->name;
 
     <div class="card mb-3">
       <div class="card-body">
+        <div class="text-right mb-2">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-sm btn-outline-secondary saver saver-save" data-save="from" data-label="依頼人" disabled>
+              <span class="far fa-save"></span> Save
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary saver saver-load" data-save="from" data-label="依頼人" disabled>
+              <span class="far fa-folder-open"></span> Load
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#modal-save-help">
+              <span class="fas fa-fw fa-info"></span>
+            </button>
+          </div>
+        </div>
+
         <?= $_->field($form, 'postal_code')
-          ->textInput(['placeholder' => '1230001']) . "\n" ?>
-
+          ->textInput([
+            'placeholder' => '1230001',
+            'data-save-from' => 'postal_code',
+          ]) . "\n"
+        ?>
         <?= $_->field($form, 'pref_id')
-          ->dropDownList($form->getPrefList()) . "\n" ?>
-
-        <?= $_->field($form, 'address1')->textInput() . "\n" ?>
-        <?= $_->field($form, 'address2')->textInput() . "\n" ?>
-        <?= $_->field($form, 'address3')->textInput() . "\n" ?>
-        <?= $_->field($form, 'name')->textInput() . "\n" ?>
-        <?= $_->field($form, 'kana')->textInput() . "\n" ?>
-
+          ->dropDownList($form->getPrefList(), [
+            'data-save-from' => 'pref_id',
+          ]) . "\n"
+        ?>
+        <?= $_->field($form, 'address1')->textInput(['data-save-from' => 'address1']) . "\n" ?>
+        <?= $_->field($form, 'address2')->textInput(['data-save-from' => 'address2']) . "\n" ?>
+        <?= $_->field($form, 'address3')->textInput(['data-save-from' => 'address3']) . "\n" ?>
+        <?= $_->field($form, 'name')->textInput(['data-save-from' => 'name']) . "\n" ?>
+        <?= $_->field($form, 'kana')->textInput(['data-save-from' => 'kana']) . "\n" ?>
         <div class="form-group">
           <label>電話番号</label>
           <div class="form-inline">
-            <?= $_->field($form, 'phone1')->label(false)->textInput(['placeholder' => '090', 'size' => 5]) . "\n" ?>
-            <?= $_->field($form, 'phone2')->label(false)->textInput(['placeholder' => '1234', 'size' => 5]) . "\n" ?>
-            <?= $_->field($form, 'phone3')->label(false)->textInput(['placeholder' => '5678', 'size' => 5]) . "\n" ?>
+            <?= $_->field($form, 'phone1')->label(false)->textInput([
+              'placeholder' => '090',
+              'size' => 5,
+              'data-save-from' => 'phone1',
+            ]) . "\n" ?>
+            <?= $_->field($form, 'phone2')->label(false)->textInput([
+              'placeholder' => '1234',
+              'size' => 5,
+              'data-save-from' => 'phone2',
+            ]) . "\n" ?>
+            <?= $_->field($form, 'phone3')->label(false)->textInput([
+              'placeholder' => '5678',
+              'size' => 5,
+              'data-save-from' => 'phone3',
+            ]) . "\n" ?>
           </div>
         </div>
       </div>
@@ -158,7 +188,6 @@ $this->title = Yii::$app->name;
         <p>横のボタンで Save したデータは、ブラウザに直接保存され、サーバには一切送信されません。</p>
         <p>Load するときも含めて、インターネットに送信されることはありません。ご安心ください。</p>
         <div class="small text-muted">
-          <p>※ブラウザに拡張機能を導入している場合、拡張がデータを監視している可能性があります。</p>
           <p>※PDFの作成時にはデータをサーバに送信します。</p>
         </div>
       </div>
@@ -208,6 +237,10 @@ $this->title = Yii::$app->name;
           <select name="target" class="form-control">
           </select>
         </div>
+        <p class="preset-notice d-none text-muted small">
+          プリセットの内容は参考情報です。<br>
+          払込先の記号番号などが正しいことは必ずご自身で確認してください。
+        </p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-primary btn-load">
