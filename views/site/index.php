@@ -130,7 +130,7 @@ $this->title = Yii::$app->name;
 
         <?= $_->field($form, 'postal_code')
           ->textInput([
-            'placeholder' => '1230001',
+            'placeholder' => '1000001',
             'data-save-from' => 'postal_code',
           ]) . "\n"
         ?>
@@ -139,11 +139,36 @@ $this->title = Yii::$app->name;
             'data-save-from' => 'pref_id',
           ]) . "\n"
         ?>
-        <?= $_->field($form, 'address1')->textInput(['data-save-from' => 'address1']) . "\n" ?>
-        <?= $_->field($form, 'address2')->textInput(['data-save-from' => 'address2']) . "\n" ?>
-        <?= $_->field($form, 'address3')->textInput(['data-save-from' => 'address3']) . "\n" ?>
-        <?= $_->field($form, 'name')->textInput(['data-save-from' => 'name']) . "\n" ?>
-        <?= $_->field($form, 'kana')->textInput(['data-save-from' => 'kana']) . "\n" ?>
+        <?= $_->field($form, 'address1')
+          ->textInput([
+            'placeholder' => '千代田区',
+            'data-save-from' => 'address1',
+          ]) . "\n"
+        ?>
+        <?= $_->field($form, 'address2')
+          ->textInput([
+            'placeholder' => '千代田1番1号',
+            'data-save-from' => 'address2',
+          ]) . "\n"
+        ?>
+        <?= $_->field($form, 'address3')
+          ->textInput([
+            'placeholder' => '令和マンション1024号室',
+            'data-save-from' => 'address3',
+          ]) . "\n"
+        ?>
+        <?= $_->field($form, 'name')
+          ->textInput([
+            'placeholder' => '日本　太郎',
+            'data-save-from' => 'name',
+          ]) . "\n"
+        ?>
+        <?= $_->field($form, 'kana')
+          ->textInput([
+            'placeholder' => 'ニッポン　タロウ',
+            'data-save-from' => 'kana',
+          ]) . "\n"
+        ?>
         <div class="form-group mb-0">
           <label>電話番号</label>
           <div class="row">

@@ -12,7 +12,7 @@ class HaraikomiForm extends Model
     public $amount;
     public $account_name;
     public $postal_code;
-    public $pref_id;
+    public $pref_id = 13;
     public $address1;
     public $address2;
     public $address3;
