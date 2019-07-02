@@ -9,3 +9,7 @@ body {
 footer {
   font-family: "Lato", sans-serif;
 }
+
+.form-control::placeholder {
+  color: #ccc !important;
+}
