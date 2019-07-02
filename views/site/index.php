@@ -65,7 +65,7 @@ $this->title = Yii::$app->name;
           <div class="col-12 col-lg-6">
             <label>記号・番号</label>
             <div class="row">
-              <div class="col-4 col-md-5">
+              <div class="col-8 col-md-5">
                 <?= $_->field($form, 'account1')
                   ->label(false)
                   ->textInput([
@@ -82,7 +82,7 @@ $this->title = Yii::$app->name;
                     'placeholder' => '0',
                   ]) . "\n" ?>
               </div>
-              <div class="col-4 col-md-5">
+              <div class="col-12 col-md-5">
                 <?= $_->field($form, 'account3')
                   ->label(false)
                   ->textInput([
@@ -144,24 +144,30 @@ $this->title = Yii::$app->name;
         <?= $_->field($form, 'address3')->textInput(['data-save-from' => 'address3']) . "\n" ?>
         <?= $_->field($form, 'name')->textInput(['data-save-from' => 'name']) . "\n" ?>
         <?= $_->field($form, 'kana')->textInput(['data-save-from' => 'kana']) . "\n" ?>
-        <div class="form-group">
+        <div class="form-group mb-0">
           <label>電話番号</label>
-          <div class="form-inline">
-            <?= $_->field($form, 'phone1')->label(false)->textInput([
-              'placeholder' => '090',
-              'size' => 5,
-              'data-save-from' => 'phone1',
-            ]) . "\n" ?>
-            <?= $_->field($form, 'phone2')->label(false)->textInput([
-              'placeholder' => '1234',
-              'size' => 5,
-              'data-save-from' => 'phone2',
-            ]) . "\n" ?>
-            <?= $_->field($form, 'phone3')->label(false)->textInput([
-              'placeholder' => '5678',
-              'size' => 5,
-              'data-save-from' => 'phone3',
-            ]) . "\n" ?>
+          <div class="row">
+            <div class="col-4 col-md-3 col-lg-2">
+              <?= $_->field($form, 'phone1')->label(false)->textInput([
+                'placeholder' => '090',
+                'size' => 5,
+                'data-save-from' => 'phone1',
+              ]) . "\n" ?>
+            </div>
+            <div class="col-4 col-md-3 col-lg-2">
+              <?= $_->field($form, 'phone2')->label(false)->textInput([
+                'placeholder' => '1234',
+                'size' => 5,
+                'data-save-from' => 'phone2',
+              ]) . "\n" ?>
+            </div>
+            <div class="col-4 col-md-3 col-lg-2">
+              <?= $_->field($form, 'phone3')->label(false)->textInput([
+                'placeholder' => '5678',
+                'size' => 5,
+                'data-save-from' => 'phone3',
+              ]) . "\n" ?>
+            </div>
           </div>
         </div>
       </div>
