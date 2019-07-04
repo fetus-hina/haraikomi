@@ -205,6 +205,40 @@ $this->title = Yii::$app->name;
       ['class' => 'btn btn-primary']
     ) . "\n" ?>
   <?php ActiveForm::end(); echo "\n" ?>
+  <hr>
+  <h2>更新履歴</h2>
+  <ul>
+    <li>
+      2019-07-05
+      <ul>
+        <li>
+          日本語印刷に利用している<a href="https://ipafont.ipa.go.jp/">IPAex明朝フォント</a>を
+          Ver.004.01 に更新しました。「令和」の組文字（U+32FF, ㋿）が出力できるようになっていたりします。
+          （が、㍻に比べて細いような…）
+        </li>
+      </ul>
+    </li>
+    <li>
+      2019-07-02
+      <ul>
+        <li>入力欄の大きさやヒントの文字色などを調整しました。</li>
+      </ul>
+    </li>
+    <li>
+      2019-07-01
+      <ul>
+        <li>入力欄を整理しました。</li>
+        <li>
+          払込先・依頼人をブラウザに記憶できるようになりました。
+          プリセットとして払込先には現時点で受付中の災害義援金の払込先を用意しておきました。
+          どんな感じに動くかの確認に使えると思います。
+        </li>
+      </ul>
+    </li>
+    <li>
+      これ以前は省略
+    </li>
+  </ul>
 </div>
 <div class="modal fade" id="modal-save-help" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
