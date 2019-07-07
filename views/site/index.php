@@ -13,8 +13,17 @@ $this->title = Yii::$app->name;
   <p>
     ゆうちょ銀行の「払込取扱票」に印刷するためのPDFを作成するサイトです。<br>
     「払込取扱票」はゆうちょ銀行においてあるこんな紙です。ATMとかにあります。わからなければ窓口で聞けばくれるはずです。<br>
-    <img src="/images/haraikomi.png" class="img-fluid"><br>
-    自分で全部印刷するようなことは禁止されているため、ゆうちょ銀行で紙を取ってきて、そこに「手書きの代わりに」印刷する必要があります。
+    <?= Html::img('/images/haraikomi.png', [
+      'class' => 'img-fluid',
+      'id' => 'haraikomi-image',
+      'data' => [
+        'original' => '/images/haraikomi.png',
+        'hover' => '/images/haraikomi-sample.png',
+      ],
+    ]) ?><br>
+<?php $this->registerJs('$("#haraikomi-image").hover(function(){$(this).attr("src",$(this).data("hover"))},function(){$(this).attr("src",$(this).data("original"))});') ?>
+    自分で全部印刷するようなことは禁止されているため、ゆうちょ銀行で紙を取ってきて、そこに「手書きの代わりに」印刷する必要があります。<br>
+    画像にマウスを置くと、最終的な（印刷後の）イメージが表示されます。
   </p>
   <p>
     入力されたデータについては一切保存していません。
