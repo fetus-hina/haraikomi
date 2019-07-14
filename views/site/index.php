@@ -34,6 +34,11 @@ $this->title = Yii::$app->name;
     これをうまく扱えるプリンタをうまく設定して使う必要があります。場合によっては結構難しいです。<br>
     手書きで一文字も書きたくないような人を除いて手書きしたほうが圧倒的にはやくて楽です。
   </p>
+  <p class="small text-muted">
+    作成されるPDFは<a href="https://ipafont.ipa.go.jp/">IPAex明朝フォント</a>を利用します。<br>
+    このフォントはJIS X 0213:2004の例示字体に準拠しているため、しんにょうの形などが期待と異なるかもしれません。<br>
+    詳しくは<a href="http://warp.ndl.go.jp/info:ndljp/pid/10217941/www.jisc.go.jp/newstopics/2005/040220kanjicode.pdf">経産省の資料</a>をご確認ください。
+  </p>
   <hr>
   <h2>作成フォーム</h2>
   <?php $_ = ActiveForm::begin(); echo "\n" ?>
