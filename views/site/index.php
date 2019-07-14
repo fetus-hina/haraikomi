@@ -146,6 +146,7 @@ $this->title = Yii::$app->name;
         <?= $_->field($form, 'pref_id')
           ->dropDownList($form->getPrefList(), [
             'data-save-from' => 'pref_id',
+            'prompt' => '---',
           ]) . "\n"
         ?>
         <?= $_->field($form, 'address1')
@@ -217,6 +218,18 @@ $this->title = Yii::$app->name;
   <hr>
   <h2>更新履歴</h2>
   <ul>
+    <li>
+      2019-07-15
+      <ul>
+        <li>
+          依頼人各データの必須指定を無くしました。
+          これにより、「自分の口座情報を印刷した配布用の払込票」が作成できます。
+          ゆうちょ銀行の想定した使い方ではおそらくないと思いますので、
+          実際のご利用の前にゆうちょ銀行へ相談されたほうがいいと思います。
+          何か問題が発生しても一切責任は負いません。
+        </li>
+      </ul>
+    </li>
     <li>
       2019-07-05
       <ul>

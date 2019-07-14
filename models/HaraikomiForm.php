@@ -12,7 +12,7 @@ class HaraikomiForm extends Model
     public $amount;
     public $account_name;
     public $postal_code;
-    public $pref_id = 13;
+    public $pref_id;
     public $address1;
     public $address2;
     public $address3;
@@ -39,20 +39,15 @@ class HaraikomiForm extends Model
             [['account_name'], 'required'],
             [['account_name'], 'string', 'min' => 1],
 
-            [['postal_code'], 'required'],
             [['postal_code'], 'integer'],
             [['postal_code'], 'string', 'min' => 7, 'max' => 7],
 
-            [['pref_id'], 'required'],
             [['pref_id'], 'integer', 'min' => 1, 'max' => 47],
 
-            [['address1', 'address2'], 'required'],
             [['address1', 'address2', 'address3'], 'string'],
-            [['name'], 'required'],
             [['name'], 'string', 'min' => 1],
             [['kana'], 'string'],
 
-            [['phone1', 'phone2', 'phone3'], 'required'],
             [['phone1', 'phone2', 'phone3'], 'integer'],
             [['phone1'], 'string', 'min' => 2, 'max' => 5],
             [['phone2'], 'string', 'min' => 1, 'max' => 4],
@@ -84,7 +79,7 @@ class HaraikomiForm extends Model
         ];
     }
 
-    public function makePdf() : string
+    public function makePdf(): string
     {
         $pdf = Yii::createObject(Pdf::class)
             ->setAccount($this->account1, $this->account2, $this->account3)
@@ -93,7 +88,7 @@ class HaraikomiForm extends Model
             ->setNote($this->note)
             ->setAddress(
                 $this->postal_code,
-                $this->getPrefList()[$this->pref_id],
+                $this->getPrefList()[$this->pref_id] ?? '',
                 $this->address1,
                 $this->address2,
                 $this->address3,
@@ -106,7 +101,7 @@ class HaraikomiForm extends Model
         return $pdf->render();
     }
 
-    public function getPrefList() : array
+    public function getPrefList(): array
     {
         return [
              1 => '北海道',
