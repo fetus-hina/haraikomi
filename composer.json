@@ -11,6 +11,7 @@
         "yiisoft/yii2-bootstrap4": "*"
     },
     "require-dev": {
+        "squizlabs/php_codesniffer": "*",
         "yiisoft/yii2-debug": "*",
         "yiisoft/yii2-gii": "*"
     },

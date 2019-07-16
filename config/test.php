@@ -7,14 +7,14 @@ $db = require(__DIR__ . '/test_db.php');
  */
 return [
     'id' => 'basic-tests',
-    'basePath' => dirname(__DIR__),    
+    'basePath' => dirname(__DIR__),
     'language' => 'en-US',
     'components' => [
         'db' => $db,
         'mailer' => [
             'useFileTransport' => true,
         ],
-        'assetManager' => [            
+        'assetManager' => [
             'basePath' => __DIR__ . '/../web/assets',
         ],
         'urlManager' => [
@@ -22,7 +22,7 @@ return [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-        ],        
+        ],
         'request' => [
             'cookieValidationKey' => 'test',
             'enableCsrfValidation' => false,
@@ -32,7 +32,7 @@ return [
                 'domain' => 'localhost',
             ],
             */
-        ],        
+        ],
     ],
     'params' => $params,
 ];

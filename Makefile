@@ -10,6 +10,10 @@ clean:
 .PHONY: app-config
 app-config: config/cookie.php
 
+.PHONY: check-style
+check-style: vendor
+	./vendor/bin/phpcs -p --extensions=php --standard=PSR12 assets commands config controllers models web
+
 vendor: composer.lock composer.phar
 	./composer.phar install -vvv
 

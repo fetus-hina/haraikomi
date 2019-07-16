@@ -90,12 +90,12 @@ class Pdf extends Model
         $this->pdf = $pdf;
     }
 
-    public function render() : string
+    public function render(): string
     {
         return $this->pdf->Output('', 'S');
     }
 
-    public function setAccount(string $account1, string $account2, string $account3) : self
+    public function setAccount(string $account1, string $account2, string $account3): self
     {
         // {{{
         $pad = function (string $number, string $padChar, int $length) : string {
@@ -149,7 +149,7 @@ class Pdf extends Model
         // }}}
     }
 
-    public function setAmount(string $amount) : self
+    public function setAmount(string $amount): self
     {
         // {{{
         $amount = substr(str_repeat(' ', 8) . $amount, -8);
@@ -171,7 +171,7 @@ class Pdf extends Model
         // }}}
     }
 
-    public function setAccountName(string $name) : self
+    public function setAccountName(string $name): self
     {
         // {{{
         return $this
@@ -194,7 +194,7 @@ class Pdf extends Model
         // }}}
     }
 
-    public function setNote(?string $note) : self
+    public function setNote(?string $note): self
     {
         // {{{
         $this->drawTextToBox(
@@ -221,8 +221,7 @@ class Pdf extends Model
         string $phone1,
         string $phone2,
         string $phone3
-    ) : self
-    {
+    ): self {
         // main {{{
         $address1 = trim($address1);
         $address2 = trim($address2);
@@ -285,8 +284,8 @@ class Pdf extends Model
         float $bottom,
         string $numbers,
         float $fontSize = 4.5,
-        float $paddingTop = 2.0) : self
-    {
+        float $paddingTop = 2.0
+    ): self {
         // {{{
         $left = (float)number_format($left, 2, '.', '');
         $top = (float)number_format($top, 2, '.', '');
@@ -344,8 +343,8 @@ class Pdf extends Model
         float $bottom,
         string $text,
         string $valign = 'M',
-        float $maxFontSize = 0) : self
-    {
+        float $maxFontSize = 0
+    ): self {
         // {{{
         if ($maxFontSize <= 0.1) {
             $maxFontSize = static::pt2mm(10.5);
@@ -388,8 +387,8 @@ class Pdf extends Model
         float $right,
         float $bottom,
         float $padding,
-        string $name) : self
-    {
+        string $name
+    ): self {
         // {{{
         $left   = (float)number_format($left, 2, '.', '');
         $top    = (float)number_format($top, 2, '.', '');
@@ -445,7 +444,7 @@ class Pdf extends Model
         // }}}
     }
 
-    public function drawPostalCode(string $code) : self
+    public function drawPostalCode(string $code): self
     {
         // {{{
         $code1 = substr($code, 0, 3);
@@ -493,7 +492,7 @@ class Pdf extends Model
         // }}}
     }
 
-    public function drawName(string $name, ?string $kana) : self
+    public function drawName(string $name, ?string $kana): self
     {
         // {{{
         $name = mb_convert_kana(trim($name), 'ASKV', Yii::$app->charset);
@@ -535,7 +534,7 @@ class Pdf extends Model
         // }}}
     }
 
-    public function drawPhone(string $phone1, string $phone2, string $phone3) : self
+    public function drawPhone(string $phone1, string $phone2, string $phone3): self
     {
         // {{{
         $this->pdf->SetFont('ocrb_aizu_1_1', '', 0);
@@ -597,7 +596,7 @@ class Pdf extends Model
         // }}}
     }
 
-    private function calcTextSize(string $text) : array
+    private function calcTextSize(string $text): array
     {
         // {{{
         $lines = explode("\n", $text);
@@ -627,10 +626,10 @@ class Pdf extends Model
         float $width,
         float $height,
         float $maxFontSize = 20.0,
-        float $minFontSize = 0.1) : float
-    {
+        float $minFontSize = 0.1
+    ): float {
         // {{{
-        for ($i = 0; ; ++$i) {
+        for ($i = 0;; ++$i) {
             $fontSize = (float)number_format($maxFontSize - 0.1 * $i, 2, '.', '');
             if ($fontSize <= $minFontSize || $fontSize <= 0) {
                 return $minFontSize;
@@ -644,12 +643,12 @@ class Pdf extends Model
         // }}}
     }
 
-    private static function mm2pt(float $mm) : float
+    private static function mm2pt(float $mm): float
     {
         return $mm * 72.0 / 25.4;
     }
 
-    private static function pt2mm(float $pt) : float
+    private static function pt2mm(float $pt): float
     {
         return $pt * 25.4 / 72.0;
     }
