@@ -170,6 +170,7 @@ class HaraikomiForm extends Model
         return [
             'ipaexm' => '明朝体（IPAex明朝）',
             'mplus1p' => 'ゴシック体（M+ 1p）',
+            'mikachanp' => '手書き（みかちゃん-P）',
         ];
     }
 }
