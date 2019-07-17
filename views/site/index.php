@@ -232,6 +232,7 @@ $this->title = Yii::$app->name;
       <ul>
         <li>
           数字以外の部分（主に日本語記載部分）のフォントとして次のフォントが利用できるようになりました。
+          おまけみたいなものなので通常はIPAex明朝を利用されるのがいいと思います。
           <ul>
             <li>
               <a href="http://mplus-fonts.osdn.jp/">M+1p Regular</a>
