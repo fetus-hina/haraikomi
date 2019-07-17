@@ -36,4 +36,7 @@ Licensed under the MIT License.
   - [IPAex明朝](https://ipafont.ipa.go.jp/)
     - Licensed under the [IPA Font License](https://ipafont.ipa.go.jp/ipa_font_license_v1-html)
     - (C) Information-technology Promotion Agency, Japan.
+  - [M+ FONTS](http://mplus-fonts.osdn.jp/)
+    - License: [Japanese](resources/fonts/mplus/LICENSE_J) [English](resources/fonts/mplus/LICENSE_E)
+    - (C) M+ FONTS PROJECT
 

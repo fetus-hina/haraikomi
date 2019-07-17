@@ -22,6 +22,7 @@ class HaraikomiForm extends Model
     public $phone2;
     public $phone3;
     public $note;
+    public $font_ja;
 
     public function rules()
     {
@@ -54,6 +55,10 @@ class HaraikomiForm extends Model
             [['phone3'], 'string', 'min' => 4, 'max' => 4],
 
             [['note'], 'string'],
+
+            [['font_ja'], 'required'],
+            [['font_ja'], 'string'],
+            [['font_ja'], 'in', 'range' => array_keys($this->getJapaneseFonts())],
         ];
     }
 
@@ -76,12 +81,18 @@ class HaraikomiForm extends Model
             'phone2' => '電話番号(2)',
             'phone3' => '電話番号(3)',
             'note' => '通信欄',
+            'font_ja' => '日本語フォント',
         ];
     }
 
     public function makePdf(): string
     {
-        $pdf = Yii::createObject(Pdf::class)
+        $fontNameHumanReadable = ($this->getJapaneseFonts()[$this->font_ja] ?? '');
+        $pdf = Yii::createObject([
+                'class' => Pdf::class,
+                'fontNameJa' => $this->font_ja,
+                'normalizeToWide' => strpos($fontNameHumanReadable, '明朝') !== false,
+            ])
             ->setAccount($this->account1, $this->account2, $this->account3)
             ->setAccountName($this->account_name)
             ->setAmount($this->amount)
@@ -151,6 +162,14 @@ class HaraikomiForm extends Model
             45 => '宮崎県',
             46 => '鹿児島県',
             47 => '沖縄県',
+        ];
+    }
+
+    public function getJapaneseFonts(): array
+    {
+        return [
+            'ipaexm' => '明朝体（IPAex明朝）',
+            'mplus1p' => 'ゴシック体（M+ 1p）',
         ];
     }
 }

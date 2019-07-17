@@ -75,6 +75,8 @@ class Pdf extends Model
     const SUB_NAME_RIGHT            = self::SUB_COMMON_RIGHT - 2;
 
     public $debug = false;
+    public $fontNameJa = 'ipaexm';
+    public $normalizeToWide = true;
     private $pdf;
 
     public function init()
@@ -232,7 +234,7 @@ class Pdf extends Model
                 $address2,
                 $address3,
             ])),
-            'ASKV',
+            $this->normalizeToWide ? 'ASKV' : 'aSKV',
             Yii::$app->charset
         );
         $this->drawPostalCode($postalCode);
@@ -251,18 +253,16 @@ class Pdf extends Model
         $text = mb_convert_kana(
             trim(implode("\n", array_filter(
                 [
-                    // '〒' . substr($postalCode, 0, 3) . '-' . substr($postalCode, 3),
                     $prefecture . ' ' . $address1,
                     $address2,
                     $address3,
                     $name,
-                    // $phone1 . '-' . $phone2 . '-' . $phone3 . '　', // 「様」よけのスペース
                 ],
                 function (string $text) : bool {
                     return $text !== '';
                 }
             ))),
-            'ASKV',
+            $this->normalizeToWide ? 'ASKV' : 'aSKV',
             Yii::$app->charset
         );
         $this->drawTextToBox(
@@ -358,7 +358,7 @@ class Pdf extends Model
         if ($this->debug) {
             $this->pdf->Rect($left, $top, $width, $height, 'D');
         }
-        $this->pdf->SetFont('ipaexm', '', 0);
+        $this->pdf->SetFont($this->fontNameJa, '', 0);
         $fontSize = $this->calcFontSize($text, $width, $height, $maxFontSize);
         $this->pdf->SetFont('', '', static::mm2pt($fontSize));
         list ($textWidth, $textHeight) = $this->calcTextSize($text);
@@ -401,7 +401,7 @@ class Pdf extends Model
         if ($this->debug) {
             $this->pdf->Rect($left, $top, $width, $height, 'D');
         }
-        $this->pdf->SetFont('ipaexm', '', 0);
+        $this->pdf->SetFont($this->fontNameJa, '', 0);
         $fontSize = $this->calcFontSize($name, INF, $innerHeight);
         $this->pdf->SetFont('', '', static::mm2pt($fontSize));
         list ($textWidth, $textHeight) = $this->calcTextSize($name);
@@ -495,8 +495,16 @@ class Pdf extends Model
     public function drawName(string $name, ?string $kana): self
     {
         // {{{
-        $name = mb_convert_kana(trim($name), 'ASKV', Yii::$app->charset);
-        $kana = mb_convert_kana(trim($kana), 'ASCKV', Yii::$app->charset);
+        $name = mb_convert_kana(
+            trim($name),
+            $this->normalizeToWide ? 'ASKV' : 'aSKV',
+            Yii::$app->charset
+        );
+        $kana = mb_convert_kana(
+            trim($kana),
+            $this->normalizeToWide ? 'ASCKV' : 'aSCKV',
+            Yii::$app->charset
+        );
         $boxHeight = static::MAIN_NAME_BOTTOM - static::MAIN_NAME_TOP;
         $nameMaxHeight = (float)number_format($boxHeight * 0.618034, 2, '.', '');
         $kanaMaxHeight = (float)number_format($boxHeight - $nameMaxHeight, 2, '.', '');
@@ -513,7 +521,7 @@ class Pdf extends Model
             20.0
         );
         if ($kana !== '') {
-            $this->pdf->SetFont('ipaexm', '', 0);
+            $this->pdf->SetFont($this->fontNameJa, '', 0);
             $fontSize = $this->calcFontSize(
                 $kana,
                 (static::MAIN_NAME_RIGHT - static::MAIN_NAME_LEFT) / 0.75,
