@@ -235,6 +235,9 @@ $this->title = Yii::$app->name;
           おまけみたいなものなので通常はIPAex明朝を利用されるのがいいと思います。
           <ul>
             <li>
+              <a href="https://ipafont.ipa.go.jp/">IPAexゴシック</a>
+            </li>
+            <li>
               <a href="http://mplus-fonts.osdn.jp/">M+1p Regular</a>
             </li>
             <li>
