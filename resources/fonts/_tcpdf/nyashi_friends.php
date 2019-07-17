@@ -1,0 +1,1 @@
+../nyashi_friends/nyashi_friends.php

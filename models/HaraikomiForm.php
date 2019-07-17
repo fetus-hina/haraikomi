@@ -172,6 +172,8 @@ class HaraikomiForm extends Model
             'ipaexg' => 'ゴシック体（IPAexゴシック）',
             'mplus1p' => 'ゴシック体（M+ 1p）',
             'mikachanp' => '手書き（みかちゃん-P）',
+            'nyashi' => '手書き（にゃしぃフォント改二／睦月）',
+            'nyashi_friends' => '手書き（にゃしぃフレンズ／如月）',
         ];
     }
 }

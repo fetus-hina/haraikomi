@@ -33,10 +33,16 @@ Licensed under the MIT License.
   - [OCRB代替フォント](https://www.city.aizuwakamatsu.fukushima.jp/docs/2008021400265/)
     - Licensed under the SIL Open Font License
     - (C) Aizuwakamatsu City
-  - [IPAex明朝](https://ipafont.ipa.go.jp/)
+  - [IPAex明朝・ゴシック](https://ipafont.ipa.go.jp/)
     - Licensed under the [IPA Font License](https://ipafont.ipa.go.jp/ipa_font_license_v1-html)
     - (C) Information-technology Promotion Agency, Japan.
   - [M+ FONTS](http://mplus-fonts.osdn.jp/)
     - License: [Japanese](resources/fonts/mplus/LICENSE_J) [English](resources/fonts/mplus/LICENSE_E)
     - (C) M+ FONTS PROJECT
+  - [みかちゃん-P](http://www001.upp.so-net.ne.jp/mikachan/)
+    - License: [Japanese](resources/fonts/mikachan/LICENSE)
+    - (C) みかちゃん
+  - [にゃしぃフォント改二・にゃしぃフレンズ](http://marusexijaxs.web.fc2.com/)
+    - Licensed under the CC BY-ND 4.0
+    - (C) マルセ / プロジェクトU-Fo
 

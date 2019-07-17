@@ -243,6 +243,9 @@ $this->title = Yii::$app->name;
             <li>
               <a href="http://www001.upp.so-net.ne.jp/mikachan/">みかちゃん-P</a>
             </li>
+            <li>
+              <a href="http://marusexijaxs.web.fc2.com/tegakifont.html">にゃしぃフォント改二＆にゃしぃフレンズ</a>
+            </li>
           </ul>
         </li>
       </ul>

@@ -1,0 +1,1 @@
+../nyashi/nyashi.php
