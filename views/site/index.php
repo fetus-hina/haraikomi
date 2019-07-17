@@ -238,13 +238,16 @@ $this->title = Yii::$app->name;
               <a href="https://ipafont.ipa.go.jp/">IPAexゴシック</a>
             </li>
             <li>
+              <a href="https://ja.osdn.net/projects/ume-font/">梅明朝・梅ゴシック</a>
+            </li>
+            <li>
               <a href="http://mplus-fonts.osdn.jp/">M+1p Regular</a>
             </li>
             <li>
               <a href="http://www001.upp.so-net.ne.jp/mikachan/">みかちゃん-P</a>
             </li>
             <li>
-              <a href="http://marusexijaxs.web.fc2.com/tegakifont.html">にゃしぃフォント改二＆にゃしぃフレンズ</a>
+              <a href="http://marusexijaxs.web.fc2.com/tegakifont.html">にゃしぃフォント改二・にゃしぃフレンズ</a>
             </li>
           </ul>
         </li>

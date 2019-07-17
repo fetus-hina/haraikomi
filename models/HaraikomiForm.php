@@ -168,12 +168,14 @@ class HaraikomiForm extends Model
     public function getJapaneseFonts(): array
     {
         return [
-            'ipaexm' => '明朝体（IPAex明朝）',
-            'ipaexg' => 'ゴシック体（IPAexゴシック）',
-            'mplus1p' => 'ゴシック体（M+ 1p）',
-            'mikachanp' => '手書き（みかちゃん-P）',
-            'nyashi' => '手書き（にゃしぃフォント改二／睦月）',
-            'nyashi_friends' => '手書き（にゃしぃフレンズ／如月）',
+            'ipaexm'            => '明朝体（IPAex明朝）',
+            'umepmo3'           => '明朝体（梅P明朝）',
+            'ipaexg'            => 'ゴシック体（IPAexゴシック）',
+            'umepgo4'           => 'ゴシック体（梅Pゴシック）',
+            'mplus1p'           => 'ゴシック体（M+ 1p）',
+            'mikachanp'         => '手書き風（みかちゃん-P）',
+            'nyashi'            => '手書き風（にゃしぃフォント改二／睦月）',
+            'nyashi_friends'    => '手書き風（にゃしぃフレンズ／如月）',
         ];
     }
 }
