@@ -213,9 +213,20 @@ $this->title = Yii::$app->name;
         </div>
       </div>
     </div>
-    <?= $_->field($form, 'font_ja')
-      ->dropDownList($form->getJapaneseFonts()) . "\n"
-    ?>
+    <div class="card mb-3">
+      <div class="card-body">
+        <?= $_->field($form, 'font_ja')
+          ->dropDownList($form->getJapaneseFonts()) . "\n"
+        ?>
+        <?= $_->field($form, 'draw_form')
+          ->hint(implode('<br>', [
+              '印刷後のイメージを確認するために、罫線等を描画します。',
+              'このオプションを使用して出力したデータを実際に印刷して利用することはできません。',
+          ]))
+          ->checkbox() . "\n"
+        ?>
+      </div>
+    </div>
     <?= Html::submitButton(
       implode('', [
         Html::tag('span', '', ['class' => 'fas fa-fw fa-download']),
@@ -227,6 +238,21 @@ $this->title = Yii::$app->name;
   <hr>
   <h2>更新履歴</h2>
   <ul>
+    <li>
+      2019-07-19
+      <ul>
+        <li>
+          「罫線等を描画する」オプションを実装しました。
+          印刷しない状態でなんとなくのできあがりイメージがつかめるPDFが出力されますが、
+          このオプションを有効にしたPDFを実際に印刷して利用することはできません。
+        </li>
+        <li>
+          右側の「加入者名」が小さくなる場合の処理を変更しました。
+          とりあえず適当な場所で折り返されて出力されます。
+          文脈とかは読まないので、微妙な折り返しが行われます。
+        </li>
+      </ul>
+    </li>
     <li>
       2019-07-17
       <ul>

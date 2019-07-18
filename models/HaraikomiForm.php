@@ -23,6 +23,7 @@ class HaraikomiForm extends Model
     public $phone3;
     public $note;
     public $font_ja;
+    public $draw_form;
 
     public function rules()
     {
@@ -59,6 +60,8 @@ class HaraikomiForm extends Model
             [['font_ja'], 'required'],
             [['font_ja'], 'string'],
             [['font_ja'], 'in', 'range' => array_keys($this->getJapaneseFonts())],
+
+            [['draw_form'], 'boolean'],
         ];
     }
 
@@ -82,6 +85,7 @@ class HaraikomiForm extends Model
             'phone3' => '電話番号(3)',
             'note' => '通信欄',
             'font_ja' => '日本語フォント',
+            'draw_form' => '罫線等を描画する',
         ];
     }
 
@@ -92,6 +96,7 @@ class HaraikomiForm extends Model
                 'class' => Pdf::class,
                 'fontNameJa' => $this->font_ja,
                 'normalizeToWide' => strpos($fontNameHumanReadable, '明朝') !== false,
+                'drawLines' => !!$this->draw_form,
             ])
             ->setAccount($this->account1, $this->account2, $this->account3)
             ->setAccountName($this->account_name)

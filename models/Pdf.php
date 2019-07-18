@@ -20,13 +20,13 @@ class Pdf extends Model
     const MAIN_AMOUNT_LEFT          = self::MAIN_ACCOUNT_3_RIGHT + 5.08;
     const MAIN_AMOUNT_RIGHT         = self::MAIN_AMOUNT_LEFT + 5.08 * 8;
     const MAIN_ACCOUNT_NAME_TOP     = self::MAIN_ACCOUNT_BOTTOM + 1.75;
-    const MAIN_ACCOUNT_NAME_BOTTOM  = self::MAIN_ACCOUNT_NAME_TOP - 1.75 + 10;
-    const MAIN_ACCOUNT_NAME_LEFT    = self::MAIN_ACCOUNT_1_LEFT + 5.08;
-    const MAIN_ACCOUNT_NAME_RIGHT   = self::MAIN_ACCOUNT_3_RIGHT;
-    const MAIN_NOTE_TOP             = self::MAIN_ACCOUNT_NAME_BOTTOM;
+    const MAIN_ACCOUNT_NAME_BOTTOM  = self::MAIN_ACCOUNT_NAME_TOP - 1.75 + 10 - 1.0;
+    const MAIN_ACCOUNT_NAME_LEFT    = self::MAIN_ACCOUNT_1_LEFT + 5.08 + 1.0;
+    const MAIN_ACCOUNT_NAME_RIGHT   = self::MAIN_ACCOUNT_3_RIGHT - 1.0;
+    const MAIN_NOTE_TOP             = self::MAIN_ACCOUNT_NAME_BOTTOM + 1.0;
     const MAIN_NOTE_BOTTOM          = 57.5;
     const MAIN_NOTE_LEFT            = self::MAIN_ACCOUNT_NAME_LEFT + 2.0;
-    const MAIN_NOTE_RIGHT           = self::MAIN_AMOUNT_RIGHT;
+    const MAIN_NOTE_RIGHT           = self::MAIN_AMOUNT_RIGHT - 1.0;
     const MAIN_POSTALCODE_MIDDLE    = 60.2;
     const MAIN_POSTALCODE_1_LEFT    = 15.0;
     const MAIN_POSTALCODE_1_RIGHT   = 22.0;
@@ -67,16 +67,23 @@ class Pdf extends Model
     const SUB_AMOUNT_BOTTOM         = self::SUB_AMOUNT_TOP + 8;
     const SUB_AMOUNT_LEFT           = self::SUB_COMMON_LEFT;
     const SUB_AMOUNT_RIGHT          = self::SUB_COMMON_RIGHT;
-    const SUB_ACCOUNT_NAME_TOP      = self::SUB_ACCOUNT_3_BOTTOM + 1.75;
-    const SUB_ACCOUNT_NAME_BOTTOM   = self::SUB_ACCOUNT_NAME_TOP - 1.75 + 10;
-    const SUB_NAME_TOP              = self::SUB_AMOUNT_BOTTOM + 3.5;
+    const SUB_ACCOUNT_NAME_TOP      = self::SUB_ACCOUNT_3_BOTTOM + 1.0;
+    const SUB_ACCOUNT_NAME_BOTTOM   = self::SUB_ACCOUNT_NAME_TOP + 10 - 2.0;
+    const SUB_ACCOUNT_NAME_LEFT     = self::SUB_COMMON_LEFT + 1.0;
+    const SUB_ACCOUNT_NAME_RIGHT    = self::SUB_COMMON_RIGHT - 1.0;
+    const SUB_NAME_TOP              = self::SUB_AMOUNT_BOTTOM + 2;
     const SUB_NAME_BOTTOM           = self::SUB_AMOUNT_BOTTOM + 24 - 2;
     const SUB_NAME_LEFT             = self::SUB_COMMON_LEFT + 2.5;
     const SUB_NAME_RIGHT            = self::SUB_COMMON_RIGHT - 2;
 
     public $debug = false;
+    public $drawLines = false;
+    public $drawLineColor = [0x00, 0xa0, 0xe8];
+    public $fontNameForm = 'ipaexg';
+
     public $fontNameJa = 'ipaexm';
     public $normalizeToWide = true;
+
     private $pdf;
 
     public function init()
@@ -90,6 +97,10 @@ class Pdf extends Model
         $pdf->SetAutoPageBreak(false, 0);
         $pdf->AddPage();
         $this->pdf = $pdf;
+
+        if ($this->drawLines) {
+            $this->drawLines();
+        }
     }
 
     public function render(): string
@@ -176,23 +187,23 @@ class Pdf extends Model
     public function setAccountName(string $name): self
     {
         // {{{
-        return $this
-            ->drawAccountName(
-                self::MAIN_ACCOUNT_NAME_LEFT,
-                self::MAIN_ACCOUNT_NAME_TOP,
-                self::MAIN_ACCOUNT_NAME_RIGHT,
-                self::MAIN_ACCOUNT_NAME_BOTTOM,
-                1.5, // padding
-                $name
-            )
-            ->drawAccountName(
-                self::SUB_COMMON_LEFT,
-                self::SUB_ACCOUNT_NAME_TOP,
-                self::SUB_COMMON_RIGHT,
-                self::SUB_ACCOUNT_NAME_BOTTOM,
-                1.0, // padding
-                $name
-            );
+        $this->drawAccountName(
+            self::MAIN_ACCOUNT_NAME_LEFT,
+            self::MAIN_ACCOUNT_NAME_TOP,
+            self::MAIN_ACCOUNT_NAME_RIGHT,
+            self::MAIN_ACCOUNT_NAME_BOTTOM,
+            $name,
+            false
+        );
+        $this->drawAccountName(
+            self::SUB_ACCOUNT_NAME_LEFT,
+            self::SUB_ACCOUNT_NAME_TOP,
+            self::SUB_ACCOUNT_NAME_RIGHT,
+            self::SUB_ACCOUNT_NAME_BOTTOM,
+            $name,
+            true
+        );
+        return $this;
         // }}}
     }
 
@@ -386,9 +397,35 @@ class Pdf extends Model
         float $top,
         float $right,
         float $bottom,
-        float $padding,
-        string $name
+        string $name,
+        bool $acceptFolding
     ): self {
+        // {{{
+        if (!$acceptFolding) {
+            $this->drawAccountNameImpl($left, $top, $right, $bottom, $name, 0.0);
+        } else {
+            if (!$this->drawAccountNameImpl($left, $top, $right, $bottom, $name, 2.5)) {
+                //FIXME: 文字の幅を考慮する
+                $pos = (int)ceil(mb_strlen($name, 'UTF-8') / 2);
+                $name = implode("\n", [
+                    mb_substr($name, 0, $pos, 'UTF-8'),
+                    mb_substr($name, $pos, null, 'UTF-8'),
+                ]);
+                $this->drawAccountNameImpl($left, $top, $right, $bottom, $name, 0.0);
+            }
+        }
+        return $this;
+        // }}}
+    }
+
+    private function drawAccountNameImpl(
+        float $left,
+        float $top,
+        float $right,
+        float $bottom,
+        string $name,
+        float $minFontSize
+    ): bool {
         // {{{
         $left   = (float)number_format($left, 2, '.', '');
         $top    = (float)number_format($top, 2, '.', '');
@@ -396,13 +433,25 @@ class Pdf extends Model
         $bottom = (float)number_format($bottom, 2, '.', '');
         $width  = (float)number_format($right - $left, 2, '.', '');
         $height = (float)number_format($bottom - $top, 2, '.', '');
-        $innerWidth  = (float)number_format($width - $padding * 2, 2, '.', '');
-        $innerHeight = (float)number_format($height - $padding * 2, 2, '.', '');
+        $innerWidth  = $width;
+        $innerHeight = $height;
         if ($this->debug) {
             $this->pdf->Rect($left, $top, $width, $height, 'D');
         }
         $this->pdf->SetFont($this->fontNameJa, '', 0);
+        $fontSizeW = $this->calcFontSize($name, $innerWidth, INF);
+        if ($fontSizeW < $minFontSize) {
+            return false;
+        }
+
         $fontSize = $this->calcFontSize($name, INF, $innerHeight);
+
+        // 改行あるときは box にレンダリング
+        if (strpos($name, "\n") !== false) {
+            $this->drawTextToBox($left, $top, $right, $bottom, $name, 'M', $fontSize);
+            return true;
+        }
+        
         $this->pdf->SetFont('', '', static::mm2pt($fontSize));
         list ($textWidth, $textHeight) = $this->calcTextSize($name);
         $stretch = false;
@@ -418,13 +467,15 @@ class Pdf extends Model
                 $stretch = true;
             } else {
                 // 縦長文字で対応できないので普通に縮小する
-                $fontSize = $this->calcFontSize($name, $innerWidth, $innerHeight);
+                $fontSize = $this->calcFontSize($name, $innerWidth / 0.75, $innerHeight);
                 list ($textWidth, $textHeight) = $this->calcTextSize($name);
+                $textWidth *= 0.75;
+                $stretch = true;
             }
         }
 
-        $putLeft = ($left + $padding) + ($innerWidth / 2 - $textWidth / 2);
-        $putTop = ($top + $padding) + ($innerHeight / 2 - $textHeight / 2);
+        $putLeft = $left + ($innerWidth / 2 - $textWidth / 2);
+        $putTop = $top + ($innerHeight / 2 - $textHeight / 2);
         $this->pdf->SetXY($putLeft, $putTop);
         $this->pdf->Cell(
             $textWidth,
@@ -440,7 +491,7 @@ class Pdf extends Model
             'T',    // calign
             'M'     // valign
         );
-        return $this;
+        return true;
         // }}}
     }
 
@@ -534,8 +585,8 @@ class Pdf extends Model
                 static::MAIN_NAME_TOP,
                 static::MAIN_NAME_LEFT + $textWidth * 0.75,
                 static::MAIN_NAME_TOP + $kanaMaxHeight + 0.8,
-                0.0,
-                $kana
+                $kana,
+                false
             );
         }
         return $this;
@@ -604,6 +655,371 @@ class Pdf extends Model
         // }}}
     }
 
+    private function drawLines(): self
+    {
+        // 通信欄全体に「使用禁止」 // {{{
+        call_user_func_array([$this->pdf, 'SetTextColor'], array_map(
+            function (int $color): int {
+                return (int)floor(($color + 512) / 3);
+            },
+            $this->drawLineColor
+        ));
+        $this->pdf->SetFont($this->fontNameForm);
+        $size = $this->calcFontSize('使用禁止', 111.76, 57, 30);
+        $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt($size));
+        list(, $textHeight) = $this->calcTextSize('使用禁止');
+        $this->pdf->SetXY(9.08, 33 + 57 / 2 - $textHeight / 2);
+        $this->pdf->Cell(111.76, $textHeight, '使用禁止', 0, 0, 'C', false, '', 0, false, 'T', 'M');
+        // }}}
+
+        call_user_func_array([$this->pdf, 'SetTextColor'], $this->drawLineColor);
+        $this->drawDashedLines();
+        $this->drawMainLines();
+        $this->drawSubLines();
+
+        $this->pdf->SetTextColor(0, 0, 0);
+        $this->pdf->SetLineStyle([
+            'width' => 0.1,
+            'cap' => 'square',
+            'join' => 'square',
+            'dash' => 0,
+            'color' => [0, 0, 0],
+        ]);
+        return $this;
+    }
+
+    private function drawDashedLines(): self
+    {
+        // {{{
+        $this->pdf->SetLineStyle([
+            'width' => 0.15875,
+            'cap' => 'square',
+            'join' => 'square',
+            'dash' => 2,
+            'color' => $this->drawLineColor,
+        ]);
+
+        // メインとサブの境界
+        $this->pdf->Line(static::SUB_LEFT, 0, static::SUB_LEFT, 114);
+
+        // これより下部には～
+        $this->pdf->Line(0, 94, 85.84, 94);
+        $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(2.5));
+        $text = '裏面の注意事項をお読みください。（ゆうちょ銀行）（承認番号　第　　　　号）';
+        list(, $textHeight) = $this->calcTextSize($text);
+        $this->pdf->SetXY(4, 90 + (4 / 2 - $textHeight / 2));
+        $this->pdf->Cell(81.84, $textHeight, $text, 0, 0, 'L', false, '', 2, false, 'T', 'M');
+        $text = 'これより下部には何も記入しないでください。';
+        list(, $textHeight) = $this->calcTextSize($text);
+        $this->pdf->SetXY(4, 94 + (4 / 2 - $textHeight / 2));
+        $this->pdf->Cell(0, $textHeight, $text, 0, 0, 'L', false, '', 0, false, 'T', 'M');
+
+        // 使用禁止理由を記載
+        $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(1.75));
+        $lines = [
+            '払込取扱票の私製は原則として禁止されています。',
+            '払込取扱票の私製はゆうちょ銀行の審査を受け、許可を受ける必要があります。',
+            '罫線等の印刷はあくまで出力イメージの確認用に用意しており、',
+            '実際の払込に利用することはできませんし、利用することも想定していません。',
+            '正規の払込取扱票をご準備の上、通常モードで出力してご利用ください。',
+        ];
+        $y = 98;
+        foreach ($lines as $text) {
+            list(, $textHeight) = $this->calcTextSize($text);
+            $this->pdf->SetXY(4, $y);
+            $this->pdf->Cell(0, 0, $text, 0, 0, 'L', false, '', 0, false, 'T', 'T');
+            $y += $textHeight;
+        }
+
+        return $this;
+        // }}}
+    }
+
+    private function drawMainLines(): self
+    {
+        // {{{
+        // 太線
+        $this->pdf->SetLineStyle([
+            'width' => 0.3175,
+            'cap' => 'square',
+            'join' => 'square',
+            'dash' => 0,
+            'color' => $this->drawLineColor,
+        ]);
+        $this->pdf->Line(4, 6, 29.4, 6);
+        $this->pdf->Line(4, 6, 4, 23);
+        $this->pdf->Line(12.5, 6, 12.5, 12);
+        $this->pdf->Line(29.4, 6, 29.4, 12);
+        $this->pdf->Line(4, 12, 120.84, 12);
+        $this->pdf->Line(120.84, 12, 120.84, 33);
+        $this->pdf->Line(4, 23, 75.12, 23);
+        $this->pdf->Line(75.12, 23, 75.12, 33);
+        $this->pdf->Line(75.12, 33, 120.84, 33);
+
+        // 左上 00
+        $this->pdf->SetFont('ocrb_aizu_1_1', '', static::mm2pt(3.5));
+        list(, $textHeight) = $this->calcTextSize('00');
+        $this->pdf->SetXY(4, 6 + (6 / 2 - $textHeight / 2));
+        $this->pdf->Cell(8.5, $textHeight, '00', 0, 0, 'C', false, '', 0, false, 'T', 'M');
+
+        // 左上支社名？
+        $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(3.25));
+        list(, $textHeight) = $this->calcTextSize('横浜');
+        $this->pdf->SetXY(12.5, 6 + (6 / 2 - $textHeight / 2));
+        $this->pdf->Cell(16.9, $textHeight, '横浜', 0, 0, 'C', false, '', 0, false, 'T', 'M');
+
+        // 払込取扱票
+        $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(4.5));
+        $text = '払込取扱票';
+        list(, $textHeight) = $this->calcTextSize($text);
+        $this->pdf->SetXY(39.56, 4 + (8 / 2 - $textHeight / 2));
+        $this->pdf->Cell(55.88, $textHeight, $text, 0, 0, 'J', false, '', 4, false, 'T', 'M');
+
+        $this->pdf->SetLineStyle([
+            'width' => 0.15875,
+            'cap' => 'square',
+            'join' => 'square',
+            'dash' => 0,
+            'color' => $this->drawLineColor,
+        ]);
+
+        // 口座番号記号
+        $this->pdf->line(75.12, 12, 75.12, 33);
+        $this->pdf->Line(4, 15, 75.12, 15);
+        $xposes = [1, 2, 3, 4, '5', '5.5', '6.5', '7', '8', 9, 10, '11', 12, 13];
+        foreach ($xposes as $xpos) {
+            $this->pdf->SetLineStyle([
+                'width' => 0.15875,
+                'cap' => 'square',
+                'join' => 'square',
+                'dash' => is_string($xpos) ? 0 : 2,
+                'color' => $this->drawLineColor,
+            ]);
+            $x = 4 + 5.08 * (float)$xpos;
+            $this->pdf->Line($x, 15, $x, 23);
+        }
+        // =
+        $this->pdf->SetLineStyle([
+            'width' => 0.15875,
+            'cap' => 'square',
+            'join' => 'square',
+            'dash' => 0,
+            'color' => $this->drawLineColor,
+        ]);
+        foreach ([5, 6.5] as $xpos) {
+            $x = 4 + 5.08 * $xpos;
+            $this->pdf->Rect($x, 15 + 8 / 2 - 1.27 / 2, 2.54, 1.27, 'DF', [], array_map(
+                function (int $color): int {
+                    return (int)floor(($color + 512) / 3);
+                },
+                $this->drawLineColor
+            ));
+        }
+        // 払込取扱票
+        $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(2.5));
+        $text = '口座記号番号';
+        list(, $textHeight) = $this->calcTextSize($text);
+        $this->pdf->SetXY(4 + 12.7, 12 + (3 / 2 - $textHeight / 2));
+        $this->pdf->Cell(45.72, $textHeight, $text, 0, 0, 'J', false, '', 4, false, 'T', 'M');
+
+        // 金額
+        $this->pdf->Line(80.20, 15, 120.84, 15);
+        $this->pdf->Line(75.12, 23, 120.84, 23);
+        $xposes = ['0', 1, '2', 3, 4, '5', 6, 7];
+        foreach ($xposes as $xpos) {
+            $this->pdf->SetLineStyle([
+                'width' => 0.15875,
+                'cap' => 'square',
+                'join' => 'square',
+                'dash' => is_string($xpos) ? 0 : 2,
+                'color' => $this->drawLineColor,
+            ]);
+            $x = 4 + 5.08 * ((float)$xpos + 15);
+            $this->pdf->Line($x, 12, $x, 23);
+        }
+        $this->pdf->SetLineStyle([
+            'width' => 0.15875,
+            'cap' => 'square',
+            'join' => 'square',
+            'dash' => 0,
+            'color' => $this->drawLineColor,
+        ]);
+        //TODO: 縦書き: 金額
+        $texts = ['千', '百', '十', '万', '千', '百', '十', '円'];
+        list(, $textHeight) = $this->calcTextSize('円');
+        foreach ($texts as $i => $text) {
+            $this->pdf->SetXY(80.2 + $i * 5.08, 12 + (3 / 2 - $textHeight / 2));
+            $this->pdf->Cell(5.08, $textHeight, $text, 0, 0, 'C', false, '', 0, false, 'T', 'M');
+        }
+
+        // 料金
+        $this->pdf->Line(80.2, 23, 80.2, 33);
+        $this->pdf->Line(95.44, 23, 95.44, 33);
+        //TODO: 縦書き: 料金
+
+        // 備考
+        $this->pdf->Line(100.52, 23, 100.52, 33);
+        //TODO: 縦書き: 備考
+
+        // 加入者名
+        $this->pdf->Line(4, 23, 4, 90);
+        $this->pdf->Line(9.08, 23, 9.08, 90);
+        $this->pdf->Line(4, 33, 75.12, 33);
+        $this->pdf->Line(120.84, 33, 120.84, 98);
+        $this->pdf->Line(4, 90, 85.84, 90); // 依頼人の下
+        //TODO: 縦書き: 加入者名
+
+        // 通信欄
+        //TODO: 縦書き: 通信欄・ご依頼人
+
+        // 依頼人
+        //TODO: 依頼人のテキスト諸々
+
+        // 日附印
+        $this->pdf->Line(85.84, 70, 120.84, 70);
+        $this->pdf->Line(85.84, 70, 85.84, 98);
+        $this->pdf->Line(90.84, 70, 90.84, 98);
+        $this->pdf->Line(85.84, 98, 120.84, 98);
+        //TODO: 縦書き: 日附印
+        
+        return $this;
+        // }}}
+    }
+
+    private function drawSubLines(): self
+    {
+        // 振替払込請求書兼受領証
+        $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(4));
+        $text = '振替払込請求書兼受領証';
+        list(, $textHeight) = $this->calcTextSize($text);
+        $this->pdf->SetXY(133.54, 4 + (8 / 2 - $textHeight / 2));
+        $this->pdf->Cell(40.64, $textHeight, $text, 0, 0, 'J', false, '', 1, false, 'T', 'M');
+
+        $this->pdf->SetLineStyle([
+            'width' => 0.15875,
+            'cap' => 'square',
+            'join' => 'square',
+            'dash' => 0,
+            'color' => $this->drawLineColor,
+        ]);
+
+        $this->pdf->Line(131, 15, 131, 111);
+        $this->pdf->Line(136.08, 15, 136.08, 111);
+        $this->pdf->Line(176.72, 23, 176.72, 111);
+
+        // 口座番号記号
+        $this->pdf->Line(131, 15, 169.1, 15);
+        $this->pdf->Line(169.1, 15, 169.1, 23);
+        $this->pdf->Line(136.08, 23, 176.72, 23);
+        $this->pdf->Line(136.08, 26, 176.72, 26);
+        $this->pdf->Line(131, 34, 176.72, 34);
+        $xposes = [1, 2, 3, 4, '5', '5.5'];
+        foreach ($xposes as $xpos) {
+            $this->pdf->SetLineStyle([
+                'width' => 0.15875,
+                'cap' => 'square',
+                'join' => 'square',
+                'dash' => is_string($xpos) ? 0 : 2,
+                'color' => $this->drawLineColor,
+            ]);
+            $x = 136.08 + 5.08 * (float)$xpos;
+            $this->pdf->Line($x, 15, $x, 23);
+        }
+        $xposes = ['2', 3, 4, '5', 6, 7];
+        foreach ($xposes as $xpos) {
+            $this->pdf->SetLineStyle([
+                'width' => 0.15875,
+                'cap' => 'square',
+                'join' => 'square',
+                'dash' => is_string($xpos) ? 0 : 2,
+                'color' => $this->drawLineColor,
+            ]);
+            $x = 136.08 + 5.08 * (float)$xpos;
+            $this->pdf->Line($x, 26, $x, 34);
+        }
+        // =
+        $this->pdf->SetLineStyle([
+            'width' => 0.15875,
+            'cap' => 'square',
+            'join' => 'square',
+            'dash' => 0,
+            'color' => $this->drawLineColor,
+        ]);
+        $this->pdf->Rect(161.48, 15 + 8 / 2 - 1.27 / 2, 2.54, 1.27, 'DF', [], array_map(
+            function (int $color): int {
+                return (int)floor(($color + 512) / 3);
+            },
+            $this->drawLineColor
+        ));
+
+        // 加入者名
+        $this->pdf->Line(131, 44, 176.72, 44);
+
+        // 金額
+        $this->pdf->Line(136.08, 47, 176.72, 47);
+        $this->pdf->Line(131, 55, 176.72, 55);
+        $xposes = [1, '2', 3, 4, '5', 6, 7];
+        foreach ($xposes as $xpos) {
+            $this->pdf->SetLineStyle([
+                'width' => 0.15875,
+                'cap' => 'square',
+                'join' => 'square',
+                'dash' => is_string($xpos) ? 0 : 2,
+                'color' => $this->drawLineColor,
+            ]);
+            $x = 136.08 + 5.08 * (float)$xpos;
+            $this->pdf->Line($x, 44, $x, 55);
+        }
+        $this->pdf->SetLineStyle([
+            'width' => 0.15875,
+            'cap' => 'square',
+            'join' => 'square',
+            'dash' => 0,
+            'color' => $this->drawLineColor,
+        ]);
+        $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(2.5));
+        $texts = ['千', '百', '十', '万', '千', '百', '十', '円'];
+        list(, $textHeight) = $this->calcTextSize('円');
+        foreach ($texts as $i => $text) {
+            $this->pdf->SetXY(136.08 + 5.08 * $i, 44 + (3 / 2 - $textHeight / 2));
+            $this->pdf->Cell(5.08, $textHeight, $text, 0, 0, 'C', false, '', 0, false, 'T', 'M');
+        }
+
+        // 依頼人
+        $this->pdf->Line(131, 79, 176.72, 79);
+
+        // 日附印
+        $this->pdf->Line(146.24, 79, 146.24, 111);
+        $this->pdf->Line(146.24, 83, 176.72, 83);
+        $this->pdf->Line(131, 111, 176.72, 111);
+        $this->pdf->Line(131, 94, 146.24, 94); // 料金と備考の間の線
+        $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(3.0));
+        $text = '日附印';
+        list(, $textHeight) = $this->calcTextSize($text);
+        $this->pdf->SetXY(148.78, 79 + (4 / 2 - $textHeight / 2));
+        $this->pdf->Cell(25.44, $textHeight, $text, 0, 0, 'J', false, '', 4, false, 'T', 'M');
+
+        // 料金
+        $this->pdf->SetFont($this->fontNameForm);
+        $text = '（消費税込み）';
+        $size = $this->calcFontSize($text, 10.16, INF);
+        $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt($size));
+        $this->pdf->SetXY(136.08, 79.1);
+        $this->pdf->Cell(10.16, 0, $text, 0, 0, 'C', false, '', 0, false, 'T', 'M');
+        $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(2.5));
+        $this->pdf->SetXY(136.08, 94 - 0.5);
+        $this->pdf->Cell(10.16 - 0.5, 0, '円', 0, 0, 'R', false, '', 0, false, 'B', 'B');
+
+        // 訂正印
+        $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(1.75));
+        $this->pdf->SetXY(131, 111.5);
+        $text = 'この受領証は、大切に保管してください。';
+        $this->pdf->Cell(0, 0, $text, 0, 0, 'L', false, '', 0, false, 'T', 'T');
+        
+        return $this;
+        // }}}
+    }
+
     private function calcTextSize(string $text): array
     {
         // {{{
@@ -612,7 +1028,7 @@ class Pdf extends Model
         return [
             // width
             max(array_map(
-                function (string $text) : float {
+                function (string $text): float {
                     return $this->pdf->GetStringWidth($text);
                 },
                 $lines
@@ -620,7 +1036,7 @@ class Pdf extends Model
             // height
             array_reduce(
                 $lines,
-                function (float $carry, string $item) : float {
+                function (float $carry, string $item): float {
                     return $carry + $this->pdf->GetStringHeight(0, $item, false, 0);
                 },
                 0.0
