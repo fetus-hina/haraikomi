@@ -134,13 +134,63 @@ $this->title = Yii::$app->name;
             <button type="button" class="btn btn-sm btn-outline-secondary saver saver-save" data-save="from" data-label="依頼人" disabled>
               <span class="far fa-save"></span> Save
             </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary saver saver-load" data-save="from" data-label="依頼人" disabled>
+            <button type="button" class="btn btn-sm btn-outline-secondary saver saver-load" data-save="from" data-preset="#from-preset" data-label="依頼人" disabled>
               <span class="far fa-folder-open"></span> Load
             </button>
             <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#modal-save-help">
               <span class="fas fa-fw fa-info"></span>
             </button>
           </div>
+          <script type="application/json" id="from-preset"><?= Json::encode([
+            [
+              'name' => 'ダミーデータ：皇居',
+              'mtime' => null,
+              'data' => [
+                'postal_code' => '1000001',
+                'pref_id' => 13,
+                'address1' => '千代田区',
+                'address2' => '千代田1番1号',
+                'address3' => '',
+                'name' => '令和　太郎',
+                'kana' => 'レイワ　タロウ',
+                'phone1' => '090',
+                'phone2' => '1234',
+                'phone3' => '5678',
+              ],
+            ],
+            [
+              'name' => 'ダミーデータ：東京都庁',
+              'mtime' => null,
+              'data' => [
+                'postal_code' => '1638001',
+                'pref_id' => 13,
+                'address1' => '新宿区',
+                'address2' => '西新宿2-8-1',
+                'address3' => '東京都庁45階',
+                'name' => '令和　太郎',
+                'kana' => 'レイワ　タロウ',
+                'phone1' => '080',
+                'phone2' => '1234',
+                'phone3' => '5678',
+              ],
+            ],
+            [
+              'name' => 'ダミーデータ：大阪府庁',
+              'mtime' => null,
+              'data' => [
+                'postal_code' => '5408570',
+                'pref_id' => 27,
+                'address1' => '大阪市中央区',
+                'address2' => '大手前2-1-22',
+                'address3' => '',
+                'name' => '令和　太郎',
+                'kana' => 'レイワ　タロウ',
+                'phone1' => '070',
+                'phone2' => '1234',
+                'phone3' => '5678',
+              ],
+            ],
+          ]) ?></script>
         </div>
 
         <?= $_->field($form, 'postal_code')
