@@ -32,7 +32,7 @@
             "version": "3.4.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:jquery/jquery-dist.git",
+                "url": "https://github.com/jquery/jquery-dist.git",
                 "reference": "15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
             },
             "dist": {
@@ -264,16 +264,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.22",
+            "version": "2.0.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "417299927ed14adcd51c69a9d75311c5fc33d227"
+                "reference": "d430bf78cf59e341bf4a1cb401a4ae71a889a492"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/417299927ed14adcd51c69a9d75311c5fc33d227",
-                "reference": "417299927ed14adcd51c69a9d75311c5fc33d227",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/d430bf78cf59e341bf4a1cb401a4ae71a889a492",
+                "reference": "d430bf78cf59e341bf4a1cb401a4ae71a889a492",
                 "shasum": ""
             },
             "require": {
@@ -360,7 +360,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2019-07-02T20:28:40+00:00"
+            "time": "2019-07-16T19:44:09+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap4",
@@ -433,23 +433,24 @@
         },
         {
             "name": "yiisoft/yii2-composer",
-            "version": "2.0.7",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-composer.git",
-                "reference": "1439e78be1218c492e6cde251ed87d3f128b9534"
+                "reference": "5c7ca9836cf80b34db265332a7f2f8438eb469b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/1439e78be1218c492e6cde251ed87d3f128b9534",
-                "reference": "1439e78be1218c492e6cde251ed87d3f128b9534",
+                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/5c7ca9836cf80b34db265332a7f2f8438eb469b9",
+                "reference": "5c7ca9836cf80b34db265332a7f2f8438eb469b9",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^1.0"
             },
             "require-dev": {
-                "composer/composer": "^1.0"
+                "composer/composer": "^1.0",
+                "phpunit/phpunit": "<7"
             },
             "type": "composer-plugin",
             "extra": {
@@ -483,7 +484,7 @@
                 "extension installer",
                 "yii2"
             ],
-            "time": "2018-07-05T15:44:47+00:00"
+            "time": "2019-07-16T13:22:30+00:00"
         }
     ],
     "packages-dev": [
