@@ -289,6 +289,23 @@ $this->title = Yii::$app->name;
   <h2>更新履歴</h2>
   <ul>
     <li>
+      2019-07-21
+      <ul>
+        <li>
+          フォントを追加しました。
+          源ノ角ゴシック（Noto Sans CJK / Source Han Sans）ベースのフォントです。
+          <ul>
+            <li>
+              <a href="http://jikasei.me/font/genshin/">源真ゴシック</a>
+            </li>
+            <li>
+              <a href="http://jikasei.me/font/genjyuu/">源柔ゴシック</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
       2019-07-19
       <ul>
         <li>
