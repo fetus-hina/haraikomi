@@ -13,8 +13,9 @@
 
   - OS: Linux以外では確認していません
   - PHP: PHP 7.3.x
-    - PHP 7.2.x および PHP 7.4.x では動作しません
-  - NodeJS: 最新の安定版
+    - PHP 7.2.x および [PHP 7.4.x では動作しません](https://github.com/tecnickcom/TCPDF/pull/123)
+  - NodeJS: 最新のLTSまたは安定版
+  - 適当なウェブサーバと、PHPへのつなぎ込み(Apache Module or PHP-FPM)
 
 ### セットアップ
 
@@ -36,6 +37,9 @@ Licensed under the MIT License.
   - [IPAex明朝・ゴシック](https://ipafont.ipa.go.jp/)
     - Licensed under the [IPA Font License](https://ipafont.ipa.go.jp/ipa_font_license_v1-html)
     - (C) Information-technology Promotion Agency, Japan.
+  - [源真ゴシック](http://jikasei.me/font/genshin/)・[源柔ゴシック](http://jikasei.me/font/genjyuu/)
+    - Licensed under the SIL Open Font License 1.1
+    - (C) Adobe, M+ FONTS PROJECT, 自家製フォント工房
   - [梅明朝・ゴシック](https://ja.osdn.net/projects/ume-font/)
     - [License](resources/fonts/umefont/license.html)
   - [M+ FONTS](http://mplus-fonts.osdn.jp/)
