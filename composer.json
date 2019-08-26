@@ -15,16 +15,17 @@
         "yiisoft/yii2-debug": "*",
         "yiisoft/yii2-gii": "*"
     },
+    "replace": {
+        "bower-asset/inputmask": "~3.3.11",
+        "bower-asset/jquery": "*",
+        "bower-asset/punycode": "1.3.*",
+        "bower-asset/yii2-pjax": "*",
+        "npm-asset/bootstrap": "4.*"
+    },
     "config": {
         "process-timeout": 1800,
         "fxp-asset": {
             "enabled": false
         }
-    },
-    "repositories": [
-      {
-        "type": "composer",
-        "url": "https://asset-packagist.org"
-      }
-    ]
+    }
 }

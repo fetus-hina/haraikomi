@@ -1,4 +1,11 @@
 <?php
+declare(strict_types=1);
+
+use app\models\User;
+use yii\caching\FileCache;
+use yii\debug\Module as DebugModule;
+use yii\log\FileTarget;
+
 $config = [
     'id' => 'haraikomi',
     'name' => '払込取扱票印刷用PDF作成機',
@@ -6,18 +13,18 @@ $config = [
     'language' => 'ja-JP',
     'bootstrap' => ['log'],
     'aliases' => [
-        '@bower' => '@vendor/bower-asset',
-        '@npm' => '@vendor/npm-asset',
+        // '@bower' => '@vendor/bower-asset',
+        '@npm' => '@app/node_modules',
     ],
     'components' => [
         'request' => [
             'cookieValidationKey' => include(__DIR__ . '/cookie.php'),
         ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => FileCache::class,
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => User::class,
             'enableAutoLogin' => false,
         ],
         'errorHandler' => [
@@ -27,7 +34,7 @@ $config = [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class' => FileTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
             ],
@@ -39,10 +46,7 @@ $config = [
             'rules' => [
             ],
         ],
-        'assetManager' => [
-            'linkAssets' => true,
-            'appendTimestamp' => true,
-        ],
+        'assetManager' => require(__DIR__ . '/asset-manager.php'),
     ],
     'params' => require(__DIR__ . '/params.php'),
 ];
@@ -50,7 +54,7 @@ $config = [
 if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
+        'class' => DebugModule::class,
         'allowedIPs' => file_exists(__DIR__ . '/debug-ips.php')
             ? require(__DIR__ . '/debug-ips.php')
             : ['127.0.0.1', '::1'],
