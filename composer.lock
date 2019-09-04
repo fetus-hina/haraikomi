@@ -50,9 +50,9 @@
             "authors": [
                 {
                     "name": "Carsten Brandt",
+                    "role": "Creator",
                     "email": "mail@cebe.cc",
-                    "homepage": "http://cebe.cc/",
-                    "role": "Creator"
+                    "homepage": "http://cebe.cc/"
                 }
             ],
             "description": "A super fast, highly extensible markdown parser for PHP",
@@ -158,8 +158,8 @@
             "authors": [
                 {
                     "name": "Nicola Asuni",
-                    "email": "info@tecnick.com",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "info@tecnick.com"
                 }
             ],
             "description": "TCPDF is a PHP class for generating PDF documents and barcodes.",
@@ -177,16 +177,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.25",
+            "version": "2.0.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "c6148db8519b221d2485aa372267c063b2e198e9"
+                "reference": "5ca9036dd6eb75354fbd287cc57f79ca861fb7f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/c6148db8519b221d2485aa372267c063b2e198e9",
-                "reference": "c6148db8519b221d2485aa372267c063b2e198e9",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/5ca9036dd6eb75354fbd287cc57f79ca861fb7f1",
+                "reference": "5ca9036dd6eb75354fbd287cc57f79ca861fb7f1",
                 "shasum": ""
             },
             "require": {
@@ -223,48 +223,48 @@
             "authors": [
                 {
                     "name": "Qiang Xue",
-                    "role": "Founder and project lead",
                     "email": "qiang.xue@gmail.com",
-                    "homepage": "http://www.yiiframework.com/"
+                    "homepage": "http://www.yiiframework.com/",
+                    "role": "Founder and project lead"
                 },
                 {
                     "name": "Alexander Makarov",
-                    "role": "Core framework development",
                     "email": "sam@rmcreative.ru",
-                    "homepage": "http://rmcreative.ru/"
+                    "homepage": "http://rmcreative.ru/",
+                    "role": "Core framework development"
                 },
                 {
                     "name": "Maurizio Domba",
-                    "role": "Core framework development",
-                    "homepage": "http://mdomba.info/"
+                    "homepage": "http://mdomba.info/",
+                    "role": "Core framework development"
                 },
                 {
                     "name": "Carsten Brandt",
-                    "role": "Core framework development",
                     "email": "mail@cebe.cc",
-                    "homepage": "http://cebe.cc/"
+                    "homepage": "http://cebe.cc/",
+                    "role": "Core framework development"
                 },
                 {
                     "name": "Timur Ruziev",
-                    "role": "Core framework development",
                     "email": "resurtm@gmail.com",
-                    "homepage": "http://resurtm.com/"
+                    "homepage": "http://resurtm.com/",
+                    "role": "Core framework development"
                 },
                 {
                     "name": "Paul Klimov",
-                    "role": "Core framework development",
-                    "email": "klimov.paul@gmail.com"
+                    "email": "klimov.paul@gmail.com",
+                    "role": "Core framework development"
                 },
                 {
                     "name": "Dmitry Naumenko",
-                    "role": "Core framework development",
-                    "email": "d.naumenko.a@gmail.com"
+                    "email": "d.naumenko.a@gmail.com",
+                    "role": "Core framework development"
                 },
                 {
                     "name": "Boudewijn Vahrmeijer",
-                    "role": "Core framework development",
                     "email": "info@dynasource.eu",
-                    "homepage": "http://dynasource.eu"
+                    "homepage": "http://dynasource.eu",
+                    "role": "Core framework development"
                 }
             ],
             "description": "Yii PHP Framework Version 2",
@@ -273,7 +273,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2019-08-13T20:04:44+00:00"
+            "time": "2019-09-03T21:38:33+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap4",
