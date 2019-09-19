@@ -12,8 +12,7 @@
 ### 要求環境
 
   - OS: Linux以外では確認していません
-  - PHP: PHP 7.3.x
-    - PHP 7.2.x および [PHP 7.4.x では動作しません](https://github.com/tecnickcom/TCPDF/pull/123)
+  - PHP: PHP 7.3.x 以上
   - NodeJS: 最新のLTSまたは安定版
   - 適当なウェブサーバと、PHPへのつなぎ込み(Apache Module or PHP-FPM)
 
