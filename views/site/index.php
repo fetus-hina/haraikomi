@@ -295,7 +295,7 @@ $this->title = Yii::$app->name;
           台風15号の義援金口座情報を追加しました。
         </li>
         <li>
-          <a href="http://marusexijaxs.web.fc2.com/tegakifont.html">にゃしぃフォント改二</a>をVersion 2.075に更新しました。
+          <a href="http://marusexijaxs.web.fc2.com/tegakifont.html">にゃしぃフォント改二・にゃしぃフレンズ</a>をVersion 2.075に更新しました。「㋿」に対応したようです。
         </li>
       </ul>
     </li>
