@@ -27,8 +27,8 @@ class Pdf extends Model
     const MAIN_NOTE_BOTTOM          = 57.5;
     const MAIN_NOTE_LEFT            = self::MAIN_ACCOUNT_NAME_LEFT + 2.0;
     const MAIN_NOTE_RIGHT           = self::MAIN_AMOUNT_RIGHT - 1.0;
-    const MAIN_POSTALCODE_MIDDLE    = 60.2;
-    const MAIN_POSTALCODE_1_LEFT    = 15.0;
+    const MAIN_POSTALCODE_MIDDLE    = 60.1;
+    const MAIN_POSTALCODE_1_LEFT    = 14.5;
     const MAIN_POSTALCODE_1_RIGHT   = 22.0;
     const MAIN_POSTALCODE_2_LEFT    = 25.5;
     const MAIN_POSTALCODE_2_RIGHT   = self::MAIN_AMOUNT_RIGHT;
@@ -42,11 +42,11 @@ class Pdf extends Model
     const MAIN_NAME_RIGHT           = 79.0;
     const MAIN_PHONE_MIDDLE         = 87.0;
     const MAIN_PHONE_1_LEFT         = 31.0;
-    const MAIN_PHONE_1_RIGHT        = self::MAIN_PHONE_1_LEFT + 8.0;
-    const MAIN_PHONE_2_LEFT         = self::MAIN_PHONE_1_RIGHT + 2.25;
-    const MAIN_PHONE_2_RIGHT        = self::MAIN_PHONE_2_LEFT + 8.0;
-    const MAIN_PHONE_3_LEFT         = self::MAIN_PHONE_2_RIGHT + 2.25;
-    const MAIN_PHONE_3_RIGHT        = self::MAIN_PHONE_3_LEFT + 8.0;
+    const MAIN_PHONE_1_RIGHT        = 39.0;
+    const MAIN_PHONE_2_LEFT         = 41.5;
+    const MAIN_PHONE_2_RIGHT        = 50.0;
+    const MAIN_PHONE_3_LEFT         = 51.5;
+    const MAIN_PHONE_3_RIGHT        = 60.0;
 
     const SUB_LEFT                  = 180 - 55;
     const SUB_COMMON_LEFT           = self::SUB_LEFT + 6 + 5.08;
