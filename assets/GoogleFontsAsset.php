@@ -1,4 +1,5 @@
 <?php
+
 namespace app\assets;
 
 use yii\bootstrap4\BootstrapAsset;

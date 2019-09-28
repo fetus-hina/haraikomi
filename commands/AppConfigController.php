@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace app\commands;
@@ -8,7 +9,7 @@ use yii\console\Controller;
 
 class AppConfigController extends Controller
 {
-    public function actionCookie() : int
+    public function actionCookie(): int
     {
         $path = Yii::getAlias('@app/config/cookie.php');
         $value = file_exists($path)

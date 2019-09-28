@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models;
 
 use TCPDF;
@@ -7,74 +8,74 @@ use yii\base\Model;
 
 class Pdf extends Model
 {
-    const MAIN_ACCOUNT_TOP          = 6 + 6 + 3;
-    const MAIN_ACCOUNT_BOTTOM       = self::MAIN_ACCOUNT_TOP + 8;
-    const MAIN_ACCOUNT_1_LEFT       = 4;
-    const MAIN_ACCOUNT_1_RIGHT      = self::MAIN_ACCOUNT_1_LEFT + 5.08 * 5;
-    const MAIN_ACCOUNT_2_LEFT       = self::MAIN_ACCOUNT_1_RIGHT + 2.54;
-    const MAIN_ACCOUNT_2_RIGHT      = self::MAIN_ACCOUNT_2_LEFT + 5.08;
-    const MAIN_ACCOUNT_3_LEFT       = self::MAIN_ACCOUNT_2_RIGHT + 2.54;
-    const MAIN_ACCOUNT_3_RIGHT      = self::MAIN_ACCOUNT_3_LEFT + 5.08 * 7;
-    const MAIN_AMOUNT_TOP           = self::MAIN_ACCOUNT_TOP;
-    const MAIN_AMOUNT_BOTTOM        = self::MAIN_ACCOUNT_BOTTOM;
-    const MAIN_AMOUNT_LEFT          = self::MAIN_ACCOUNT_3_RIGHT + 5.08;
-    const MAIN_AMOUNT_RIGHT         = self::MAIN_AMOUNT_LEFT + 5.08 * 8;
-    const MAIN_ACCOUNT_NAME_TOP     = self::MAIN_ACCOUNT_BOTTOM + 1.75;
-    const MAIN_ACCOUNT_NAME_BOTTOM  = self::MAIN_ACCOUNT_NAME_TOP - 1.75 + 10 - 1.0;
-    const MAIN_ACCOUNT_NAME_LEFT    = self::MAIN_ACCOUNT_1_LEFT + 5.08 + 1.0;
-    const MAIN_ACCOUNT_NAME_RIGHT   = self::MAIN_ACCOUNT_3_RIGHT - 1.0;
-    const MAIN_NOTE_TOP             = self::MAIN_ACCOUNT_NAME_BOTTOM + 1.0;
-    const MAIN_NOTE_BOTTOM          = 57.5;
-    const MAIN_NOTE_LEFT            = self::MAIN_ACCOUNT_NAME_LEFT + 2.0;
-    const MAIN_NOTE_RIGHT           = self::MAIN_AMOUNT_RIGHT - 1.0;
-    const MAIN_POSTALCODE_MIDDLE    = 60.1;
-    const MAIN_POSTALCODE_1_LEFT    = 14.5;
-    const MAIN_POSTALCODE_1_RIGHT   = 22.0;
-    const MAIN_POSTALCODE_2_LEFT    = 25.5;
-    const MAIN_POSTALCODE_2_RIGHT   = self::MAIN_AMOUNT_RIGHT;
-    const MAIN_ADDRESS_TOP          = 62.0;
-    const MAIN_ADDRESS_BOTTOM       = 75.0;
-    const MAIN_ADDRESS_LEFT         = 15.5;
-    const MAIN_ADDRESS_RIGHT        = 85.4;
-    const MAIN_NAME_TOP             = 75.5;
-    const MAIN_NAME_BOTTOM          = 85.0;
-    const MAIN_NAME_LEFT            = self::MAIN_ADDRESS_LEFT;
-    const MAIN_NAME_RIGHT           = 79.0;
-    const MAIN_PHONE_MIDDLE         = 87.0;
-    const MAIN_PHONE_1_LEFT         = 31.0;
-    const MAIN_PHONE_1_RIGHT        = 39.0;
-    const MAIN_PHONE_2_LEFT         = 41.5;
-    const MAIN_PHONE_2_RIGHT        = 50.0;
-    const MAIN_PHONE_3_LEFT         = 51.5;
-    const MAIN_PHONE_3_RIGHT        = 60.0;
+    private const MAIN_ACCOUNT_TOP          = 6 + 6 + 3;
+    private const MAIN_ACCOUNT_BOTTOM       = self::MAIN_ACCOUNT_TOP + 8;
+    private const MAIN_ACCOUNT_1_LEFT       = 4;
+    private const MAIN_ACCOUNT_1_RIGHT      = self::MAIN_ACCOUNT_1_LEFT + 5.08 * 5;
+    private const MAIN_ACCOUNT_2_LEFT       = self::MAIN_ACCOUNT_1_RIGHT + 2.54;
+    private const MAIN_ACCOUNT_2_RIGHT      = self::MAIN_ACCOUNT_2_LEFT + 5.08;
+    private const MAIN_ACCOUNT_3_LEFT       = self::MAIN_ACCOUNT_2_RIGHT + 2.54;
+    private const MAIN_ACCOUNT_3_RIGHT      = self::MAIN_ACCOUNT_3_LEFT + 5.08 * 7;
+    private const MAIN_AMOUNT_TOP           = self::MAIN_ACCOUNT_TOP;
+    private const MAIN_AMOUNT_BOTTOM        = self::MAIN_ACCOUNT_BOTTOM;
+    private const MAIN_AMOUNT_LEFT          = self::MAIN_ACCOUNT_3_RIGHT + 5.08;
+    private const MAIN_AMOUNT_RIGHT         = self::MAIN_AMOUNT_LEFT + 5.08 * 8;
+    private const MAIN_ACCOUNT_NAME_TOP     = self::MAIN_ACCOUNT_BOTTOM + 1.75;
+    private const MAIN_ACCOUNT_NAME_BOTTOM  = self::MAIN_ACCOUNT_NAME_TOP - 1.75 + 10 - 1.0;
+    private const MAIN_ACCOUNT_NAME_LEFT    = self::MAIN_ACCOUNT_1_LEFT + 5.08 + 1.0;
+    private const MAIN_ACCOUNT_NAME_RIGHT   = self::MAIN_ACCOUNT_3_RIGHT - 1.0;
+    private const MAIN_NOTE_TOP             = self::MAIN_ACCOUNT_NAME_BOTTOM + 1.0;
+    private const MAIN_NOTE_BOTTOM          = 57.5;
+    private const MAIN_NOTE_LEFT            = self::MAIN_ACCOUNT_NAME_LEFT + 2.0;
+    private const MAIN_NOTE_RIGHT           = self::MAIN_AMOUNT_RIGHT - 1.0;
+    private const MAIN_POSTALCODE_MIDDLE    = 60.1;
+    private const MAIN_POSTALCODE_1_LEFT    = 14.5;
+    private const MAIN_POSTALCODE_1_RIGHT   = 22.0;
+    private const MAIN_POSTALCODE_2_LEFT    = 25.5;
+    private const MAIN_POSTALCODE_2_RIGHT   = self::MAIN_AMOUNT_RIGHT;
+    private const MAIN_ADDRESS_TOP          = 62.0;
+    private const MAIN_ADDRESS_BOTTOM       = 75.0;
+    private const MAIN_ADDRESS_LEFT         = 15.5;
+    private const MAIN_ADDRESS_RIGHT        = 85.4;
+    private const MAIN_NAME_TOP             = 75.5;
+    private const MAIN_NAME_BOTTOM          = 85.0;
+    private const MAIN_NAME_LEFT            = self::MAIN_ADDRESS_LEFT;
+    private const MAIN_NAME_RIGHT           = 79.0;
+    private const MAIN_PHONE_MIDDLE         = 87.0;
+    private const MAIN_PHONE_1_LEFT         = 31.0;
+    private const MAIN_PHONE_1_RIGHT        = 39.0;
+    private const MAIN_PHONE_2_LEFT         = 41.5;
+    private const MAIN_PHONE_2_RIGHT        = 50.0;
+    private const MAIN_PHONE_3_LEFT         = 51.5;
+    private const MAIN_PHONE_3_RIGHT        = 60.0;
 
-    const SUB_LEFT                  = 180 - 55;
-    const SUB_COMMON_LEFT           = self::SUB_LEFT + 6 + 5.08;
-    const SUB_COMMON_RIGHT          = self::SUB_COMMON_LEFT + 5.08 * 8;
-    const SUB_ACCOUNT_1_TOP         = 15;
-    const SUB_ACCOUNT_1_BOTTOM      = self::SUB_ACCOUNT_1_TOP + 8;
-    const SUB_ACCOUNT_2_TOP         = self::SUB_ACCOUNT_1_TOP;
-    const SUB_ACCOUNT_2_BOTTOM      = self::SUB_ACCOUNT_1_BOTTOM;
-    const SUB_ACCOUNT_3_TOP         = self::SUB_ACCOUNT_1_BOTTOM + 3;
-    const SUB_ACCOUNT_3_BOTTOM      = self::SUB_ACCOUNT_3_TOP + 8;
-    const SUB_ACCOUNT_1_LEFT        = self::SUB_COMMON_LEFT;
-    const SUB_ACCOUNT_1_RIGHT       = self::SUB_COMMON_LEFT + 5.08 * 5;
-    const SUB_ACCOUNT_2_LEFT        = self::SUB_ACCOUNT_1_RIGHT + 2.54;
-    const SUB_ACCOUNT_2_RIGHT       = self::SUB_ACCOUNT_2_LEFT + 5.08;
-    const SUB_ACCOUNT_3_LEFT        = self::SUB_COMMON_LEFT + 5.08;
-    const SUB_ACCOUNT_3_RIGHT       = self::SUB_COMMON_RIGHT;
-    const SUB_AMOUNT_TOP            = 15 + 8 + 3 + 8 + 10 + 3;
-    const SUB_AMOUNT_BOTTOM         = self::SUB_AMOUNT_TOP + 8;
-    const SUB_AMOUNT_LEFT           = self::SUB_COMMON_LEFT;
-    const SUB_AMOUNT_RIGHT          = self::SUB_COMMON_RIGHT;
-    const SUB_ACCOUNT_NAME_TOP      = self::SUB_ACCOUNT_3_BOTTOM + 1.0;
-    const SUB_ACCOUNT_NAME_BOTTOM   = self::SUB_ACCOUNT_NAME_TOP + 10 - 2.0;
-    const SUB_ACCOUNT_NAME_LEFT     = self::SUB_COMMON_LEFT + 1.0;
-    const SUB_ACCOUNT_NAME_RIGHT    = self::SUB_COMMON_RIGHT - 1.0;
-    const SUB_NAME_TOP              = self::SUB_AMOUNT_BOTTOM + 2;
-    const SUB_NAME_BOTTOM           = self::SUB_AMOUNT_BOTTOM + 24 - 2;
-    const SUB_NAME_LEFT             = self::SUB_COMMON_LEFT + 2.5;
-    const SUB_NAME_RIGHT            = self::SUB_COMMON_RIGHT - 2;
+    private const SUB_LEFT                  = 180 - 55;
+    private const SUB_COMMON_LEFT           = self::SUB_LEFT + 6 + 5.08;
+    private const SUB_COMMON_RIGHT          = self::SUB_COMMON_LEFT + 5.08 * 8;
+    private const SUB_ACCOUNT_1_TOP         = 15;
+    private const SUB_ACCOUNT_1_BOTTOM      = self::SUB_ACCOUNT_1_TOP + 8;
+    private const SUB_ACCOUNT_2_TOP         = self::SUB_ACCOUNT_1_TOP;
+    private const SUB_ACCOUNT_2_BOTTOM      = self::SUB_ACCOUNT_1_BOTTOM;
+    private const SUB_ACCOUNT_3_TOP         = self::SUB_ACCOUNT_1_BOTTOM + 3;
+    private const SUB_ACCOUNT_3_BOTTOM      = self::SUB_ACCOUNT_3_TOP + 8;
+    private const SUB_ACCOUNT_1_LEFT        = self::SUB_COMMON_LEFT;
+    private const SUB_ACCOUNT_1_RIGHT       = self::SUB_COMMON_LEFT + 5.08 * 5;
+    private const SUB_ACCOUNT_2_LEFT        = self::SUB_ACCOUNT_1_RIGHT + 2.54;
+    private const SUB_ACCOUNT_2_RIGHT       = self::SUB_ACCOUNT_2_LEFT + 5.08;
+    private const SUB_ACCOUNT_3_LEFT        = self::SUB_COMMON_LEFT + 5.08;
+    private const SUB_ACCOUNT_3_RIGHT       = self::SUB_COMMON_RIGHT;
+    private const SUB_AMOUNT_TOP            = 15 + 8 + 3 + 8 + 10 + 3;
+    private const SUB_AMOUNT_BOTTOM         = self::SUB_AMOUNT_TOP + 8;
+    private const SUB_AMOUNT_LEFT           = self::SUB_COMMON_LEFT;
+    private const SUB_AMOUNT_RIGHT          = self::SUB_COMMON_RIGHT;
+    private const SUB_ACCOUNT_NAME_TOP      = self::SUB_ACCOUNT_3_BOTTOM + 1.0;
+    private const SUB_ACCOUNT_NAME_BOTTOM   = self::SUB_ACCOUNT_NAME_TOP + 10 - 2.0;
+    private const SUB_ACCOUNT_NAME_LEFT     = self::SUB_COMMON_LEFT + 1.0;
+    private const SUB_ACCOUNT_NAME_RIGHT    = self::SUB_COMMON_RIGHT - 1.0;
+    private const SUB_NAME_TOP              = self::SUB_AMOUNT_BOTTOM + 2;
+    private const SUB_NAME_BOTTOM           = self::SUB_AMOUNT_BOTTOM + 24 - 2;
+    private const SUB_NAME_LEFT             = self::SUB_COMMON_LEFT + 2.5;
+    private const SUB_NAME_RIGHT            = self::SUB_COMMON_RIGHT - 2;
 
     public $debug = false;
     public $drawLines = false;
@@ -111,7 +112,7 @@ class Pdf extends Model
     public function setAccount(string $account1, string $account2, string $account3): self
     {
         // {{{
-        $pad = function (string $number, string $padChar, int $length) : string {
+        $pad = function (string $number, string $padChar, int $length): string {
             return substr(str_repeat($padChar, $length) . $number, -1 * $length);
         };
         $account1 = $pad($account1, '0', 5);
@@ -269,7 +270,7 @@ class Pdf extends Model
                     $address3,
                     $name,
                 ],
-                function (string $text) : bool {
+                function (string $text): bool {
                     return $text !== '';
                 }
             ))),

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace app\models;
@@ -23,7 +24,7 @@ class DestPreset extends ActiveRecord
 {
     public static function find(): ActiveQuery
     {
-        return new class(static::class) extends ActiveQuery {
+        return new class (static::class) extends ActiveQuery {
             public function valid(): self
             {
                 $t = (int)($_SERVER['REQUEST_TIME'] ?? time());
