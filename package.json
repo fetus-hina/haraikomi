@@ -4,9 +4,9 @@
   "author": "AIZAWA Hina",
   "license": "MIT",
   "dependencies": {
-    "@babel/cli": "^7.6.0",
-    "@babel/core": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
     "autoprefixer": "^9.6.1",
     "bootstrap": "^4.3.1",
     "clean-css": "^4.2.1",
