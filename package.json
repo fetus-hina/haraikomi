@@ -4,19 +4,19 @@
   "author": "AIZAWA Hina",
   "license": "MIT",
   "dependencies": {
-    "@babel/cli": "^7.7.7",
-    "@babel/core": "^7.7.7",
-    "@babel/preset-env": "^7.7.7",
-    "autoprefixer": "^9.7.3",
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "autoprefixer": "^9.7.4",
     "bootstrap": "^4.4.1",
     "clean-css": "^4.2.1",
     "clean-css-cli": "^4.3.0",
     "inputmask": "^4.0.9",
     "jquery": "^3.4.1",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "postcss-cli": "^6.1.3",
     "punycode": "^2.1.1",
-    "uglify-js": "^3.7.2",
+    "uglify-js": "^3.7.5",
     "yii2-pjax": "^2.0.7"
   }
 }
