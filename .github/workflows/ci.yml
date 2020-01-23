@@ -1,0 +1,46 @@
+name: 'CI'
+on: ['push']
+jobs:
+  phpSyntaxCheck:
+    name: 'PHP Syntax Check'
+    strategy:
+      matrix:
+        php_version:
+          - '7.3'
+          - '7.4'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: 'actions/checkout@v2'
+      - run: 'sudo update-alternatives --set php /usr/bin/php${{ matrix.php_version }}'
+      - run: 'php -v'
+      - run: |
+          find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) \
+            | LANG=C sort \
+            | xargs -n 1 php -l
+
+  phpStyleCheck:
+    name: 'PHP Coding Style'
+    runs-on: 'ubuntu-latest'
+    needs:
+      - 'phpSyntaxCheck'
+    steps:
+      - uses: 'actions/checkout@v2'
+      - run: 'sudo update-alternatives --set php /usr/bin/php7.4'
+      - run: 'make bin/phpcs'
+      - run: 'bin/phpcs --standard=phpcs.xml'
+
+  jsStyleCheck:
+    name: 'JS Coding Style'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: 'actions/checkout@v2'
+      - uses: 'actions/setup-node@v1'
+      - run: 'make check-style-js'
+
+  cssStyleCheck:
+    name: 'CSS Coding Style'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: 'actions/checkout@v2'
+      - uses: 'actions/setup-node@v1'
+      - run: 'make check-style-css'

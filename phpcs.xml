@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ruleset name="Custom Standard">
+  <description>A custom coding standard</description>
+
+  <ini name="memory_limit" value="-1" />
+  <arg name="extensions" value="php" />
+
+  <rule ref="PSR12" />
+
+  <file>.</file>
+  <exclude-pattern>*/bin/*</exclude-pattern>
+  <exclude-pattern>*/migrations/*</exclude-pattern>
+  <exclude-pattern>*/node_modules/*</exclude-pattern>
+  <exclude-pattern>*/resources/*</exclude-pattern>
+  <exclude-pattern>*/runtime/*</exclude-pattern>
+  <exclude-pattern>*/vendor/*</exclude-pattern>
+  <exclude-pattern>*/views/*</exclude-pattern>
+</ruleset>

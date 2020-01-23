@@ -26,7 +26,7 @@ jQuery($ => {
     const $input = $('input[name="name"]', $modalSave);
     const saveName = String($input.val()).trim();
     if (saveName.length < 1) {
-      alert("保存名を入力してください");
+      alert('保存名を入力してください');
       return;
     }
 
@@ -101,6 +101,7 @@ jQuery($ => {
         }
       }
     } catch (e) {
+      // ignore
     }
 
     $modalLoad.modal();

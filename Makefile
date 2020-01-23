@@ -5,14 +5,27 @@ all: vendor app-config resources
 
 .PHONY: clean
 clean:
-	rm -rf vendor composer.phar node_modules web/css/*.css web/js/*.js
+	rm -rf bin/phpcs composer.phar node_modules vendor web/css/*.css web/js/*.js
 
 .PHONY: app-config
 app-config: config/cookie.php
 
 .PHONY: check-style
-check-style: vendor
-	./vendor/bin/phpcs -p --extensions=php --standard=PSR12 assets commands config controllers models web
+check-style: check-style-php check-style-js check-style-css
+
+.PHONY: check-style-php
+check-style-php: bin/phpcs
+	bin/phpcs -p --standard=phpcs.xml
+
+bin/phpcs:
+	curl -fsSL -o $@ 'https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar'
+	@chmod +x $@
+
+check-style-js: node_modules
+	npx eslint "./resources/**/*.js"
+
+check-style-css: node_modules
+	npx stylelint "./resources/**/*.scss"
 
 vendor: composer.lock composer.phar
 	./composer.phar install -vvv
