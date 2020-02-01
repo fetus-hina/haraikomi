@@ -1,14 +1,17 @@
 <?php
+
+declare(strict_types=1);
+
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\helpers\Html;
 
 AppAsset::register($this);
+
+$now = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
+  ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()));
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -30,8 +33,41 @@ AppAsset::register($this);
       <hr>
       <footer>
         <div class="container text-right">
-          Copyright &copy; 2017-2020 <a href="https://fetus.jp/">AIZAWA Hina</a>.<br>
-          <?= Yii::powered() ?> and <a href="https://tcpdf.org/">TCPDF</a>.
+          <?= implode('<br>', [
+            vsprintf('Copyright &copy; 2017-%d %s %s.', [
+              (int)$now->format('Y'),
+              Html::a(
+                Html::encode('AIZAWA Hina'),
+                'https://fetus.jp/'
+              ),
+              implode(' ', [
+                Html::a(
+                  Html::tag('span', '', ['class' => 'fab fa-twitter']),
+                  'https://twitter.com/fetus_hina'
+                ),
+                Html::a(
+                  Html::tag('span', '', ['class' => 'fab fa-github']),
+                  'https://github.com/fetus-hina'
+                ),
+              ]),
+            ]),
+            vsprintf('Powered by %s.', [
+              preg_replace(
+                '/,(?=[^,]+$)/', // 最後のカンマ
+                ' and ',
+                implode(', ', [
+                  Html::a(
+                    Html::encode('Yii Framework'),
+                    'https://www.yiiframework.com/',
+                  ),
+                  Html::a(
+                    Html::encode('TCPDF'),
+                    'https://tcpdf.org/',
+                  ),
+                ])
+              ),
+            ]),
+          ]) . "\n" ?>
         </div>
       </footer>
     </div>
