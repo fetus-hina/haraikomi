@@ -16,8 +16,16 @@ class AppConfigController extends Controller
             ? require($path)
             : Yii::$app->security->generateRandomString(32);
 
-        echo "<?php\n";
-        echo "return \"" . addslashes($value) . "\";\n";
+        echo implode("\n", [
+            '<?php',
+            '',
+            'declare(strict_types=1);',
+            '',
+            'return (function (): string {',
+            '    return "' . addslashes($value) . '";',
+            '})();',
+        ]) . "\n";
+
         return 0;
     }
 }
