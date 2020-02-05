@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\models\DestPreset;
 use app\widgets\LoadModal;
+use app\widgets\MessageBox;
 use app\widgets\SaveHelpModal;
 use app\widgets\SaveModal;
 use yii\bootstrap4\ActiveForm;
@@ -427,3 +428,4 @@ $this->title = Yii::$app->name;
 <?= SaveHelpModal::widget() . "\n" ?>
 <?= SaveModal::widget() . "\n" ?>
 <?= LoadModal::widget() . "\n" ?>
+<?= MessageBox::widget() . "\n" ?>

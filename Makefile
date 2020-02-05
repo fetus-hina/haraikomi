@@ -1,4 +1,8 @@
-RESOURCES := web/css/site.css web/js/save.js
+RESOURCES := \
+	web/css/site.css \
+	web/js/messagebox.js \
+	web/js/polyfill.js \
+	web/js/save.js
 
 .PHONY: all
 all: vendor app-config resources
