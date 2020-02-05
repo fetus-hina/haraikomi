@@ -1,0 +1,35 @@
+<?php
+
+declare(strict_types=1);
+
+namespace app\widgets;
+
+use Yii;
+use yii\helpers\Html;
+
+class SaveHelpModal extends Modal
+{
+    public const ID = 'modal-save-help';
+
+    protected function getTitleText(): string
+    {
+        return '各種データの保存について';
+    }
+
+    protected function renderBodyData(): string
+    {
+        return implode('', [
+            Html::tag('p', Html::encode(
+                '横のボタンでSaveしたデータは、ブラウザに直接保存され、サーバには一切送信されません。',
+            )),
+            Html::tag('p', Html::encode(
+                'Loadするときも含めて、インターネットに送信されることはありません。ご安心ください。',
+            )),
+            Html::tag(
+                'div',
+                Html::tag('p', Html::encode('※PDFの作成時にはデータをサーバに送信します。')),
+                ['class' => 'small text-muted']
+            ),
+        ]);
+    }
+}

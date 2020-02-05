@@ -1,7 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 use app\models\DestPreset;
+use app\widgets\LoadModal;
+use app\widgets\SaveHelpModal;
+use app\widgets\SaveModal;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -420,78 +424,6 @@ $this->title = Yii::$app->name;
     </li>
   </ul>
 </div>
-<div class="modal fade" id="modal-save-help" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">各種データの保存について</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
-          <span class="fas fa-times"></span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>横のボタンで Save したデータは、ブラウザに直接保存され、サーバには一切送信されません。</p>
-        <p>Load するときも含めて、インターネットに送信されることはありません。ご安心ください。</p>
-        <div class="small text-muted">
-          <p>※PDFの作成時にはデータをサーバに送信します。</p>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
-          <span class="fas fa-times"></span> 閉じる
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="modal-save" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">保存</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
-          <span class="fas fa-times"></span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>保存名を入力してください（読込はこの名前で行います）</p>
-        <div class="form-group">
-          <input type="text" class="form-control" name="name">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary btn-save">
-          <span class="fas fa-save"></span> 保存
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="modal-load" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">読込</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
-          <span class="fas fa-times"></span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>読込対象を選択してください</p>
-        <div class="form-group">
-          <select name="target" class="form-control">
-          </select>
-        </div>
-        <p class="preset-notice d-none text-muted small">
-          プリセットの内容は参考情報です。<br>
-          払込先の記号番号などが正しいことは必ずご自身で確認してください。
-        </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary btn-load">
-          <span class="fas fa-folder-open"></span> 読込
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+<?= SaveHelpModal::widget() . "\n" ?>
+<?= SaveModal::widget() . "\n" ?>
+<?= LoadModal::widget() . "\n" ?>

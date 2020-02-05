@@ -5,7 +5,7 @@
     "license": "MIT",
     "minimum-stability": "stable",
     "require": {
-        "php": ">= 7.3.0",
+        "php": ">= 7.4.0",
         "tecnickcom/tcpdf": "^6.3.0",
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap4": "*"
