@@ -6,6 +6,7 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">= 7.4.0",
+        "php-curl-class/php-curl-class": "^8.6",
         "tecnickcom/tcpdf": "^6.3.0",
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap4": "*"
