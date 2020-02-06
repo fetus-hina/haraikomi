@@ -2,6 +2,7 @@ RESOURCES := \
 	web/css/site.css \
 	web/js/messagebox.js \
 	web/js/polyfill.js \
+	web/js/postalcode.js \
 	web/js/save.js
 
 .PHONY: all

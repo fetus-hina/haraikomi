@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
+use app\assets\PostalCodeAsset;
 use app\models\DestPreset;
+use app\widgets\AutoPostalCodeChoiceModal;
+use app\widgets\AutoPostalCodeHelpModal;
 use app\widgets\LoadModal;
 use app\widgets\MessageBox;
 use app\widgets\SaveHelpModal;
@@ -198,12 +201,53 @@ $this->title = Yii::$app->name;
           ]) ?></script>
         </div>
 
-        <?= $_->field($form, 'postal_code')
+        <?= $_->field($form, 'postal_code', [
+            'inputTemplate' => Html::tag(
+              'div',
+              implode('', [
+                '{input}',
+                Html::tag(
+                  'div',
+                  implode('', [
+                    Html::button(Html::encode('住所入力'), [
+                      'id' => Html::getInputId($form, 'postal_code') . '--querybtn',
+                      'class' => 'btn btn-outline-secondary',
+                    ]),
+                    Html::button(Html::tag('span', '', ['class' => 'fas fa-info fa-fw']), [
+                      'class' => 'btn btn-outline-secondary',
+                      'data' => [
+                        'toggle' => 'modal',
+                        'target' => '#' . AutoPostalCodeHelpModal::ID,
+                      ],
+                    ]),
+                  ]),
+                  ['class' => 'input-group-append']
+                ),
+              ]),
+              ['class' => 'input-group']
+            ),
+          ])
           ->textInput([
             'placeholder' => '1000001',
             'data-save-from' => 'postal_code',
           ]) . "\n"
         ?>
+<?php
+PostalCodeAsset::register($this);
+$this->registerJs(vsprintf('$(%s).postalcode(%s);', [
+  Json::encode('#' . Html::getInputId($form, 'postal_code') . '--querybtn'),
+  implode(',', [
+    Json::encode('#' . Html::getInputId($form, 'postal_code')),
+    Json::encode('#' . AutoPostalCodeChoiceModal::ID),
+    Json::encode([
+      '#' . Html::getInputId($form, 'pref_id') => 'prefcode',
+      '#' . Html::getInputId($form, 'address1') => 'address2',
+      '#' . Html::getInputId($form, 'address2') => 'address3',
+      '#' . Html::getInputId($form, 'address3') => null,
+    ]),
+  ]),
+]));
+?>
         <?= $_->field($form, 'pref_id')
           ->dropDownList($form->getPrefList(), [
             'data-save-from' => 'pref_id',
@@ -425,7 +469,9 @@ $this->title = Yii::$app->name;
     </li>
   </ul>
 </div>
-<?= SaveHelpModal::widget() . "\n" ?>
-<?= SaveModal::widget() . "\n" ?>
+<?= AutoPostalCodeChoiceModal::widget() . "\n" ?>
+<?= AutoPostalCodeHelpModal::widget() . "\n" ?>
 <?= LoadModal::widget() . "\n" ?>
 <?= MessageBox::widget() . "\n" ?>
+<?= SaveHelpModal::widget() . "\n" ?>
+<?= SaveModal::widget() . "\n" ?>
