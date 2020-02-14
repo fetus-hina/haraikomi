@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\assets\PostalCodeAsset;
 use app\models\DestPreset;
+use app\models\Prefecture;
 use app\widgets\AutoPostalCodeChoiceModal;
 use app\widgets\AutoPostalCodeHelpModal;
 use app\widgets\LoadModal;
@@ -11,6 +12,7 @@ use app\widgets\MessageBox;
 use app\widgets\SaveHelpModal;
 use app\widgets\SaveModal;
 use yii\bootstrap4\ActiveForm;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
@@ -249,10 +251,17 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
 ]));
 ?>
         <?= $_->field($form, 'pref_id')
-          ->dropDownList($form->getPrefList(), [
-            'data-save-from' => 'pref_id',
-            'prompt' => '---',
-          ]) . "\n"
+          ->dropDownList(
+            ArrayHelper::map(
+              Prefecture::find()->all(),
+              'id',
+              'name'
+            ),
+            [
+              'data-save-from' => 'pref_id',
+              'prompt' => '---',
+            ]
+          ) . "\n"
         ?>
         <?= $_->field($form, 'address1')
           ->textInput([
