@@ -30,8 +30,8 @@ $now = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
       <div class="container">
         <?= $content . "\n" ?>
       </div>
-      <hr>
       <footer>
+        <hr>
         <div class="container text-right">
           <?= implode('<br>', [
             vsprintf('Copyright &copy; 2017-%d %s %s.', [
