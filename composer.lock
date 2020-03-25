@@ -244,16 +244,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.32",
+            "version": "2.0.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "a4aca1a2154098844a039d21112cafd31d70b8fd"
+                "reference": "8c0a329b72b11d938e1cb7e4cabf700139206723"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/a4aca1a2154098844a039d21112cafd31d70b8fd",
-                "reference": "a4aca1a2154098844a039d21112cafd31d70b8fd",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/8c0a329b72b11d938e1cb7e4cabf700139206723",
+                "reference": "8c0a329b72b11d938e1cb7e4cabf700139206723",
                 "shasum": ""
             },
             "require": {
@@ -340,7 +340,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2020-01-21T22:29:38+00:00"
+            "time": "2020-03-24T20:03:06+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap4",
@@ -678,16 +678,16 @@
         },
         {
             "name": "yiisoft/yii2-gii",
-            "version": "2.1.4",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "d879cb186361fbc6f71a2d994d580b5a071a5642"
+                "reference": "7736b837da5cc0503cf15f482170e07eca9dd933"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/d879cb186361fbc6f71a2d994d580b5a071a5642",
-                "reference": "d879cb186361fbc6f71a2d994d580b5a071a5642",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/7736b837da5cc0503cf15f482170e07eca9dd933",
+                "reference": "7736b837da5cc0503cf15f482170e07eca9dd933",
                 "shasum": ""
             },
             "require": {
@@ -725,7 +725,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2020-01-17T13:33:30+00:00"
+            "time": "2020-03-24T22:12:09+00:00"
         }
     ],
     "aliases": [],
