@@ -51,9 +51,14 @@ config/cookie.php: vendor
 .PHONY: resources
 resources: $(RESOURCES)
 
-node_modules: package.json
-	npm install
-	touch -r package-lock.json node_modules
+node_modules: package-lock.json
+	npm ci
+	@touch $@
+
+package-lock.json: package.json
+	@rm -rf $@ node_modules
+	npm update
+	@touch $@
 
 web/css/%.css: resources/css/%.scss node_modules
 	npx node-sass -q -x $< \
