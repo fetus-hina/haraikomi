@@ -16,11 +16,15 @@
     "inputmask": "^5.0.3",
     "jquery": "^3.4.1",
     "node-sass": "^4.13.1",
+    "patch-package": "^6.2.2",
     "postcss-cli": "^7.1.0",
     "punycode": "^2.1.1",
     "stylelint": "^13.2.1",
     "stylelint-config-recommended": "^3.0.0",
     "uglify-js": "^3.8.0",
     "yii2-pjax": "^2.0.7"
+  },
+  "scripts": {
+    "postinstall": "patch-package --patch-dir=patches"
   }
 }
