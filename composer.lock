@@ -470,16 +470,16 @@
     "packages-dev": [
         {
             "name": "opis/closure",
-            "version": "3.5.1",
+            "version": "3.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opis/closure.git",
-                "reference": "93ebc5712cdad8d5f489b500c59d122df2e53969"
+                "reference": "dec9fc5ecfca93f45cd6121f8e6f14457dff372c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opis/closure/zipball/93ebc5712cdad8d5f489b500c59d122df2e53969",
-                "reference": "93ebc5712cdad8d5f489b500c59d122df2e53969",
+                "url": "https://api.github.com/repos/opis/closure/zipball/dec9fc5ecfca93f45cd6121f8e6f14457dff372c",
+                "reference": "dec9fc5ecfca93f45cd6121f8e6f14457dff372c",
                 "shasum": ""
             },
             "require": {
@@ -527,7 +527,7 @@
                 "serialization",
                 "serialize"
             ],
-            "time": "2019-11-29T22:36:02+00:00"
+            "time": "2020-06-17T14:59:55+00:00"
         },
         {
             "name": "phpspec/php-diff",
