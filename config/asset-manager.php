@@ -14,9 +14,9 @@ return [
     'appendTimestamp' => true,
     'bundles' => [
         BootstrapAsset::class => [
-            'sourcePath' => '@npm/bootstrap/dist',
+            'sourcePath' => '@npm/fetus.css/dist',
             'css' => [
-                'css/bootstrap.min.css',
+                'bootstrap.min.css',
             ],
         ],
         BootstrapPluginAsset::class => [

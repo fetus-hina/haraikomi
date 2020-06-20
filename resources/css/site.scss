@@ -1,29 +1,10 @@
 @charset "UTF-8";
-
-$body-p-top: 2rem;
-$body-p-btm: 4rem;
-
-body {
-  font-family: "Noto Sans JP", sans-serif;
-  padding-top: $body-p-top;
-  padding-bottom: $body-p-btm;
-}
+@import '../../node_modules/fetus.css/scss/vars/color';
 
 footer {
   font-family: Lato, sans-serif;
 }
 
-/* footer layout */
-.wrap {
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100vh - #{$body-p-top + $body-p-btm});
-
-  & > .container {
-    flex: 1;
-  }
-}
-
 .form-control::placeholder {
-  color: #ccc !important;
+  color: $gray-300 !important;
 }

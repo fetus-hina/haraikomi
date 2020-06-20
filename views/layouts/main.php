@@ -27,12 +27,17 @@ $now = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
   <body>
   <?php $this->beginBody(); echo "\n" ?>
     <div class="wrap">
+      <header class="mb-3">
+        <div class="container">
+          <h1><a href="https://fetus.jp/">fetus</a></h1>
+        </div>
+      </header>
       <div class="container">
         <?= $content . "\n" ?>
       </div>
       <footer>
         <hr>
-        <div class="container text-right">
+        <div class="container text-right pb-3">
           <?= implode('<br>', [
             vsprintf('Copyright &copy; 2017-%d %s %s.', [
               (int)$now->format('Y'),

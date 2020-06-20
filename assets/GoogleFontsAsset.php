@@ -19,7 +19,6 @@ class GoogleFontsAsset extends AssetBundle
             [
                 'family' => join('|', [
                     'Lato',
-                    'Noto Sans JP',
                 ]),
                 'display' => 'swap',
             ],
