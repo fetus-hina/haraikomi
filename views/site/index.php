@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 use app\assets\PostalCodeAsset;
 use app\models\DestPreset;
+use app\models\JpGienkin;
 use app\models\Prefecture;
 use app\widgets\AutoPostalCodeChoiceModal;
 use app\widgets\AutoPostalCodeHelpModal;
+use app\widgets\GienkinHelpModal;
 use app\widgets\LoadModal;
 use app\widgets\MessageBox;
 use app\widgets\SaveHelpModal;
@@ -81,7 +83,58 @@ $this->title = Yii::$app->name;
                   ],
                 ];
               },
-              DestPreset::find()->valid()->orderBy(['name' => SORT_ASC, 'id' => SORT_ASC])->all()
+              DestPreset::find()
+                ->valid()
+                ->nonGienkin()
+                ->orderBy([
+                    'name' => SORT_ASC,
+                    'id' => SORT_ASC,
+                ])
+                ->all()
+            )
+          ) ?></script>
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-sm btn-outline-secondary gienkin gienkin-load" data-preset="#dest-gienkin" data-label="払込先（義援金）" disabled>
+              <span class="fas fa-cloud-showers-heavy"></span> 義援金
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#modal-gienkin-help">
+              <span class="fas fa-fw fa-info"></span>
+            </button>
+          </div>
+          <script type="application/json" id="dest-gienkin"><?= Json::encode(
+            array_filter(
+              array_map(
+                function (JpGienkin $gienkin): array {
+                  return [
+                    'name' => $gienkin->name,
+                    'presets' => array_map(
+                      function (DestPreset $model): array {
+                        return [
+                          'name' => $model->name,
+                          'mtime' => null,
+                          'data' => [
+                            'account1' => sprintf('%05d', $model->account1),
+                            'account2' => (string)$model->account2,
+                            'account3' => (string)$model->account3,
+                            'account_name' => $model->account_name,
+                          ],
+                        ];
+                      },
+                      $gienkin->destPresets,
+                    ),
+                  ];
+                },
+                JpGienkin::find()
+                  ->with('destPresets')
+                  ->orderBy([
+                    'ref_time' => SORT_DESC,
+                    'name' => SORT_ASC,
+                  ])
+                  ->all(),
+              ),
+              function (array $data): bool {
+                return !empty($data['presets']);
+              },
             )
           ) ?></script>
         </div>
@@ -347,6 +400,15 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
   <h2>更新履歴</h2>
   <ul>
     <li>
+      2020-07-10
+      <ul>
+        <li>
+          義援金口座情報を更新しました。
+          うまくいけば、今後は自動的に最新の情報に更新されます。
+        </li>
+      </ul>
+    </li>
+    <li>
       2019-10-18
       <ul>
         <li>
@@ -484,3 +546,4 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
 <?= MessageBox::widget() . "\n" ?>
 <?= SaveHelpModal::widget() . "\n" ?>
 <?= SaveModal::widget() . "\n" ?>
+<?= GienkinHelpModal::widget() . "\n" ?>

@@ -26,6 +26,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/save.js',
+        'js/gienkin.js',
     ];
     public $depends = [
         BootstrapAsset::class,

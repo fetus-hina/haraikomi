@@ -1,5 +1,6 @@
 RESOURCES := \
 	web/css/site.css \
+	web/js/gienkin.js \
 	web/js/messagebox.js \
 	web/js/polyfill.js \
 	web/js/postalcode.js \
