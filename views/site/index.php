@@ -406,6 +406,13 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
           義援金口座情報を更新しました。
           うまくいけば、今後は自動的に最新の情報に更新されます。
         </li>
+        <li>
+          フォントを更新しました。
+          <ul>
+            <li>にゃしぃフォント改二: Version 2.077</li>
+            <li>にゃしぃフレンズ: Version 2.077</li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li>
