@@ -102,39 +102,41 @@ $this->title = Yii::$app->name;
             </button>
           </div>
           <script type="application/json" id="dest-gienkin"><?= Json::encode(
-            array_filter(
-              array_map(
-                function (JpGienkin $gienkin): array {
-                  return [
-                    'name' => $gienkin->name,
-                    'presets' => array_map(
-                      function (DestPreset $model): array {
-                        return [
-                          'name' => $model->name,
-                          'mtime' => null,
-                          'data' => [
-                            'account1' => sprintf('%05d', $model->account1),
-                            'account2' => (string)$model->account2,
-                            'account3' => (string)$model->account3,
-                            'account_name' => $model->account_name,
-                          ],
-                        ];
-                      },
-                      $gienkin->destPresets,
-                    ),
-                  ];
+            array_values(
+              array_filter(
+                array_map(
+                  function (JpGienkin $gienkin): array {
+                    return [
+                      'name' => $gienkin->name,
+                      'presets' => array_map(
+                        function (DestPreset $model): array {
+                          return [
+                            'name' => $model->name,
+                            'mtime' => null,
+                            'data' => [
+                              'account1' => sprintf('%05d', $model->account1),
+                              'account2' => (string)$model->account2,
+                              'account3' => (string)$model->account3,
+                              'account_name' => $model->account_name,
+                            ],
+                          ];
+                        },
+                        $gienkin->destPresets,
+                      ),
+                    ];
+                  },
+                  JpGienkin::find()
+                    ->with('destPresets')
+                    ->orderBy([
+                      'ref_time' => SORT_DESC,
+                      'name' => SORT_ASC,
+                    ])
+                    ->all(),
+                ),
+                function (array $data): bool {
+                  return !empty($data['presets']);
                 },
-                JpGienkin::find()
-                  ->with('destPresets')
-                  ->orderBy([
-                    'ref_time' => SORT_DESC,
-                    'name' => SORT_ASC,
-                  ])
-                  ->all(),
-              ),
-              function (array $data): bool {
-                return !empty($data['presets']);
-              },
+              )
             )
           ) ?></script>
         </div>
