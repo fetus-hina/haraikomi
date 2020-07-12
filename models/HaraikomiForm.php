@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\models;
 
 use Yii;
@@ -24,6 +26,7 @@ class HaraikomiForm extends Model
     public $phone3;
     public $note;
     public $font_ja;
+    public $use_fixed;
     public $draw_form;
 
     public function rules()
@@ -66,6 +69,7 @@ class HaraikomiForm extends Model
             [['font_ja'], 'required'],
             [['font_ja'], 'string'],
             [['font_ja'], 'in', 'range' => array_keys($this->getJapaneseFonts())],
+            [['use_fixed'], 'boolean'],
 
             [['draw_form'], 'boolean'],
         ];
@@ -91,6 +95,7 @@ class HaraikomiForm extends Model
             'phone3' => '電話番号(3)',
             'note' => '通信欄',
             'font_ja' => '日本語フォント',
+            'use_fixed' => '通信欄への等幅フォントの利用',
             'draw_form' => '罫線等を描画する',
         ];
     }
@@ -101,6 +106,9 @@ class HaraikomiForm extends Model
         $pdf = Yii::createObject([
                 'class' => Pdf::class,
                 'fontNameJa' => $this->font_ja,
+                'fontNameNote' => ($this->use_fixed)
+                    ? ($this->getFixedWidthFont($this->font_ja) ?? $this->font_ja)
+                    : $this->font_ja,
                 'normalizeToWide' => strpos($fontNameHumanReadable, '明朝') !== false,
                 'drawLines' => !!$this->draw_form,
             ])
@@ -139,5 +147,23 @@ class HaraikomiForm extends Model
             'nyashi'            => '手書き風（にゃしぃフォント改二／睦月）',
             'nyashi_friends'    => '手書き風（にゃしぃフレンズ／如月）',
         ];
+    }
+
+    public function getFixedWidthFont(string $fontId): ?string
+    {
+        $map = [
+            'ipaexg' => 'ipag',
+            'ipaexm' => 'ipam',
+        ];
+        if ($fixedFont = ($map[$fontId] ?? null)) {
+            // $map の設定フォントが利用可能フォントに挙げられていることを
+            // 念のため確認する
+            $availableFonts = array_keys($this->getJapaneseFonts());
+            if (in_array($fixedFont, $availableFonts, true)) {
+                return $fixedFont;
+            }
+        }
+
+        return null;
     }
 }

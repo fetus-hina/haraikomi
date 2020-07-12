@@ -77,13 +77,14 @@ class Pdf extends Model
     private const SUB_NAME_LEFT             = self::SUB_COMMON_LEFT + 2.5;
     private const SUB_NAME_RIGHT            = self::SUB_COMMON_RIGHT - 2;
 
-    public $debug = false;
-    public $drawLines = false;
-    public $drawLineColor = [0x00, 0xa0, 0xe8];
-    public $fontNameForm = 'ipaexg';
+    public bool $debug = false;
+    public bool $drawLines = false;
+    public array $drawLineColor = [0x00, 0xa0, 0xe8];
+    public string $fontNameForm = 'ipaexg';
 
-    public $fontNameJa = 'ipaexm';
-    public $normalizeToWide = true;
+    public string $fontNameJa = 'ipaexm';
+    public string $fontNameNote = 'ipaexg';
+    public bool $normalizeToWide = true;
 
     private $pdf;
 
@@ -218,7 +219,8 @@ class Pdf extends Model
             static::MAIN_NOTE_BOTTOM,
             $note,
             'M',
-            static::pt2mm(12)
+            static::pt2mm(12),
+            $this->fontNameNote
         );
         // }}}
         return $this;
@@ -355,12 +357,14 @@ class Pdf extends Model
         float $bottom,
         string $text,
         string $valign = 'M',
-        float $maxFontSize = 0
+        float $maxFontSize = 0,
+        ?string $fontName = null
     ): self {
         // {{{
         if ($maxFontSize <= 0.1) {
             $maxFontSize = static::pt2mm(10.5);
         }
+        $fontName ??= $this->fontNameJa;
         $left = (float)number_format($left, 2, '.', '');
         $top = (float)number_format($top, 2, '.', '');
         $right = (float)number_format($right, 2, '.', '');
@@ -370,7 +374,7 @@ class Pdf extends Model
         if ($this->debug) {
             $this->pdf->Rect($left, $top, $width, $height, 'D');
         }
-        $this->pdf->SetFont($this->fontNameJa, '', 0);
+        $this->pdf->SetFont($fontName, '', 0);
         $fontSize = $this->calcFontSize($text, $width, $height, $maxFontSize);
         $this->pdf->SetFont('', '', static::mm2pt($fontSize));
         list ($textWidth, $textHeight) = $this->calcTextSize($text);
