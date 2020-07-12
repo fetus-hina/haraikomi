@@ -127,8 +127,10 @@ class HaraikomiForm extends Model
     {
         return [
             'ipaexm'            => '明朝体（IPAex明朝）',
+            'ipam'              => '明朝体（IPA明朝・等幅）',
             'umepmo3'           => '明朝体（梅P明朝）',
             'ipaexg'            => 'ゴシック体（IPAexゴシック）',
+            'ipag'              => 'ゴシック体（IPAゴシック・等幅）',
             'genshingothic'     => 'ゴシック体（源真ゴシック）',
             'umepgo4'           => 'ゴシック体（梅Pゴシック）',
             'mplus1p'           => 'ゴシック体（M+ 1p）',
