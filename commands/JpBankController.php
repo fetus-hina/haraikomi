@@ -58,8 +58,8 @@ class JpBankController extends Controller
 
                 $jpGienkin = $this->getOrCreateJpGienkinModel($row->disaster, $tS);
                 $preset = $this->getOrCreateDestPreset($row->account[0], $row->account[1], $row->account[2]);
-                $preset->name = $row->accountName;
-                $preset->account_name = $row->accountName;
+                $preset->name = mb_convert_kana($row->accountName, 'asKV', 'UTF-8');
+                $preset->account_name = mb_convert_kana($row->accountName, 'ASKV', 'UTF-8');
                 $preset->valid_from = $tS;
                 $preset->valid_to = $tE;
                 $preset->jp_gienkin_id = $jpGienkin->id;
