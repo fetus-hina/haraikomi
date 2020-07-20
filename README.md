@@ -33,7 +33,7 @@ Licensed under the MIT License.
   - [OCRB代替フォント](https://www.city.aizuwakamatsu.fukushima.jp/docs/2008021400265/)
     - Licensed under the SIL Open Font License
     - (C) Aizuwakamatsu City
-  - [IPAex明朝・ゴシック](https://ipafont.ipa.go.jp/)
+  - [IPAex明朝・ゴシック、IPA明朝・ゴシック](https://ipafont.ipa.go.jp/)
     - Licensed under the [IPA Font License](https://ipafont.ipa.go.jp/ipa_font_license_v1-html)
     - (C) Information-technology Promotion Agency, Japan.
   - [源真ゴシック](http://jikasei.me/font/genshin/)・[源柔ゴシック](http://jikasei.me/font/genjyuu/)
