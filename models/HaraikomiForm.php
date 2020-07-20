@@ -24,6 +24,7 @@ class HaraikomiForm extends Model
     public $phone1;
     public $phone2;
     public $phone3;
+    public $email;
     public $note;
     public $font_ja;
     public $use_fixed;
@@ -64,6 +65,13 @@ class HaraikomiForm extends Model
             [['phone2'], 'string', 'min' => 1, 'max' => 4],
             [['phone3'], 'string', 'min' => 4, 'max' => 4],
 
+            [['email'], 'string'],
+            [['email'], 'email',
+                'allowName' => false,
+                'checkDNS' => true,
+                'enableIDN' => false,
+            ],
+
             [['note'], 'string'],
 
             [['font_ja'], 'required'],
@@ -93,6 +101,7 @@ class HaraikomiForm extends Model
             'phone1' => '電話番号(1)',
             'phone2' => '電話番号(2)',
             'phone3' => '電話番号(3)',
+            'email' => 'メールアドレス（任意）',
             'note' => '通信欄',
             'font_ja' => '日本語フォント',
             'use_fixed' => '通信欄への等幅フォントの利用',
@@ -126,7 +135,8 @@ class HaraikomiForm extends Model
                 $this->kana,
                 $this->phone1,
                 $this->phone2,
-                $this->phone3
+                $this->phone3,
+                $this->email,
             );
         return $pdf->render();
     }

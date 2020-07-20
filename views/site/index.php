@@ -353,7 +353,8 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
           ->textInput([
             'placeholder' => 'ニッポン　タロウ',
             'data-save-from' => 'kana',
-          ]) . "\n"
+          ])
+          ->hint('払込先に要求されていないときは記入する必要はないでしょう。') . "\n"
         ?>
         <div class="form-group mb-0">
           <label>電話番号</label>
@@ -381,6 +382,17 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
             </div>
           </div>
         </div>
+        <?= $_->field($form, 'email')
+          ->textInput([
+            'placeholder' => 'yourname@example.com',
+            'data-save-from' => 'email',
+          ])
+          ->hint(implode('<br>', [
+            '通常は記入不要です。',
+            '払込先にメールアドレスの記載を求められているときに入力してください。',
+            '日本語ドメインのアドレスは使用できません。',
+          ])) . "\n"
+        ?>
       </div>
     </div>
     <div class="card mb-3">
@@ -408,6 +420,14 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
   <hr>
   <h2>更新履歴</h2>
   <ul>
+    <li>
+      2020-07-21
+      <ul>
+        <li>
+          依頼人メールアドレス欄を追加しました。
+        </li>
+      </ul>
+    </li>
     <li>
       2020-07-13
       <ul>

@@ -86,6 +86,8 @@ class Pdf extends Model
     public string $fontNameNote = 'ipaexg';
     public bool $normalizeToWide = true;
 
+    private $lastRect;
+
     private $pdf;
 
     public function init()
@@ -236,7 +238,8 @@ class Pdf extends Model
         ?string $kana,
         string $phone1,
         string $phone2,
-        string $phone3
+        string $phone3,
+        ?string $email
     ): self {
         // main {{{
         $address1 = trim($address1);
@@ -260,7 +263,7 @@ class Pdf extends Model
             $address,
             'T'
         );
-        $this->drawName($name, $kana);
+        $this->drawName($name, $kana, $email);
         $this->drawPhone($phone1, $phone2, $phone3);
         // }}}
         // sub {{{
@@ -378,12 +381,8 @@ class Pdf extends Model
         $fontSize = $this->calcFontSize($text, $width, $height, $maxFontSize);
         $this->pdf->SetFont('', '', static::mm2pt($fontSize));
         list ($textWidth, $textHeight) = $this->calcTextSize($text);
-        $this->pdf->SetXY(
-            $left,
-            $valign === 'T'
-                ? $top
-                : ($top + ($height / 2 - $textHeight / 2))
-        );
+        $ypos = $valign === 'T' ? $top : ($top + ($height / 2 - $textHeight / 2));
+        $this->pdf->SetXY($left, $ypos);
         $this->pdf->MultiCell(
             0,
             $textHeight,
@@ -393,6 +392,14 @@ class Pdf extends Model
             false,  // fill
             0       // ln
         );
+
+        $this->lastRect = [
+            $left,
+            $ypos,
+            $left + $textWidth,
+            $ypos + $textHeight,
+        ];
+
         return $this;
         // }}}
     }
@@ -548,9 +555,9 @@ class Pdf extends Model
         // }}}
     }
 
-    public function drawName(string $name, ?string $kana): self
+    public function drawName(string $name, ?string $kana, ?string $email): self
     {
-        // {{{
+        // name, kana {{{
         $name = mb_convert_kana(
             trim($name),
             $this->normalizeToWide ? 'ASKV' : 'aSKV',
@@ -576,6 +583,8 @@ class Pdf extends Model
             'M',
             20.0
         );
+        $nameRight = max($this->lastRect[2], static::MAIN_NAME_LEFT);
+        $kanaRight = static::MAIN_NAME_LEFT;
         if ($kana !== '') {
             $this->pdf->SetFont($this->fontNameJa, '', 0);
             $fontSize = $this->calcFontSize(
@@ -593,9 +602,29 @@ class Pdf extends Model
                 $kana,
                 false
             );
+            $kanaRight = max($this->lastRect[2], static::MAIN_NAME_LEFT);
         }
-        return $this;
         // }}}
+        // email {{{
+        if (trim((string)$email) !== '') {
+            $left = max($nameRight, $kanaRight, static::MAIN_NAME_LEFT) + 3;
+            $this->pdf->SetFont('robotomono', '', 0);
+            $fontSize = $this->calcFontSize($email, (static::MAIN_NAME_RIGHT - $left), 3.5);
+            $this->pdf->SetFont('', '', static::mm2pt($fontSize));
+            list($textWidth, $textHeight) = $this->calcTextSize($email);
+            $this->drawTextToBox(
+                $left,
+                $top + 1.8,
+                static::MAIN_NAME_RIGHT,
+                $top + $nameMaxHeight,
+                $email,
+                'M',
+                $fontSize,
+                'robotomono'
+            );
+        }
+        // }}}
+        return $this;
     }
 
     public function drawPhone(string $phone1, string $phone2, string $phone3): self

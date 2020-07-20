@@ -50,4 +50,7 @@ Licensed under the MIT License.
   - [にゃしぃフォント改二・にゃしぃフレンズ](http://marusexijaxs.web.fc2.com/)
     - Licensed under the CC BY-ND 4.0
     - (C) マルセ / プロジェクトU-Fo
+  - [Roboto Mono](https://github.com/googlefonts/roboto)
+    - Licensed under the Apache License 2.0
+    - (C) Google Inc.
 
