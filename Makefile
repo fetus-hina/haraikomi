@@ -21,7 +21,7 @@ check-style: check-style-php check-style-js check-style-css
 
 .PHONY: check-style-php
 check-style-php: bin/phpcs
-	bin/phpcs -p --standard=phpcs.xml
+	bin/phpcs
 
 bin/phpcs:
 	curl -fsSL -o $@ 'https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar'

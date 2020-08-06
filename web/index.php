@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 define('K_PATH_FONTS', __DIR__ . '/../resources/fonts/_tcpdf/'); // phpcs:disable
 
 if (!file_exists(__DIR__ . '/../.production')) {

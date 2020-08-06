@@ -6,6 +6,8 @@
  * @license http://www.yiiframework.com/license/
  */
 
+declare(strict_types=1);
+
 namespace app\assets;
 
 use yii\bootstrap4\BootstrapAsset;
