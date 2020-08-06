@@ -25,8 +25,7 @@ jobs:
     steps:
       - uses: 'actions/checkout@v2'
       - run: 'sudo update-alternatives --set php /usr/bin/php7.4'
-      - run: 'make bin/phpcs'
-      - run: 'bin/phpcs'
+      - run: 'make check-style-php'
 
   jsStyleCheck:
     name: 'JS Coding Style'

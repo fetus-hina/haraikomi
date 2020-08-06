@@ -7,7 +7,11 @@
   <arg value="p" />
   <arg value="s" />
 
+  <config name="installed_paths" value="vendor/phpcompatibility/php-compatibility" />
+  <runtime-set name="testVersion" value="7.4-8.0" />
+
   <rule ref="PSR12" />
+  <rule ref="PHPCompatibility" />
 
   <rule ref="Generic.Files.ByteOrderMark" />
   <rule ref="Generic.Files.EndFileNewline" />

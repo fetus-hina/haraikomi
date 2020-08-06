@@ -6,14 +6,15 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">= 7.4.0",
+        "masterminds/html5": "^2.7",
         "php-curl-class/php-curl-class": "^8.6",
+        "symfony/css-selector": "^5.1",
         "tecnickcom/tcpdf": "^6.3.0",
         "yiisoft/yii2": "*",
-        "yiisoft/yii2-bootstrap4": "*",
-        "masterminds/html5": "^2.7",
-        "symfony/css-selector": "^5.1"
+        "yiisoft/yii2-bootstrap4": "*"
     },
     "require-dev": {
+        "phpcompatibility/php-compatibility": "^9.3",
         "squizlabs/php_codesniffer": "*",
         "yiisoft/yii2-debug": "*",
         "yiisoft/yii2-gii": "*"
