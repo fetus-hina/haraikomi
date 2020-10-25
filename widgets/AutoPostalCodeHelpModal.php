@@ -30,7 +30,7 @@ class AutoPostalCodeHelpModal extends Modal
             array_values($map),
             file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__)
         ));
-        
+
         $mdParser = new class () extends GithubMarkdown {
             protected function renderLink($block)
             {
