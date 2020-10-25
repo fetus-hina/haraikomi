@@ -74,7 +74,7 @@ class JpBankHtml extends Model
             $accountName = $this->normalizeText($tds[0]->textContent);
             $account = $this->normalizeText($tds[1]->textContent);
             $term = $this->normalizeText($tds[2]->textContent);
-            
+
             if (
                 strlen($accountName) > 0 &&
                 preg_match('/^(\d{5})-(\d)-(\d{1,6})/', $account, $aMatch) &&

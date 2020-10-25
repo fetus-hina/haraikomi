@@ -465,7 +465,7 @@ class Pdf extends Model
             $this->drawTextToBox($left, $top, $right, $bottom, $name, 'M', $fontSize);
             return true;
         }
-        
+
         $this->pdf->SetFont('', '', static::mm2pt($fontSize));
         list ($textWidth, $textHeight) = $this->calcTextSize($name);
         $stretch = false;
@@ -917,7 +917,7 @@ class Pdf extends Model
         $this->pdf->Line(90.84, 70, 90.84, 98);
         $this->pdf->Line(85.84, 98, 120.84, 98);
         //TODO: 縦書き: 日附印
-        
+
         return $this;
         // }}}
     }
@@ -1051,7 +1051,7 @@ class Pdf extends Model
         $this->pdf->SetXY(131, 111.5);
         $text = 'この受領証は、大切に保管してください。';
         $this->pdf->Cell(0, 0, $text, 0, 0, 'L', false, '', 0, false, 'T', 'T');
-        
+
         return $this;
         // }}}
     }
