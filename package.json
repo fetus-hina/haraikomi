@@ -13,7 +13,7 @@
     "bootstrap": "^4.5.3",
     "clean-css": "^4.2.3",
     "clean-css-cli": "^4.3.0",
-    "eslint": "^7.12.0",
+    "eslint": "^7.12.1",
     "inputmask": "^5.0.5",
     "jquery": "^3.5.1",
     "node-sass": "^4.14.1",
@@ -23,7 +23,7 @@
     "punycode": "^2.1.1",
     "stylelint": "^13.7.2",
     "stylelint-config-recommended": "^3.0.0",
-    "uglify-js": "^3.11.3",
+    "uglify-js": "^3.11.4",
     "yii2-pjax": "^2.0.7"
   },
   "scripts": {
