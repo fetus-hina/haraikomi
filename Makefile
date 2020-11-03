@@ -58,7 +58,7 @@ package-lock.json: package.json
 	@touch $@
 
 web/css/%.css: resources/css/%.scss node_modules
-	npx node-sass -q -x $< \
+	npx sass $< \
 		| npx postcss --no-map --use autoprefixer \
 		| npx cleancss --output $@ -O 1 --format "breaks:afterRuleEnds=on"
 
