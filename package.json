@@ -23,7 +23,7 @@
     "sass": "^1.29.0",
     "stylelint": "^13.7.2",
     "stylelint-config-recommended": "^3.0.0",
-    "uglify-js": "^3.11.5",
+    "uglify-js": "^3.11.6",
     "yii2-pjax": "^2.0.7"
   },
   "scripts": {
