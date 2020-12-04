@@ -532,7 +532,7 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
           おまけみたいなものなので通常はIPAex明朝を利用されるのがいいと思います。
           <ul>
             <li>
-              <a href="https://ipafont.ipa.go.jp/">IPAexゴシック</a>
+              <a href="https://moji.or.jp/ipafont/">IPAexゴシック</a>
             </li>
             <li>
               <a href="https://ja.osdn.net/projects/ume-font/">梅明朝・梅ゴシック</a>
@@ -566,7 +566,7 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
       2019-07-05
       <ul>
         <li>
-          日本語印刷に利用している<a href="https://ipafont.ipa.go.jp/">IPAex明朝フォント</a>を
+          日本語印刷に利用している<a href="https://moji.or.jp/ipafont/">IPAex明朝フォント</a>を
           Ver.004.01 に更新しました。「令和」の組文字（U+32FF, ㋿）が出力できるようになっていたりします。
           （が、㍻に比べて細いような…）
         </li>
