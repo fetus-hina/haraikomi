@@ -7,7 +7,7 @@
     "require": {
         "php": ">= 7.4.0",
         "masterminds/html5": "^2.7",
-        "php-curl-class/php-curl-class": "^8.6",
+        "php-curl-class/php-curl-class": "^9.0",
         "symfony/css-selector": "^5.1",
         "tecnickcom/tcpdf": "^6.3.0",
         "yiisoft/yii2": "*",
