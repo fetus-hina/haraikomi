@@ -13,10 +13,12 @@ class m200709_180922_create_jp_gienkin_table extends Migration
             'name' => $this->text()->notNull()->unique(),
             'ref_time' => $this->integer()->notNull(),
         ]);
+        return true;
     }
 
     public function safeDown()
     {
         $this->dropTable('{{%jp_gienkin}}');
+        return true;
     }
 }

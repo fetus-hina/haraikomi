@@ -88,10 +88,11 @@ class Pdf extends Model
     public string $fontNameNote = 'ipaexg';
     public bool $normalizeToWide = true;
 
-    private $lastRect;
+    private ?array $lastRect = null;
 
-    private $pdf;
+    private ?TCPDF $pdf = null;
 
+    /** @return void */
     public function init()
     {
         parent::init();
@@ -1100,6 +1101,7 @@ class Pdf extends Model
                 return $fontSize;
             }
         }
+        return $minFontSize;
         // }}}
     }
 

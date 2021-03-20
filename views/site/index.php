@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\assets\PostalCodeAsset;
 use app\models\DestPreset;
+use app\models\HaraikomiForm;
 use app\models\JpGienkin;
 use app\models\Prefecture;
 use app\widgets\AutoPostalCodeChoiceModal;
@@ -17,8 +18,15 @@ use yii\bootstrap4\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var HaraikomiForm $form
+ */
 
 $this->title = Yii::$app->name;
+
 ?>
 <div class="site-index">
   <h1><?= Html::encode($this->title) ?></h1>
@@ -83,6 +91,7 @@ $this->title = Yii::$app->name;
                   ],
                 ];
               },
+              // @phpstan-ignore-next-line
               DestPreset::find()
                 ->valid()
                 ->nonGienkin()
@@ -281,7 +290,7 @@ $this->title = Yii::$app->name;
                       'class' => 'btn btn-outline-secondary',
                       'data' => [
                         'toggle' => 'modal',
-                        'target' => '#' . AutoPostalCodeHelpModal::ID,
+                        'target' => '#' . AutoPostalCodeHelpModal::getModalId(),
                       ],
                     ]),
                   ]),
@@ -302,7 +311,7 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
   Json::encode('#' . Html::getInputId($form, 'postal_code') . '--querybtn'),
   implode(',', [
     Json::encode('#' . Html::getInputId($form, 'postal_code')),
-    Json::encode('#' . AutoPostalCodeChoiceModal::ID),
+    Json::encode('#' . AutoPostalCodeChoiceModal::getModalId()),
     Json::encode([
       '#' . Html::getInputId($form, 'pref_id') => 'prefcode',
       '#' . Html::getInputId($form, 'address1') => 'address2',

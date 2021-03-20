@@ -11,8 +11,9 @@ class m200709_181322_add_jp_gienkin_ref extends Migration
         $this->addColumn(
             'dest_preset',
             'jp_gienkin_id',
-            $this->integer()->null()->append('REFERENCES {{jp_gienkin}}([[id]])')
+            (string)$this->integer()->null()->append('REFERENCES {{jp_gienkin}}([[id]])')
         );
+        return true;
     }
 
     public function safeDown()

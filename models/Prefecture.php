@@ -8,6 +8,10 @@ use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+/**
+ * @property int $id
+ * @property string $name
+ */
 class Prefecture extends ActiveRecord
 {
     public static function find(): ActiveQuery

@@ -25,6 +25,7 @@ class JpBankHtml extends Model
         ];
     }
 
+    /** @return \Generator */
     public function parse()
     {
         // 同じ災害の 2 つ目以降の <tr> が省略されている糞 HTML が喰わされる

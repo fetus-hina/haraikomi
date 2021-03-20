@@ -15,6 +15,7 @@ class GoogleFontsAsset extends AssetBundle
     public $css = [];
     public $js = [];
 
+    /** @return void */
     public function init()
     {
         $this->css[] = sprintf('https://fonts.googleapis.com/css?%s', http_build_query(

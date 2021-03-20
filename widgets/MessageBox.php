@@ -10,8 +10,12 @@ use yii\helpers\Html;
 
 class MessageBox extends Modal
 {
-    public const ID = 'message-box';
+    public static function getModalId(): string
+    {
+        return 'message-box';
+    }
 
+    /** @return void */
     public function init()
     {
         parent::init();

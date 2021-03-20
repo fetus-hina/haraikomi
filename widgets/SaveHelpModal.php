@@ -9,7 +9,10 @@ use yii\helpers\Html;
 
 class SaveHelpModal extends Modal
 {
-    public const ID = 'modal-save-help';
+    protected static function getModalId(): string
+    {
+        return 'modal-save-help';
+    }
 
     protected function getTitleText(): string
     {

@@ -50,6 +50,7 @@ class m190914_214828_dest_preset_r1_aug_heavy_rain extends Migration
                 ],
             ]
         );
+        return true;
     }
 
     public function safeDown()
@@ -57,5 +58,7 @@ class m190914_214828_dest_preset_r1_aug_heavy_rain extends Migration
         $this->delete('dest_preset', ['and',
             ['like', 'name', '令和元年8月豪雨%', false],
         ]);
+
+        return true;
     }
 }

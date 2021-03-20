@@ -13,13 +13,14 @@ abstract class Modal extends Widget
 {
     public string $id;
 
+    /** @return void */
     public function init()
     {
         parent::init();
-
-        $this->id = static::ID;
+        $this->id = static::getModalId();
     }
 
+    abstract protected static function getModalId(): string;
     abstract protected function getTitleText(): string;
     abstract protected function renderBodyData(): string;
 

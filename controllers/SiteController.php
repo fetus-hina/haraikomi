@@ -9,6 +9,8 @@ use DateTimeZone;
 use Yii;
 use app\models\HaraikomiForm;
 use yii\web\Controller;
+use yii\web\ErrorAction;
+use yii\web\Response;
 
 class SiteController extends Controller
 {
@@ -16,11 +18,12 @@ class SiteController extends Controller
     {
         return [
             'error' => [
-                'class' => 'yii\web\ErrorAction',
+                'class' => ErrorAction::class,
             ],
         ];
     }
 
+    /** @return Response|string */
     public function actionIndex()
     {
         $form = Yii::createObject(HaraikomiForm::class);

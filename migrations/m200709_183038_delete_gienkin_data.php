@@ -32,6 +32,8 @@ class m200709_183038_delete_gienkin_data extends Migration
         ]);
 
         $this->execute($sql);
+
+        return true;
     }
 
     public function safeDown()

@@ -240,10 +240,12 @@ class m190701_093615_dest_preset extends Migration
                 ],
             ]
         );
+        return true;
     }
 
     public function safeDown()
     {
         $this->dropTable('dest_preset');
+        return true;
     }
 }

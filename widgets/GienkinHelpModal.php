@@ -9,7 +9,10 @@ use yii\helpers\Html;
 
 class GienkinHelpModal extends Modal
 {
-    public const ID = 'modal-gienkin-help';
+    protected static function getModalId(): string
+    {
+        return 'modal-gienkin-help';
+    }
 
     protected function getTitleText(): string
     {

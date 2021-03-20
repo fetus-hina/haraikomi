@@ -32,6 +32,8 @@ class m190914_213355_dest_preset_kyoani extends Migration
                 ],
             ]
         );
+
+        return true;
     }
 
     public function safeDown()
@@ -39,5 +41,7 @@ class m190914_213355_dest_preset_kyoani extends Migration
         $this->delete('dest_preset', ['and',
             ['like', 'name', '京アニ放火%', false],
         ]);
+
+        return true;
     }
 }

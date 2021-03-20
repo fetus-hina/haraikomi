@@ -9,25 +9,45 @@ use yii\base\Model;
 
 class HaraikomiForm extends Model
 {
+    /** @var mixed */
     public $account1;
+    /** @var mixed */
     public $account2;
+    /** @var mixed */
     public $account3;
+    /** @var mixed */
     public $amount;
+    /** @var mixed */
     public $account_name;
+    /** @var mixed */
     public $postal_code;
+    /** @var mixed */
     public $pref_id;
+    /** @var mixed */
     public $address1;
+    /** @var mixed */
     public $address2;
+    /** @var mixed */
     public $address3;
+    /** @var mixed */
     public $name;
+    /** @var mixed */
     public $kana;
+    /** @var mixed */
     public $phone1;
+    /** @var mixed */
     public $phone2;
+    /** @var mixed */
     public $phone3;
+    /** @var mixed */
     public $email;
+    /** @var mixed */
     public $note;
+    /** @var mixed */
     public $font_ja;
+    /** @var mixed */
     public $use_fixed;
+    /** @var mixed */
     public $draw_form;
 
     public function rules()

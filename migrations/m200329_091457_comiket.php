@@ -22,6 +22,8 @@ class m200329_091457_comiket extends Migration
                 $data
             )
         );
+
+        return true;
     }
 
     public function safeDown()
@@ -33,6 +35,8 @@ class m200329_091457_comiket extends Migration
         foreach ($data as $row) {
             $this->delete('dest_preset', $row);
         }
+
+        return true;
     }
 
     public function getData(): array

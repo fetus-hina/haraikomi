@@ -20,8 +20,15 @@ app-config: config/cookie.php
 check-style: check-style-php check-style-js check-style-css
 
 .PHONY: check-style-php
-check-style-php: vendor
+check-style-php: check-style-phpcs check-style-phpstan
+
+.PHONY: check-style-phpcs
+check-style-phpcs: vendor
 	vendor/bin/phpcs
+
+.PHONY: check-style-phpstan
+check-style-phpstan: vendor
+	vendor/bin/phpstan analyze --memory-limit=1G || true
 
 check-style-js: node_modules
 	npx eslint "./resources/**/*.js"

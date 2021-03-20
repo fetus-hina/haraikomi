@@ -158,6 +158,7 @@ class m191018_102816_dest_preset_r1_typhoon_19 extends Migration
                 ],
             ]
         );
+        return true;
     }
 
     public function safeDown()
@@ -165,5 +166,6 @@ class m191018_102816_dest_preset_r1_typhoon_19 extends Migration
         $this->delete('dest_preset', ['and',
             ['like', 'name', '令和元年台風19号%', false],
         ]);
+        return true;
     }
 }

@@ -50,6 +50,7 @@ class JpGienkin extends ActiveRecord
      */
     public function getDestPresets(): ActiveQuery
     {
+        // @phpstan-ignore-next-line
         return $this->hasMany(DestPreset::class, ['jp_gienkin_id' => 'id'])
             ->valid()
             ->gienkin()

@@ -17,7 +17,7 @@ class JpBankController extends Controller
     public function actionParse(): int
     {
         $model = Yii::createObject([
-            '__class' => JpBankHtml::class,
+            'class' => JpBankHtml::class,
             'html' => stream_get_contents(STDIN),
         ]);
         if (!$model->validate()) {
@@ -41,7 +41,7 @@ class JpBankController extends Controller
     public function actionParseAndImport(): int
     {
         $parser = Yii::createObject([
-            '__class' => JpBankHtml::class,
+            'class' => JpBankHtml::class,
             'html' => stream_get_contents(STDIN),
         ]);
         if (!$parser->validate()) {
@@ -88,7 +88,7 @@ class JpBankController extends Controller
     {
         if (!$model = JpGienkin::findOne(['name' => $name])) {
             $model = Yii::createObject([
-                '__class' => JpGienkin::class,
+                'class' => JpGienkin::class,
                 'name' => $name,
                 'ref_time' => $refTime,
             ]);
@@ -108,7 +108,7 @@ class JpBankController extends Controller
         ]);
         if (!$model) {
             $model = Yii::createObject([
-                '__class' => DestPreset::class,
+                'class' => DestPreset::class,
                 'account1' => $a1,
                 'account2' => $a2,
                 'account3' => $a3,

@@ -9,7 +9,10 @@ use yii\helpers\Html;
 
 class AutoPostalCodeChoiceModal extends Modal
 {
-    public const ID = 'modal-postalcode-choice';
+    public static function getModalId(): string
+    {
+        return 'modal-postalcode-choice';
+    }
 
     protected function getTitleText(): string
     {

@@ -10,7 +10,10 @@ use yii\helpers\Html;
 
 class AutoPostalCodeHelpModal extends Modal
 {
-    public const ID = 'modal-postalcode-help';
+    public static function getModalId(): string
+    {
+        return 'modal-postalcode-help';
+    }
 
     protected function getTitleText(): string
     {
@@ -32,7 +35,8 @@ class AutoPostalCodeHelpModal extends Modal
         ));
 
         $mdParser = new class () extends GithubMarkdown {
-            protected function renderLink($block)
+            /** @param mixed $block */
+            protected function renderLink($block): string
             {
                 if (isset($block['refkey'])) {
                     if (($ref = $this->lookupReference($block['refkey'])) !== false) {
