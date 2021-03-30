@@ -14,6 +14,7 @@
         "yiisoft/yii2-bootstrap4": "*"
     },
     "require-dev": {
+        "deployer/deployer": "*",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpstan/phpstan": "^0.12.0",
         "proget-hq/phpstan-yii2": "^0.7.0",
