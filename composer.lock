@@ -195,16 +195,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.0.0",
+            "version": "9.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "b1c882ec346d5db1a504aaf793d272d81e4331be"
+                "reference": "2e63c0d00a65ada99106def2ddba9d4b1ffa99d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/b1c882ec346d5db1a504aaf793d272d81e4331be",
-                "reference": "b1c882ec346d5db1a504aaf793d272d81e4331be",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/2e63c0d00a65ada99106def2ddba9d4b1ffa99d9",
+                "reference": "2e63c0d00a65ada99106def2ddba9d4b1ffa99d9",
                 "shasum": ""
             },
             "require": {
@@ -260,9 +260,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.0.0"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.1.0"
             },
-            "time": "2021-03-19T12:52:30+00:00"
+            "time": "2021-03-25T01:19:16+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -331,16 +331,16 @@
         },
         {
             "name": "tecnickcom/tcpdf",
-            "version": "6.3.5",
+            "version": "6.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/TCPDF.git",
-                "reference": "19a535eaa7fb1c1cac499109deeb1a7a201b4549"
+                "reference": "5ba838befdb37ef06a16d9f716f35eb03cb1b329"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/19a535eaa7fb1c1cac499109deeb1a7a201b4549",
-                "reference": "19a535eaa7fb1c1cac499109deeb1a7a201b4549",
+                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/5ba838befdb37ef06a16d9f716f35eb03cb1b329",
+                "reference": "5ba838befdb37ef06a16d9f716f35eb03cb1b329",
                 "shasum": ""
             },
             "require": {
@@ -391,9 +391,15 @@
             ],
             "support": {
                 "issues": "https://github.com/tecnickcom/TCPDF/issues",
-                "source": "https://github.com/tecnickcom/TCPDF/tree/6.3.5"
+                "source": "https://github.com/tecnickcom/TCPDF/tree/6.4.1"
             },
-            "time": "2020-02-14T14:20:12+00:00"
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&currency_code=GBP&business=paypal@tecnick.com&item_name=donation%20for%20tcpdf%20project",
+                    "type": "custom"
+                }
+            ],
+            "time": "2021-03-27T16:00:33+00:00"
         },
         {
             "name": "yiisoft/yii2",
