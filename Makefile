@@ -37,14 +37,10 @@ check-style-css: node_modules
 	npx stylelint "./resources/**/*.scss"
 
 vendor: composer.lock composer.phar
-	./composer.phar install -vvv
-
-composer.lock: composer.json composer.phar
-	./composer.phar update -vvv
-	touch -r composer.json composer.lock
+	./composer.phar install
 
 composer.phar:
-	curl 'https://getcomposer.org/installer' -- | php -- --stable
+	curl -fsSL 'https://getcomposer.org/installer' -- | php -- --stable
 	touch -r composer.json composer.phar
 
 config/cookie.php: vendor
