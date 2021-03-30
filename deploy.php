@@ -17,7 +17,7 @@ set('composer_options', implode(' ', [
     '--optimize-autoloader',
     '--no-suggest',
 ]));
-set('git_tty', true); 
+set('git_tty', true);
 add('shared_files', [
     'config/cookie.php',
 ]);
