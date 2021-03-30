@@ -45,12 +45,28 @@ set('bin/php', function () {
     return locateBinaryPath('php');
 });
 
+set('bin/npm', function () {
+    if ($scl = get('softwarecollections')) {
+        return vsprintf('scl enable %s -- npm', [
+            implode(' ', array_map(
+                'escapeshellarg',
+                $scl
+            )),
+        ]);
+    }
+
+    return locateBinaryPath('npm');
+});
+
 host('ayanami.single-quote.com')
     ->user('haraikomi')
     ->stage('production')
     ->roles('app')
     ->set('deploy_path', '~/app')
-    ->set('softwarecollections', ['php74']);
+    ->set('softwarecollections', [
+        'php74',
+        'rh-nodejs14',
+    ]);
 
 task('deploy', [
     'deploy:info',
@@ -86,7 +102,7 @@ task('deploy:production', function () {
 task('deploy:vendors', function () {
     within('{{release_path}}', function () {
         run('{{bin/composer}} {{composer_options}}');
-        run('npm clean-install');
+        run('{{bin/npm}} clean-install');
     });
 });
 
@@ -106,7 +122,7 @@ task('deploy:build', function () {
 });
 
 task('deploy:clear_opcache', function () {
-    // run('curl -f --insecure --resolve haraikomi.fetus.jp:443:127.0.0.1 https://haraikomi.fetus.jp/site/clear-opcache');
+    run('curl -f --insecure --resolve haraikomi.fetus.jp:443:127.0.0.1 https://haraikomi.fetus.jp/site/clear-opcache');
 });
 
 task('deploy:clear_proxy', function () {
