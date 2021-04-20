@@ -25,4 +25,9 @@ class FontQuery extends ActiveQuery
                 "{$fontTable}.[[rank]]" => SORT_ASC,
             ]);
     }
+
+    public function hasFixedVariant(): self
+    {
+        return $this->andWhere(['not', ['fixed_id' => null]]);
+    }
 }

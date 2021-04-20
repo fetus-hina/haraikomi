@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 use app\assets\PostalCodeAsset;
 use app\models\DestPreset;
+use app\models\Font;
 use app\models\HaraikomiForm;
 use app\models\JpGienkin;
 use app\models\Prefecture;
+use app\models\query\FontQuery;
 use app\widgets\AutoPostalCodeChoiceModal;
 use app\widgets\AutoPostalCodeHelpModal;
 use app\widgets\GienkinHelpModal;
@@ -201,7 +203,17 @@ $this->title = Yii::$app->name;
         <?= $_->field($form, 'use_fixed')
           ->hint(implode('<br>', [
             '簡易的な表のような通信欄を作成する必要がある場合などに利用できます。（スペースでレイアウト調整できます）',
-            '「日本語フォント」オプションで「IPAex明朝」「IPAexゴシック」を指定している場合のみ動作します。',
+            '「日本語フォント」オプションで次のいずれかのフォントを指定している場合のみ動作します：' . implode(
+              '',
+              array_map(
+                fn($font) => Html::encode("「{$font->name}」"),
+                (function (): array {
+                  $q = Font::find();
+                  assert($q instanceof FontQuery);
+                  return $q->hasFixedVariant()->all();
+                })(),
+              )
+            ),
           ]))
           ->checkbox() . "\n"
         ?>
@@ -433,6 +445,8 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
       2021-04-20
       <ul>
         <li>みかちゃん-Pを削除しました。</li>
+        <li>フォント「M+ 1m」を追加しました。</li>
+        <li>「M+ 1p」を指定時に「通信欄への等幅フォントの利用」が利用できるようになりました（M+ 1mが利用されます）。</li>
       </ul>
     </li>
     <li>

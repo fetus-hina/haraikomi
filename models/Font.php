@@ -26,6 +26,7 @@ use yii\db\ActiveRecord;
  */
 class Font extends ActiveRecord
 {
+    /** @return FontQuery */
     public static function find(): FontQuery
     {
         return Yii::createObject(FontQuery::class, [static::class]);
