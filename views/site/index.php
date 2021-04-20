@@ -430,6 +430,12 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
   <h2>更新履歴</h2>
   <ul>
     <li>
+      2021-04-20
+      <ul>
+        <li>みかちゃん-Pを削除しました。</li>
+      </ul>
+    </li>
+    <li>
       2021-02-06
       <ul>
         <li>
@@ -562,7 +568,7 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
               <a href="http://mplus-fonts.osdn.jp/">M+1p Regular</a>
             </li>
             <li>
-              <a href="http://www001.upp.so-net.ne.jp/mikachan/">みかちゃん-P</a>
+              みかちゃん-P
             </li>
             <li>
               <a href="http://marusexijaxs.web.fc2.com/tegakifont.html">にゃしぃフォント改二・にゃしぃフレンズ</a>

@@ -44,9 +44,6 @@ Licensed under the MIT License.
   - [M+ FONTS](http://mplus-fonts.osdn.jp/)
     - License: [Japanese](resources/fonts/mplus/LICENSE_J) [English](resources/fonts/mplus/LICENSE_E)
     - (C) M+ FONTS PROJECT
-  - [みかちゃん-P](http://www001.upp.so-net.ne.jp/mikachan/)
-    - License: [Japanese](resources/fonts/mikachan/LICENSE)
-    - (C) みかちゃん
   - [にゃしぃフォント改二・にゃしぃフレンズ](http://marusexijaxs.web.fc2.com/)
     - Licensed under the CC BY-ND 4.0
     - (C) マルセ / プロジェクトU-Fo

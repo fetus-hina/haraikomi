@@ -173,7 +173,6 @@ class HaraikomiForm extends Model
             'umepgo4'           => 'ゴシック体（梅Pゴシック）',
             'mplus1p'           => 'ゴシック体（M+ 1p）',
             'genjyuugothic'     => '丸ゴシック体（源柔ゴシック）',
-            'mikachanp'         => '手書き風（みかちゃん-P）',
             'nyashi'            => '手書き風（にゃしぃフォント改二／睦月）',
             'nyashi_friends'    => '手書き風（にゃしぃフレンズ／如月）',
         ];
