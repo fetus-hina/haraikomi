@@ -163,36 +163,26 @@ class HaraikomiForm extends Model
 
     public function getJapaneseFonts(): array
     {
-        return [
-            'ipaexm'            => '明朝体（IPAex明朝）',
-            'ipam'              => '明朝体（IPA明朝・等幅）',
-            'umepmo3'           => '明朝体（梅P明朝）',
-            'ipaexg'            => 'ゴシック体（IPAexゴシック）',
-            'ipag'              => 'ゴシック体（IPAゴシック・等幅）',
-            'genshingothic'     => 'ゴシック体（源真ゴシック）',
-            'umepgo4'           => 'ゴシック体（梅Pゴシック）',
-            'mplus1p'           => 'ゴシック体（M+ 1p）',
-            'genjyuugothic'     => '丸ゴシック体（源柔ゴシック）',
-            'nyashi'            => '手書き風（にゃしぃフォント改二／睦月）',
-            'nyashi_friends'    => '手書き風（にゃしぃフレンズ／如月）',
-        ];
+        $fonts = [];
+        foreach (Font::find()->all() as $font) {
+            $fonts[$font->key] = vsprintf('%s（%s）%s', [
+                $font->category->name,
+                $font->name,
+                $font->is_fixed ? '【等幅】' : '',
+            ]);
+        }
+        return $fonts;
     }
 
     public function getFixedWidthFont(string $fontId): ?string
     {
-        $map = [
-            'ipaexg' => 'ipag',
-            'ipaexm' => 'ipam',
-        ];
-        if ($fixedFont = ($map[$fontId] ?? null)) {
-            // $map の設定フォントが利用可能フォントに挙げられていることを
-            // 念のため確認する
-            $availableFonts = array_keys($this->getJapaneseFonts());
-            if (in_array($fixedFont, $availableFonts, true)) {
-                return $fixedFont;
+        $orgFont = Font::find()->andWhere(['key' => $fontId])->one();
+        if ($orgFont) {
+            $fwFont = $orgFont->fixed;
+            if ($fwFont) {
+                return $fwFont->key;
             }
         }
-
         return null;
     }
 }
