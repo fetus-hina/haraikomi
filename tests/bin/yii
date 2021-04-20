@@ -1,0 +1,24 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use yii\console\Application;
+use yii\helpers\ArrayHelper;
+
+define('YII_DEBUG', true);
+define('YII_ENV', 'test');
+
+require(__DIR__ . '/../../vendor/autoload.php');
+require(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
+require(__DIR__ . '/../../config/bootstrap.php');
+
+$config = ArrayHelper::merge(require(__DIR__ . '/../../config/console.php'), [
+    'components' => [
+        'db' => require(__DIR__ . '/../../config/test_db.php'),
+    ],
+]);
+
+$application = new Application($config);
+$exitCode = $application->run();
+exit($exitCode);

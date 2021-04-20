@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-$db = require(__DIR__ . '/db.php');
-// test database! Important not to run tests on production or development databases
-$db['dsn'] = 'mysql:host=localhost;dbname=yii2_basic_tests';
-
-return $db;
+return (function (array $db): array {
+    $db['dsn'] = 'sqlite:@app/runtime/test-db.sqlite';
+    return $db;
+})(require(__DIR__ . '/db.php'));

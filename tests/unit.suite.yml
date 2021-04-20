@@ -1,0 +1,8 @@
+class_name: UnitTester
+modules:
+  enabled:
+    - Asserts
+    - Yii2:
+        part:
+          - fixtures
+          - orm

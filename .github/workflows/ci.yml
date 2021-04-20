@@ -1,5 +1,5 @@
 name: 'CI'
-on: ['push']
+on: ['push', 'pull_request']
 jobs:
   phpSyntaxCheck:
     name: 'PHP Syntax Check'
@@ -11,29 +11,97 @@ jobs:
     runs-on: 'ubuntu-20.04'
     steps:
       - uses: 'actions/checkout@v2'
-      - run: 'sudo update-alternatives --set php /usr/bin/php${{ matrix.php_version }}'
-      - run: 'php -v'
-      - run: |
+
+      - name: 'Use PHP ${{ matrix.php_version }}'
+        run: 'sudo update-alternatives --set php /usr/bin/php${{ matrix.php_version }}'
+
+      - name: 'Syntax Check'
+        run: |
           find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) \
             | LANG=C sort \
             | xargs -n 1 php -l
+
+  makeComposerCache:
+    name: 'Make composer cache'
+    runs-on: 'ubuntu-20.04'
+    steps:
+      - uses: 'actions/checkout@v2'
+
+      - uses: 'actions/cache@v2'
+        with:
+          path: |
+            ~/.cache/composer/files
+            vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: 'Use PHP 7.4'
+        run: 'sudo update-alternatives --set php /usr/bin/php7.4'
+
+      - name: 'Install Composer dependencies'
+        run: 'composer install --prefer-dist'
 
   phpStyleCheck:
     name: 'PHP Coding Style'
     runs-on: 'ubuntu-20.04'
     needs:
       - 'phpSyntaxCheck'
+      - 'makeComposerCache'
     steps:
       - uses: 'actions/checkout@v2'
-      - run: 'sudo update-alternatives --set php /usr/bin/php7.4'
-      - run: 'make check-style-php'
+
+      - uses: 'actions/cache@v2'
+        with:
+          path: |
+            ~/.cache/composer/files
+            vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+
+      - name: 'Use PHP 7.4'
+        run: 'sudo update-alternatives --set php /usr/bin/php7.4'
+
+      - name: 'Check Styles'
+        run: 'make check-style-php'
+
+  phpTest:
+    name: 'PHP Test (${{ matrix.php_version }})'
+    strategy:
+      matrix:
+        php_version:
+          - '7.4'
+          - '8.0'
+    runs-on: 'ubuntu-20.04'
+    needs:
+      - 'phpSyntaxCheck'
+      - 'makeComposerCache'
+    steps:
+      - uses: 'actions/checkout@v2'
+
+      - uses: 'actions/cache@v2'
+        with:
+          path: |
+            ~/.cache/composer/files
+            vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+
+      - name: 'Use PHP ${{ matrix.php_version }}'
+        run: 'sudo update-alternatives --set php /usr/bin/php${{ matrix.php_version }}'
+
+      - name: 'Set Up Environment'
+        run: 'make -j'
+
+      - name: 'Run Unit Test'
+        run: 'make test'
 
   jsStyleCheck:
     name: 'JS Coding Style'
     runs-on: 'ubuntu-20.04'
     steps:
       - uses: 'actions/checkout@v2'
+
       - uses: 'actions/setup-node@v1'
+
       - run: 'make check-style-js'
 
   cssStyleCheck:
@@ -41,5 +109,7 @@ jobs:
     runs-on: 'ubuntu-20.04'
     steps:
       - uses: 'actions/checkout@v2'
+
       - uses: 'actions/setup-node@v1'
+
       - run: 'make check-style-css'

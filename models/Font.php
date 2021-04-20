@@ -66,6 +66,7 @@ class Font extends ActiveRecord
 
     /**
      * {@inheritdoc}
+     * @codeCoverageIgnore
      */
     public function attributeLabels()
     {

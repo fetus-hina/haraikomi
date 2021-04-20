@@ -67,3 +67,14 @@ web/css/%.css: resources/css/%.scss node_modules
 
 web/js/%.js: resources/js/%.js node_modules
 	npx babel -s false $< | npx uglifyjs -c -m -b beautify=false,ascii_only=true --comments '/license|copyright/i' -o $@
+
+.PHONY: test
+test: composer.phar app-config vendor node_modules resources
+	@rm -f runtime/test-db.sqlite
+	./tests/bin/yii migrate/up --interactive=0 --compact=1
+	/usr/bin/env XDEBUG_MODE=coverage \
+		./vendor/bin/codecept run unit \
+			--coverage \
+			--coverage-html=./web/coverage/ \
+			--coverage-text=./runtime/coverage/coverage.txt \
+			--coverage-xml=./runtime/coverage/coverage.xml

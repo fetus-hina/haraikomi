@@ -7,6 +7,9 @@ namespace app\models;
 use yii\base\BaseObject;
 use yii\web\IdentityInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class User extends BaseObject implements IdentityInterface
 {
     /** @var string */

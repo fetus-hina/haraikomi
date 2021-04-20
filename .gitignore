@@ -7,7 +7,11 @@
 /config/cookie.php
 /config/debug-ips.php
 /node_modules
+/tests/_output/*
+/tests/_support/_generated
 /vendor
+/web/coverage/
 Thumbs.db
 composer.phar
+coverage.serialized
 nbproject
