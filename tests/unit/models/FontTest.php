@@ -30,17 +30,18 @@ class FontTest extends Unit
         $this->assertInstanceOf(FontCategory::class, $model->category);
     }
 
-    public function testFixedToProportional(): void
+    /** @dataProvider getFixedToProportionalData */
+    public function testFixedToProportional(string $fixedKey, string $propKey): void
     {
-        $model = Font::findOne(['key' => 'ipam']);
+        $model = Font::findOne(['key' => $fixedKey]);
         $this->assertInstanceOf(Font::class, $model);
 
         $fonts = $model->fonts;
         $this->assertIsArray($fonts);
         $this->assertGreaterThan(0, count($fonts));
 
-        // ipaexm を含む
-        $tmp = array_filter($fonts, fn($font) => $font->key === 'ipaexm');
+        // $propKey を含む
+        $tmp = array_filter($fonts, fn($font) => $font->key === $propKey);
         $this->assertEquals(1, count($tmp));
     }
 
@@ -62,10 +63,21 @@ class FontTest extends Unit
     public function getFontData(): array
     {
         return [
-            'ipaexm' => ['ipaexm', 'IPAex明朝',     false, 'ipam'],
-            'ipam'   => ['ipam',   'IPA明朝',       true,  null],
-            'ipaexg' => ['ipaexg', 'IPAexゴシック', false, 'ipag'],
-            'ipag'   => ['ipag',   'IPAゴシック',   true,  null],
+            'ipaexm' => ['ipaexm',  'IPAex明朝',     false, 'ipam'],
+            'ipam'   => ['ipam',    'IPA明朝',       true,  null],
+            'ipaexg' => ['ipaexg',  'IPAexゴシック', false, 'ipag'],
+            'ipag'   => ['ipag',    'IPAゴシック',   true,  null],
+            'M+ 1p'  => ['mplus1p', 'M+ 1p',         false, 'mplus1m'],
+            'M+ 1m'  => ['mplus1m', 'M+ 1m',         true,  null],
+        ];
+    }
+
+    public function getFixedToProportionalData(): array
+    {
+        return [
+            'ipam'  => ['ipam', 'ipaexm'],
+            'ipag'  => ['ipag', 'ipaexg'],
+            'M+ 1m' => ['mplus1m', 'mplus1p'],
         ];
     }
 
