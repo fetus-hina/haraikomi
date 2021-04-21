@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\models;
 
 use Yii;
+use app\models\query\DestPresetQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -34,6 +35,7 @@ class JpGienkin extends ActiveRecord
         ];
     }
 
+    /** @codeCoverageIgnore */
     public function attributeLabels()
     {
         return [
@@ -45,13 +47,12 @@ class JpGienkin extends ActiveRecord
 
     /**
      * Gets query for [[DestPresets]].
-     *
-     * @return \yii\db\ActiveQuery
      */
-    public function getDestPresets(): ActiveQuery
+    public function getDestPresets(): DestPresetQuery
     {
-        // @phpstan-ignore-next-line
-        return $this->hasMany(DestPreset::class, ['jp_gienkin_id' => 'id'])
+        $query = $this->hasMany(DestPreset::class, ['jp_gienkin_id' => 'id']);
+        assert($query instanceof DestPresetQuery);
+        return $query
             ->valid()
             ->gienkin()
             ->orderBy(['name' => SORT_ASC, 'id' => SORT_ASC]);
