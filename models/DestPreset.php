@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace app\models;
 
 use Yii;
-use yii\db\ActiveRecord;
+use app\models\query\DestPresetQuery;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "dest_preset".
@@ -21,35 +22,13 @@ use yii\db\ActiveQuery;
  * @property int $valid_to
  * @property int|null $jp_gienkin_id
  *
- * @property JpGienkin $jpGienkin
+ * @property ?JpGienkin $jpGienkin
  */
 class DestPreset extends ActiveRecord
 {
-    public static function find(): ActiveQuery
+    public static function find(): DestPresetQuery
     {
-        return new class (static::class) extends ActiveQuery {
-            public function gienkin(): self
-            {
-                $this->andWhere(['not', ['jp_gienkin_id' => null]]);
-                return $this;
-            }
-
-            public function nonGienkin(): self
-            {
-                $this->andWhere(['jp_gienkin_id' => null]);
-                return $this;
-            }
-
-            public function valid(): self
-            {
-                $t = (int)($_SERVER['REQUEST_TIME'] ?? time());
-                $this->andWhere(['and',
-                    ['<=', 'valid_from', $t],
-                    ['>', 'valid_to', $t],
-                ]);
-                return $this;
-            }
-        };
+        return Yii::createObject(DestPresetQuery::class, [static::class]);
     }
 
     public static function tableName(): string
@@ -71,6 +50,7 @@ class DestPreset extends ActiveRecord
         ];
     }
 
+    /** @codeCoverageIgnore */
     public function attributeLabels()
     {
         return [
@@ -88,8 +68,6 @@ class DestPreset extends ActiveRecord
 
     /**
      * Gets query for [[JpGienkin]].
-     *
-     * @return \yii\db\ActiveQuery
      */
     public function getJpGienkin(): ActiveQuery
     {
