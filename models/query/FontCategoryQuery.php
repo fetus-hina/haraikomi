@@ -8,7 +8,7 @@ use Yii;
 use app\models\FontCategory;
 use yii\db\ActiveQuery;
 
-class FontCategoryQuery extends ActiveQuery
+final class FontCategoryQuery extends ActiveQuery
 {
     /** @return void */
     public function init()

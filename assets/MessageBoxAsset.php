@@ -9,7 +9,7 @@ use yii\bootstrap4\BootstrapPluginAsset;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 
-class MessageBoxAsset extends AssetBundle
+final class MessageBoxAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';

@@ -7,7 +7,7 @@ namespace app\models\query;
 use DateTimeInterface;
 use yii\db\ActiveQuery;
 
-class DestPresetQuery extends ActiveQuery
+final class DestPresetQuery extends ActiveQuery
 {
     public function gienkin(): self
     {

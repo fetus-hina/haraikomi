@@ -7,7 +7,7 @@ namespace app\commands;
 use Yii;
 use yii\console\Controller;
 
-class AppConfigController extends Controller
+final class AppConfigController extends Controller
 {
     public function actionCookie(): int
     {

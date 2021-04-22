@@ -10,7 +10,7 @@ use Yii;
 use app\models\Font;
 use app\models\FontCategory;
 
-class FontCategoryTest extends Unit
+final class FontCategoryTest extends Unit
 {
     protected UnitTester $tester;
 

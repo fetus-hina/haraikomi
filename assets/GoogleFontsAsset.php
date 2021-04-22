@@ -8,7 +8,7 @@ use yii\bootstrap4\BootstrapAsset;
 use yii\web\AssetBundle;
 use yii\web\YiiAsset;
 
-class GoogleFontsAsset extends AssetBundle
+final class GoogleFontsAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';

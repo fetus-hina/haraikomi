@@ -12,7 +12,7 @@ use yii\db\ActiveRecord;
  * @property int $id
  * @property string $name
  */
-class Prefecture extends ActiveRecord
+final class Prefecture extends ActiveRecord
 {
     public static function find(): ActiveQuery
     {

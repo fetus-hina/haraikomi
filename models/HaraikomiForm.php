@@ -7,7 +7,7 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
-class HaraikomiForm extends Model
+final class HaraikomiForm extends Model
 {
     /** @var mixed */
     public $account1;

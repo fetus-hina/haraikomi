@@ -9,7 +9,7 @@ use app\models\Font;
 use app\models\FontCategory;
 use yii\db\ActiveQuery;
 
-class FontQuery extends ActiveQuery
+final class FontQuery extends ActiveQuery
 {
     /** @return void */
     public function init()

@@ -6,7 +6,7 @@ namespace app\assets;
 
 use yii\web\AssetBundle;
 
-class PostalCodeAsset extends AssetBundle
+final class PostalCodeAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';

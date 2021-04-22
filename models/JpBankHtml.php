@@ -13,7 +13,7 @@ use Symfony\Component\CssSelector\CssSelectorConverter;
 use Yii;
 use yii\base\Model;
 
-class JpBankHtml extends Model
+final class JpBankHtml extends Model
 {
     public string $html;
 

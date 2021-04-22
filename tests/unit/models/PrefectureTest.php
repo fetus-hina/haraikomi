@@ -9,7 +9,7 @@ use UnitTester;
 use Yii;
 use app\models\Prefecture;
 
-class PrefectureTest extends Unit
+final class PrefectureTest extends Unit
 {
     protected UnitTester $tester;
 

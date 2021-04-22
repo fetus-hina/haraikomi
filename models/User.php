@@ -10,7 +10,7 @@ use yii\web\IdentityInterface;
 /**
  * @codeCoverageIgnore
  */
-class User extends BaseObject implements IdentityInterface
+final class User extends BaseObject implements IdentityInterface
 {
     /** @var string */
     public $id;

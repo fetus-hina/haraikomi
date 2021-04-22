@@ -16,7 +16,7 @@ use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 
-class ApiController extends Controller
+final class ApiController extends Controller
 {
     /** @return void */
     public function init()

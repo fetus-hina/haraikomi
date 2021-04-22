@@ -13,7 +13,7 @@ use app\models\JpGienkin;
 use app\tests\fixtures\DestPresetFixture;
 use app\tests\fixtures\JpGienkinFixture;
 
-class JpGienkinTest extends Unit
+final class JpGienkinTest extends Unit
 {
     protected UnitTester $tester;
 

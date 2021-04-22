@@ -24,7 +24,7 @@ use yii\db\ActiveRecord;
  *
  * @property ?JpGienkin $jpGienkin
  */
-class DestPreset extends ActiveRecord
+final class DestPreset extends ActiveRecord
 {
     public static function find(): DestPresetQuery
     {

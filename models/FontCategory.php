@@ -18,7 +18,7 @@ use yii\db\ActiveRecord;
  *
  * @property Font[] $fonts
  */
-class FontCategory extends ActiveRecord
+final class FontCategory extends ActiveRecord
 {
     public static function find(): FontCategoryQuery
     {

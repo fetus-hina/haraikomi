@@ -6,7 +6,7 @@ namespace app\assets;
 
 use yii\web\AssetBundle;
 
-class PolyfillAsset extends AssetBundle
+final class PolyfillAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';

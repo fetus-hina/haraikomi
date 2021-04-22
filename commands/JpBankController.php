@@ -12,7 +12,7 @@ use stdClass;
 use yii\console\Controller;
 use yii\helpers\Json;
 
-class JpBankController extends Controller
+final class JpBankController extends Controller
 {
     public function actionParse(): int
     {

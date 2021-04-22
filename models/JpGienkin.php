@@ -18,7 +18,7 @@ use yii\db\ActiveRecord;
  *
  * @property DestPreset[] $destPresets
  */
-class JpGienkin extends ActiveRecord
+final class JpGienkin extends ActiveRecord
 {
     public static function tableName(): string
     {

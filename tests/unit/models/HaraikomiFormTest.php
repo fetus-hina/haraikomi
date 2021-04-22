@@ -9,7 +9,7 @@ use UnitTester;
 use Yii;
 use app\models\HaraikomiForm;
 
-class HaraikomiFormTest extends Unit
+final class HaraikomiFormTest extends Unit
 {
     protected UnitTester $tester;
 

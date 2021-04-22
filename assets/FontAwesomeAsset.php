@@ -6,7 +6,7 @@ namespace app\assets;
 
 use yii\web\AssetBundle;
 
-class FontAwesomeAsset extends AssetBundle
+final class FontAwesomeAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
