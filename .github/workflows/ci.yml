@@ -17,7 +17,7 @@ jobs:
 
       - name: 'Syntax Check'
         run: |
-          find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) \
+          find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'node_modules' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) \
             | LANG=C sort \
             | xargs -n 1 php -l
 
