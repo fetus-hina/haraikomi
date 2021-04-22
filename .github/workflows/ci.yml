@@ -92,7 +92,7 @@ jobs:
         run: 'make -j'
 
       - name: 'Run Unit Test'
-        run: 'make test'
+        run: 'make full-test'
 
   jsStyleCheck:
     name: 'JS Coding Style'

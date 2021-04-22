@@ -74,6 +74,17 @@ test: composer.phar app-config vendor node_modules resources
 	./tests/bin/yii migrate/up --interactive=0 --compact=1
 	/usr/bin/env XDEBUG_MODE=coverage \
 		./vendor/bin/codecept run unit \
+			--skip-group large \
+			--coverage \
+			--coverage-html=./web/coverage/ \
+			--coverage-text=./runtime/coverage/coverage.txt \
+			--coverage-xml=./runtime/coverage/coverage.xml
+.PHONY: full-test
+full-test: composer.phar app-config vendor node_modules resources
+	@rm -f runtime/test-db.sqlite
+	./tests/bin/yii migrate/up --interactive=0 --compact=1
+	/usr/bin/env XDEBUG_MODE=coverage \
+		./vendor/bin/codecept run unit \
 			--coverage \
 			--coverage-html=./web/coverage/ \
 			--coverage-text=./runtime/coverage/coverage.txt \
