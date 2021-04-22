@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use yii\db\Migration;
 
-class m200709_181322_add_jp_gienkin_ref extends Migration
+final class m200709_181322_add_jp_gienkin_ref extends Migration
 {
     public function safeUp()
     {

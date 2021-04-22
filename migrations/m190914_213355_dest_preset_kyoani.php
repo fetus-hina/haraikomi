@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use yii\db\Migration;
 
-class m190914_213355_dest_preset_kyoani extends Migration
+final class m190914_213355_dest_preset_kyoani extends Migration
 {
     public function safeUp()
     {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use yii\db\Migration;
 
-class m190914_214828_dest_preset_r1_aug_heavy_rain extends Migration
+final class m190914_214828_dest_preset_r1_aug_heavy_rain extends Migration
 {
     public function safeUp()
     {

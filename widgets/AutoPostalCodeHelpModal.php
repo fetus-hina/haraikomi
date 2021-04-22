@@ -8,7 +8,7 @@ use Yii;
 use cebe\markdown\GithubMarkdown;
 use yii\helpers\Html;
 
-class AutoPostalCodeHelpModal extends Modal
+final class AutoPostalCodeHelpModal extends Modal
 {
     public static function getModalId(): string
     {

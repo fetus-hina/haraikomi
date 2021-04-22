@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use yii\db\Migration;
 
-class m200709_183038_delete_gienkin_data extends Migration
+final class m200709_183038_delete_gienkin_data extends Migration
 {
     public function safeUp()
     {

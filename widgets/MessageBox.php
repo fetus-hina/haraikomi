@@ -8,7 +8,7 @@ use Yii;
 use app\assets\MessageBoxAsset;
 use yii\helpers\Html;
 
-class MessageBox extends Modal
+final class MessageBox extends Modal
 {
     public static function getModalId(): string
     {

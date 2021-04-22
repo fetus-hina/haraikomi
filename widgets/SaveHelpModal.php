@@ -7,7 +7,7 @@ namespace app\widgets;
 use Yii;
 use yii\helpers\Html;
 
-class SaveHelpModal extends Modal
+final class SaveHelpModal extends Modal
 {
     protected static function getModalId(): string
     {

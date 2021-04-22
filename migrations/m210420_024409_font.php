@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use yii\db\Migration;
 
-class m210420_024409_font extends Migration
+final class m210420_024409_font extends Migration
 {
     public function safeUp()
     {

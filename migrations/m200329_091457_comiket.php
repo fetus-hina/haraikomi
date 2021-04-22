@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use yii\db\Migration;
 
-class m200329_091457_comiket extends Migration
+final class m200329_091457_comiket extends Migration
 {
     public function safeUp()
     {

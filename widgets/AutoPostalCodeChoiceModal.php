@@ -7,7 +7,7 @@ namespace app\widgets;
 use Yii;
 use yii\helpers\Html;
 
-class AutoPostalCodeChoiceModal extends Modal
+final class AutoPostalCodeChoiceModal extends Modal
 {
     public static function getModalId(): string
     {

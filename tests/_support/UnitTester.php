@@ -20,7 +20,7 @@ use _generated\UnitTesterActions;
  *
  * @SuppressWarnings(PHPMD)
 */
-class UnitTester extends Actor
+final class UnitTester extends Actor
 {
     use UnitTesterActions;
 

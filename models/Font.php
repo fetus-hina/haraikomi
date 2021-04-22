@@ -24,7 +24,7 @@ use yii\db\ActiveRecord;
  * @property ?Font $fixed
  * @property Font[] $fonts
  */
-class Font extends ActiveRecord
+final class Font extends ActiveRecord
 {
     /** @return FontQuery */
     public static function find(): FontQuery

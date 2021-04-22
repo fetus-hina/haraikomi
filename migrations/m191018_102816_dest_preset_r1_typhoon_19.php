@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use yii\db\Migration;
 
-class m191018_102816_dest_preset_r1_typhoon_19 extends Migration
+final class m191018_102816_dest_preset_r1_typhoon_19 extends Migration
 {
     public function safeUp()
     {
