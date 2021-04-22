@@ -8,7 +8,7 @@ use TCPDF;
 use Yii;
 use yii\base\Model;
 
-class Pdf extends Model
+final class Pdf extends Model
 {
     private const MAIN_ACCOUNT_TOP          = 6 + 6 + 3;
     private const MAIN_ACCOUNT_BOTTOM       = self::MAIN_ACCOUNT_TOP + 8;
@@ -314,13 +314,13 @@ class Pdf extends Model
         $width = (float)number_format($right - $left, 2, '.', '');
         $height = (float)number_format($bottom - $top, 2, '.', '');
         if ($this->debug) {
-            $this->pdf->Rect($left, $top, $width, $height, 'D');
+            $this->pdf->Rect($left, $top, $width, $height, 'D'); // @codeCoverageIgnore
         }
         if ($paddingTop > 0) {
             $top = (float)number_format($top + $paddingTop, 2, '.', '');
             $height = (float)number_format($bottom - $top, 2, '.', '');
             if ($this->debug) {
-                $this->pdf->Rect($left, $top, $width, $height, 'D');
+                $this->pdf->Rect($left, $top, $width, $height, 'D'); // @codeCoverageIgnore
             }
         }
         $this->pdf->SetFont('ocrb_aizu_1_1', '', static::mm2pt($fontSize));
@@ -378,7 +378,7 @@ class Pdf extends Model
         $width = (float)number_format($right - $left, 2, '.', '');
         $height = (float)number_format($bottom - $top, 2, '.', '');
         if ($this->debug) {
-            $this->pdf->Rect($left, $top, $width, $height, 'D');
+            $this->pdf->Rect($left, $top, $width, $height, 'D'); // @codeCoverageIgnore
         }
         $this->pdf->SetFont($fontName, '', 0);
         $fontSize = $this->calcFontSize($text, $width, $height, $maxFontSize);
@@ -451,7 +451,7 @@ class Pdf extends Model
         $innerWidth  = $width;
         $innerHeight = $height;
         if ($this->debug) {
-            $this->pdf->Rect($left, $top, $width, $height, 'D');
+            $this->pdf->Rect($left, $top, $width, $height, 'D'); // @codeCoverageIgnore
         }
         $this->pdf->SetFont($this->fontNameJa, '', 0);
         $fontSizeW = $this->calcFontSize($name, $innerWidth, INF);

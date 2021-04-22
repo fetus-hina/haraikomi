@@ -103,6 +103,7 @@ class HaraikomiForm extends Model
         ];
     }
 
+    /** @codeCoverageIgnore */
     public function attributeLabels()
     {
         return [
