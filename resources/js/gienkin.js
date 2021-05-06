@@ -27,6 +27,6 @@ jQuery($ => {
       $select.append($group);
     });
 
-    $modalLoad.modal();
+    (new bootstrap.Modal($modalLoad.get(0))).show();
   });
 });

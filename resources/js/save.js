@@ -18,7 +18,7 @@ jQuery($ => {
     const $input = $('input[name="name"]', $modalSave);
     $('.modal-title', $modalSave).text($this.data('label'));
     $input.data('save', $this.data('save')).val('');
-    $modalSave.modal();
+    (new bootstrap.Modal($modalSave.get(0))).show();
   });
 
   // Save ダイアログの Save ボタンを押したとき
@@ -104,7 +104,7 @@ jQuery($ => {
       // ignore
     }
 
-    $modalLoad.modal();
+    (new bootstrap.Modal($modalLoad.get(0))).show();
   });
 
   // Load ダイアログの Load ボタンを押したとき

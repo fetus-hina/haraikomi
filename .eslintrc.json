@@ -3,6 +3,9 @@
     "browser": true,
     "jquery": true
   },
+  "globals": {
+    "bootstrap": false
+  },
   "extends": "eslint:recommended",
   "parser": "babel-eslint",
   "rules": {

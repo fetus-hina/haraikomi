@@ -67,7 +67,7 @@ $this->title = Yii::$app->name;
   <?php $_ = ActiveForm::begin(); echo "\n" ?>
     <div class="card mb-3">
       <div class="card-body">
-        <div class="text-right mb-2">
+        <div class="text-end mb-2">
           <div class="btn-group" role="group">
             <button type="button" class="btn btn-sm btn-outline-secondary saver saver-save" data-save="to" data-label="払込先" disabled>
               <span class="far fa-save"></span> Save
@@ -75,7 +75,7 @@ $this->title = Yii::$app->name;
             <button type="button" class="btn btn-sm btn-outline-secondary saver saver-load" data-save="to" data-preset="#dest-preset" data-label="払込先" disabled>
               <span class="far fa-folder-open"></span> Load
             </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#modal-save-help">
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-save-help">
               <span class="fas fa-fw fa-info"></span>
             </button>
           </div>
@@ -108,7 +108,7 @@ $this->title = Yii::$app->name;
             <button type="button" class="btn btn-sm btn-outline-secondary gienkin gienkin-load" data-preset="#dest-gienkin" data-label="払込先（義援金）" disabled>
               <span class="fas fa-cloud-showers-heavy"></span> 義援金
             </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#modal-gienkin-help">
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-gienkin-help">
               <span class="fas fa-fw fa-info"></span>
             </button>
           </div>
@@ -222,7 +222,7 @@ $this->title = Yii::$app->name;
 
     <div class="card mb-3">
       <div class="card-body">
-        <div class="text-right mb-2">
+        <div class="text-end mb-2">
           <div class="btn-group" role="group">
             <button type="button" class="btn btn-sm btn-outline-secondary saver saver-save" data-save="from" data-label="依頼人" disabled>
               <span class="far fa-save"></span> Save
@@ -230,7 +230,7 @@ $this->title = Yii::$app->name;
             <button type="button" class="btn btn-sm btn-outline-secondary saver saver-load" data-save="from" data-preset="#from-preset" data-label="依頼人" disabled>
               <span class="far fa-folder-open"></span> Load
             </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#modal-save-help">
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-save-help">
               <span class="fas fa-fw fa-info"></span>
             </button>
           </div>
@@ -291,23 +291,17 @@ $this->title = Yii::$app->name;
               'div',
               implode('', [
                 '{input}',
-                Html::tag(
-                  'div',
-                  implode('', [
-                    Html::button(Html::encode('住所入力'), [
-                      'id' => Html::getInputId($form, 'postal_code') . '--querybtn',
-                      'class' => 'btn btn-outline-secondary',
-                    ]),
-                    Html::button(Html::tag('span', '', ['class' => 'fas fa-info fa-fw']), [
-                      'class' => 'btn btn-outline-secondary',
-                      'data' => [
-                        'toggle' => 'modal',
-                        'target' => '#' . AutoPostalCodeHelpModal::getModalId(),
-                      ],
-                    ]),
-                  ]),
-                  ['class' => 'input-group-append']
-                ),
+                Html::button(Html::encode('住所入力'), [
+                  'id' => Html::getInputId($form, 'postal_code') . '--querybtn',
+                  'class' => 'btn btn-outline-secondary',
+                ]),
+                Html::button(Html::tag('span', '', ['class' => 'fas fa-info fa-fw']), [
+                  'class' => 'btn btn-outline-secondary',
+                  'data' => [
+                    'bs-toggle' => 'modal',
+                    'bs-target' => '#' . AutoPostalCodeHelpModal::getModalId(),
+                  ],
+                ]),
               ]),
               ['class' => 'input-group']
             ),
@@ -341,6 +335,7 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
               'name'
             ),
             [
+              'class' => 'form-select',
               'data-save-from' => 'pref_id',
               'prompt' => '---',
             ]
@@ -419,7 +414,10 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
     <div class="card mb-3">
       <div class="card-body">
         <?= $_->field($form, 'font_ja')
-          ->dropDownList($form->getJapaneseFonts()) . "\n"
+          ->dropDownList(
+            $form->getJapaneseFonts(),
+            ['class' => 'form-select']
+          ) . "\n"
         ?>
         <?= $_->field($form, 'draw_form')
           ->hint(implode('<br>', [

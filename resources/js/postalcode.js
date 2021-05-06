@@ -69,7 +69,7 @@
                       return false;
                     });
                   });
-                  $choiceDialog.modal();
+                  (new bootstrap.Modal($choiceDialog.get(0))).show();
                 })();
                 break;
             }

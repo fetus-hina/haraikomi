@@ -27,7 +27,7 @@ final class LoadModal extends Modal
                 'div',
                 Html::tag('select', '', [
                     'name' => 'target',
-                    'class' => 'form-control',
+                    'class' => 'form-select',
                 ]),
                 ['class' => 'form-group']
             ),

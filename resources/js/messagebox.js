@@ -21,7 +21,7 @@
     $('.modal-title', $modal).text(title || 'お知らせ');
     $('#message-box-content', $modal).text(text);
 
-    $modal.modal();
+    (new bootstrap.Modal($modal.get(0))).show();
   }
 
   window.msgboxInfo = (text, title) => {

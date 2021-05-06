@@ -1,10 +1,9 @@
 @charset "UTF-8";
-@import "../../node_modules/@fetus-hina/fetus.css/scss/vars/color";
 
 footer {
   font-family: Lato, sans-serif;
 }
 
 .form-control::placeholder {
-  color: $gray-300 !important;
+  color: rgb(200, 190, 186) !important;
 }

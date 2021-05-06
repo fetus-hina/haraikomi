@@ -81,10 +81,10 @@ abstract class Modal extends Widget
 
     protected function renderHeaderCloseButton(): string
     {
-        return Html::button(Html::tag('span', '', ['class' => 'fas fa-times']), [
+        return Html::button('', [
             'aria-label' => '閉じる',
-            'class' => 'close',
-            'data-dismiss' => 'modal',
+            'class' => 'btn-close',
+            'data-bs-dismiss' => 'modal',
         ]);
     }
 
@@ -107,7 +107,7 @@ abstract class Modal extends Widget
             ]),
             [
                 'class' => 'btn btn-outline-secondary',
-                'data-dismiss' => 'modal',
+                'data-bs-dismiss' => 'modal',
             ]
         );
     }
