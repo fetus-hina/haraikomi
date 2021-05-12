@@ -7,11 +7,11 @@ RESOURCES := \
 	web/js/save.js
 
 .PHONY: all
-all: vendor app-config resources
+all: .browserslistrc vendor app-config resources
 
 .PHONY: clean
 clean:
-	rm -rf composer.phar node_modules vendor web/css/*.css web/js/*.js
+	rm -rf .browserslistrc composer.phar node_modules vendor web/css/*.css web/js/*.js
 
 .PHONY: app-config
 app-config: config/cookie.php
@@ -60,12 +60,12 @@ package-lock.json: package.json
 	npm update
 	@touch $@
 
-web/css/%.css: resources/css/%.scss node_modules
+web/css/%.css: resources/css/%.scss node_modules .browserslistrc
 	npx sass $< \
 		| npx postcss --no-map --use autoprefixer \
 		| npx cleancss --output $@ -O 1 --format "breaks:afterRuleEnds=on"
 
-web/js/%.js: resources/js/%.js node_modules
+web/js/%.js: resources/js/%.js node_modules .browserslistrc
 	npx babel -s false $< | npx uglifyjs -c -m -b beautify=false,ascii_only=true --comments '/license|copyright/i' -o $@
 
 .PHONY: test
@@ -89,3 +89,6 @@ full-test: composer.phar app-config vendor node_modules resources
 			--coverage-html=./web/coverage/ \
 			--coverage-text=./runtime/coverage/coverage.txt \
 			--coverage-xml=./runtime/coverage/coverage.xml
+
+.browserslistrc:
+	curl -fsSL -o $@ 'https://raw.githubusercontent.com/twbs/bootstrap/v5.0.0/.browserslistrc'
