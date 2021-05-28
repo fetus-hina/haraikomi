@@ -8,7 +8,7 @@
     "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.2",
     "@fetus-hina/fetus.css": "git+https://github.com/fetus-hina/fetus.css.git#semver:^5.0",
-    "autoprefixer": "^10.2.5",
+    "autoprefixer": "^10.2.6",
     "babel-eslint": "^10.1.0",
     "bootstrap": "^5.0.1",
     "clean-css": "^5.1.2",
@@ -23,7 +23,7 @@
     "sass": "^1.34.0",
     "stylelint": "^13.13.1",
     "stylelint-config-recommended": "^5.0.0",
-    "uglify-js": "^3.13.7",
+    "uglify-js": "^3.13.8",
     "updates": "^12.1.0",
     "yii2-pjax": "^2.0.7"
   },
