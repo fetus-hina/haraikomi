@@ -6,7 +6,7 @@
   "dependencies": {
     "@babel/cli": "^7.14.3",
     "@babel/core": "^7.14.3",
-    "@babel/preset-env": "^7.14.2",
+    "@babel/preset-env": "^7.14.4",
     "@fetus-hina/fetus.css": "git+https://github.com/fetus-hina/fetus.css.git#semver:^5.0",
     "autoprefixer": "^10.2.6",
     "babel-eslint": "^10.1.0",
