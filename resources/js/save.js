@@ -26,14 +26,14 @@ jQuery($ => {
     const $input = $('input[name="name"]', $modalSave);
     const saveName = String($input.val()).trim();
     if (saveName.length < 1) {
-      alert('保存名を入力してください');
+      window.alert('保存名を入力してください');
       return;
     }
 
     const saveData = {
       name: saveName,
       mtime: Math.floor(Date.now() / 1000),
-      data: {},
+      data: {}
     };
     const datasetName = 'data-save-' + $input.data('save');
     $(`[${datasetName}]`).each(function () {
@@ -46,7 +46,7 @@ jQuery($ => {
     });
 
     const internalName = 'save-' + $input.data('save') + '-' + Date.now();
-    localStorage.setItem(internalName, JSON.stringify(saveData));
+    window.localStorage.setItem(internalName, JSON.stringify(saveData));
 
     $modalSave.modal('hide');
   });
@@ -63,10 +63,10 @@ jQuery($ => {
       .data('preset', $this.data('preset') || null)
       .empty();
     const reqPrefix = `save-${saveKey}-`;
-    for (let i = 0; i < localStorage.length; ++i) {
-      const dataKey = localStorage.key(i);
+    for (let i = 0; i < window.localStorage.length; ++i) {
+      const dataKey = window.localStorage.key(i);
       if (reqPrefix === dataKey.substr(0, reqPrefix.length)) {
-        const json = JSON.parse(localStorage.getItem(dataKey));
+        const json = JSON.parse(window.localStorage.getItem(dataKey));
         const mtime = (() => {
           const date = new Date();
           date.setTime(json.mtime * 1000);
@@ -113,7 +113,7 @@ jQuery($ => {
     const $option = $('option:selected', $select);
 
     if ($option.length < 1) {
-      alert('読込対象を指定してください\n（または×を押してキャンセルしてください）');
+      window.alert('読込対象を指定してください\n（または×を押してキャンセルしてください）');
       return;
     }
 

@@ -31,7 +31,7 @@ check-style-phpstan: vendor
 	vendor/bin/phpstan analyze --memory-limit=1G || true
 
 check-style-js: node_modules
-	npx eslint "./resources/**/*.js"
+	npx semistandard --global=jQuery --global=bootstrap "./resources/**/*.js"
 
 check-style-css: node_modules
 	npx stylelint "./resources/**/*.scss"

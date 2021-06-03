@@ -3,7 +3,7 @@ if (!Object.keys) {
   Object.keys = (function () {
     const hasOwnProperty = Object.prototype.hasOwnProperty;
     /* eslint no-prototype-builtins: 0 */
-    const hasDontEnumBug = !({toString: null}).propertyIsEnumerable('toString');
+    const hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString');
     const dontEnums = [
       'toString',
       'toLocaleString',

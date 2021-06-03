@@ -1,13 +1,14 @@
 // Copyright (C) AIZAWA Hina | MIT License
 (window => {
-  function msgbox(text, title, icon) {
+  function msgbox (text, title, icon) {
+    const $ = window.jQuery;
     const $modal = $('#message-box');
 
     // アイコンの調整
     const icons = {
       info: 'modal-icon-info',
       warning: 'modal-icon-warning',
-      error: 'modal-icon-error',
+      error: 'modal-icon-error'
     };
     for (const [iconType, iconClass] of Object.entries(icons)) {
       const $icon = $(`.${iconClass}`, $modal);
