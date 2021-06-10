@@ -5,4 +5,4 @@ npx updates -u -m
 npm install
 
 make composer.phar
-./composer.phar update --with proget-hq/phpstan-yii2:0.7.3
+./composer.phar update
