@@ -440,6 +440,18 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
   <h2>更新履歴</h2>
   <ul>
     <li>
+      2021-06-19
+      <ul>
+        <li>
+          フォントを更新しました。
+          <ul>
+            <li>にゃしぃフォント改二: Version 2.08</li>
+            <li>にゃしぃフレンズ: Version 2.08</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
       2021-04-20
       <ul>
         <li>みかちゃん-Pを削除しました。</li>
