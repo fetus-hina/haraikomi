@@ -23,7 +23,6 @@
         "codeception/module-yii2": "*",
         "codeception/specify": "*",
         "codeception/verify": "*",
-        "deployer/deployer": "*",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpstan/phpstan": "^0.12.0",
         "proget-hq/phpstan-yii2": "^0.7.0",

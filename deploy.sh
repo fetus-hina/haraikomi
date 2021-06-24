@@ -2,6 +2,8 @@
 
 set -ue
 
+make bin/dep
+
 BASE_VERSION="1.1"
 
 GIT_COMMIT_DATE=$(git log --date=iso --pretty=format:"%cd" -n 1)
@@ -11,4 +13,4 @@ VERSION_TAG="v${BASE_VERSION}.${VERSION_DATE}"
 git tag -m $VERSION_TAG $VERSION_TAG || /bin/true
 git push origin master $VERSION_TAG
 
-./vendor/bin/dep deploy --tag=$VERSION_TAG production
+bin/dep deploy --tag=$VERSION_TAG production
