@@ -32,7 +32,6 @@ final class PostalCodeAction extends Action
             return $this->makeInputError($model, ['api/postal-code']);
         }
 
-        // @phpstan-ignore-next-line
         $apiResp = $this->requestPostalCodeApi($model->code);
         if ((int)($apiResp['status'] ?? 500) !== 200) {
             return $this->makeResponseError($apiResp, ['api/postal-code']);
