@@ -9,7 +9,7 @@
         "masterminds/html5": "^2.7.5",
         "symfony/css-selector": "^5.3.0",
         "symfony/polyfill-php80": "*",
-        "tecnickcom/tcpdf": "^6.4.1",
+        "tecnickcom/tcpdf": "^6.4.2",
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap4": "*",
         "yiisoft/yii2-httpclient": "*"
@@ -24,7 +24,7 @@
         "codeception/specify": "*",
         "codeception/verify": "*",
         "phpcompatibility/php-compatibility": "^9.3.5",
-        "phpstan/phpstan": "^0.12.92",
+        "phpstan/phpstan": "^0.12.93",
         "proget-hq/phpstan-yii2": "^0.7.5",
         "squizlabs/php_codesniffer": "*",
         "symfony/browser-kit": "*",
