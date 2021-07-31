@@ -24,7 +24,7 @@
         "codeception/specify": "*",
         "codeception/verify": "*",
         "phpcompatibility/php-compatibility": "^9.3.5",
-        "phpstan/phpstan": "^0.12.93",
+        "phpstan/phpstan": "^0.12.94",
         "proget-hq/phpstan-yii2": "^0.7.5",
         "squizlabs/php_codesniffer": "*",
         "symfony/browser-kit": "*",
