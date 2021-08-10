@@ -37,11 +37,12 @@ check-style-css: node_modules
 	npx stylelint "./resources/**/*.scss"
 
 vendor: composer.lock composer.phar
-	./composer.phar install
+	./composer.phar install --prefer-dist
+	@touch $@
 
 composer.phar:
 	curl -fsSL 'https://getcomposer.org/installer' -- | php -- --stable
-	touch -r composer.json composer.phar
+	@touch $@
 
 config/cookie.php: vendor
 	./yii app-config/cookie > runtime/.config.cookie.php
@@ -52,12 +53,7 @@ config/cookie.php: vendor
 resources: $(RESOURCES)
 
 node_modules: package-lock.json
-	npm ci
-	@touch $@
-
-package-lock.json: package.json
-	@rm -rf $@ node_modules
-	npm update
+	npm clean-install
 	@touch $@
 
 web/css/%.css: resources/css/%.scss node_modules .browserslistrc

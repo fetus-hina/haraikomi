@@ -10,12 +10,13 @@ set('application', 'haraikomi');
 set('repository', 'git@github.com:fetus-hina/haraikomi.git');
 set('composer_options', implode(' ', [
     'install',
-    '--verbose',
-    '--prefer-dist',
-    '--no-progress',
+    '--no-dev',
     '--no-interaction',
-    '--optimize-autoloader',
+    '--no-progress',
     '--no-suggest',
+    '--optimize-autoloader',
+    '--prefer-dist',
+    '--verbose',
 ]));
 set('git_tty', true);
 add('shared_files', [
@@ -81,6 +82,7 @@ task('deploy', [
     'deploy:writable',
     'deploy:run_migrations',
     'deploy:build',
+    'deploy:npm_prune',
     'deploy:symlink',
     'deploy:clear_opcache',
     'deploy:clear_proxy',
@@ -118,6 +120,12 @@ task('deploy:build', function () {
         } else {
             run('make');
         }
+    });
+});
+
+task('deploy:npm_prune', function () {
+    within('{{release_path}}', function () {
+        run('{{bin/npm}} prune --production');
     });
 });
 
