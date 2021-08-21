@@ -6,6 +6,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 
 final class HaraikomiForm extends Model
 {
@@ -164,15 +165,17 @@ final class HaraikomiForm extends Model
 
     public function getJapaneseFonts(): array
     {
-        $fonts = [];
-        foreach (Font::find()->all() as $font) {
-            $fonts[$font->key] = vsprintf('%s（%s）%s', [
-                $font->category->name,
-                $font->name,
-                $font->is_fixed ? '【等幅】' : '',
-            ]);
-        }
-        return $fonts;
+        return ArrayHelper::map(
+            Font::find()->all(),
+            'key',
+            function (Font $font): string {
+                return vsprintf('%s（%s）%s', [
+                    $font->category->name,
+                    $font->name,
+                    $font->is_fixed ? '【等幅】' : '',
+                ]);
+            }
+        );
     }
 
     public function getFixedWidthFont(string $fontId): ?string

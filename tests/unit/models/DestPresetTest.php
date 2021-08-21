@@ -38,9 +38,13 @@ final class DestPresetTest extends Unit
             DestPresetFixture::class,
         ]);
 
+        $t = (new DateTimeImmutable('2021-04-01T00:00:00+09:00'))->getTimestamp();
         $query = DestPreset::find()
-            ->nonGienkin()
-            ->valid(new DateTimeImmutable('2021-04-01T00:00:00+09:00'))
+            ->andWhere(['and',
+                ['<=', 'valid_from', $t],
+                ['>', 'valid_to', $t],
+                ['jp_gienkin_id' => null],
+            ])
             ->orderBy(['id' => SORT_ASC]);
 
         $this->assertEquals(2, $query->count());
@@ -69,11 +73,20 @@ final class DestPresetTest extends Unit
             DestPresetFixture::class,
         ]);
 
-        $this->assertEquals(5, DestPreset::find()->gienkin()->count());
+        $this->assertEquals(
+            5,
+            DestPreset::find()
+                ->andWhere(['not', ['jp_gienkin_id' => null]])
+                ->count()
+        );
 
+        $t = (new DateTimeImmutable('2021-04-01T00:00:00+09:00'))->getTimestamp();
         $query = DestPreset::find()
-            ->gienkin()
-            ->valid(new DateTimeImmutable('2021-04-01T00:00:00+09:00'))
+            ->andWhere(['and',
+                ['<=', 'valid_from', $t],
+                ['>', 'valid_to', $t],
+                ['not', ['jp_gienkin_id' => null]],
+            ])
             ->orderBy(['id' => SORT_ASC]);
         $this->assertEquals(3, $query->count());
 

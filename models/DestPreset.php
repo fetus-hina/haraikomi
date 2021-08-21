@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace app\models;
 
 use Yii;
-use app\models\query\DestPresetQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -26,11 +25,6 @@ use yii\db\ActiveRecord;
  */
 final class DestPreset extends ActiveRecord
 {
-    public static function find(): DestPresetQuery
-    {
-        return Yii::createObject(DestPresetQuery::class, [static::class]);
-    }
-
     public static function tableName(): string
     {
         return 'dest_preset';

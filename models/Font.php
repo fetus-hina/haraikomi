@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace app\models;
 
 use Yii;
-use app\models\query\FontQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -26,10 +25,14 @@ use yii\db\ActiveRecord;
  */
 final class Font extends ActiveRecord
 {
-    /** @return FontQuery */
-    public static function find(): FontQuery
+    public static function find(): ActiveQuery
     {
-        return Yii::createObject(FontQuery::class, [static::class]);
+        return parent::find()
+            ->innerJoinWith('category')
+            ->orderBy([
+                FontCategory::tableName() . '.[[rank]]' => SORT_ASC,
+                self::tableName() . '.[[rank]]' => SORT_ASC,
+            ]);
     }
 
     /**

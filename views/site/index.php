@@ -93,15 +93,14 @@ $this->title = Yii::$app->name;
                   ],
                 ];
               },
-              // @phpstan-ignore-next-line
               DestPreset::find()
-                ->valid()
-                ->nonGienkin()
-                ->orderBy([
-                    'name' => SORT_ASC,
-                    'id' => SORT_ASC,
+                ->andWhere(['and',
+                  ['jp_gienkin_id' => null],
+                  ['<=', 'valid_from', (int)$_SERVER['REQUEST_TIME']],
+                  ['>', 'valid_to', (int)$_SERVER['REQUEST_TIME']],
                 ])
-                ->all()
+                ->orderBy(['name' => SORT_ASC, 'id' => SORT_ASC])
+                ->all(),
             )
           ) ?></script>
           <div class="btn-group" role="group">
@@ -207,11 +206,9 @@ $this->title = Yii::$app->name;
               '',
               array_map(
                 fn($font) => Html::encode("「{$font->name}」"),
-                (function (): array {
-                  $q = Font::find();
-                  assert($q instanceof FontQuery);
-                  return $q->hasFixedVariant()->all();
-                })(),
+                Font::find()
+                  ->andWhere(['not', ['fixed_id' => null]])
+                  ->all(),
               )
             ),
           ]))

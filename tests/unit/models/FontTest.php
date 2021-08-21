@@ -80,27 +80,4 @@ final class FontTest extends Unit
             'M+ 1m' => ['mplus1m', 'mplus1p'],
         ];
     }
-
-    public function testQueryHasFixedVariant(): void
-    {
-        $query = Font::find()->hasFixedVariant();
-        $sql = $query->createCommand()->rawSql;
-
-        $db = Yii::$app->db;
-        $this->assertTrue(
-            str_contains(
-                (string)$sql,
-                vsprintf(' NOT (%s IS NULL) ', [
-                    $db->quoteColumnName('fixed_id'),
-                ])
-            ) ||
-            str_contains(
-                (string)$sql,
-                vsprintf(' NOT (%s.%s IS NULL) ', [
-                    $db->quoteTableName('font'),
-                    $db->quoteColumnName('fixed_id'),
-                ])
-            )
-        );
-    }
 }

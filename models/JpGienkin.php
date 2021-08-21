@@ -48,13 +48,15 @@ final class JpGienkin extends ActiveRecord
     /**
      * Gets query for [[DestPresets]].
      */
-    public function getDestPresets(): DestPresetQuery
+    public function getDestPresets(): ActiveQuery
     {
-        $query = $this->hasMany(DestPreset::class, ['jp_gienkin_id' => 'id']);
-        assert($query instanceof DestPresetQuery);
-        return $query
-            ->valid()
-            ->gienkin()
+        $t = (int)$_SERVER['REQUEST_TIME'];
+        return $this->hasMany(DestPreset::class, ['jp_gienkin_id' => 'id'])
+            ->andWhere(['and',
+                ['<=', 'valid_from', $t],
+                ['>', 'valid_to', $t],
+                ['not', ['jp_gienkin_id' => null]],
+            ])
             ->orderBy(['name' => SORT_ASC, 'id' => SORT_ASC]);
     }
 }
