@@ -12,7 +12,7 @@
 ### 要求環境
 
   - OS: Linux以外では確認していません
-  - PHP: PHP 7.4 以上
+  - PHP: PHP 8.0 以上
   - NodeJS: 最新のLTSまたは安定版
   - 適当なウェブサーバと、PHPへのつなぎ込み(Apache Module or PHP-FPM)
 

@@ -5,7 +5,7 @@
     "license": "MIT",
     "minimum-stability": "stable",
     "require": {
-        "php": ">= 7.4",
+        "php": ">= 8.0",
         "masterminds/html5": "^2.7.5",
         "symfony/css-selector": "^5.3.4",
         "symfony/polyfill-php80": "^1.23.1",
@@ -41,7 +41,7 @@
     "config": {
         "process-timeout": 1800,
         "platform": {
-            "php": "7.4.22"
+            "php": "8.0.10"
         },
         "sort-packages": true
     },

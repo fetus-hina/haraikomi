@@ -11,9 +11,6 @@ jobs:
     strategy:
       matrix:
         php:
-          - version: '7.4'
-            experimental: false
-
           - version: '8.0'
             experimental: false
 
@@ -97,9 +94,6 @@ jobs:
     strategy:
       matrix:
         php:
-          - version: '7.4'
-            experimental: false
-
           - version: '8.0'
             experimental: false
 
