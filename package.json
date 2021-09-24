@@ -15,18 +15,18 @@
     "@babel/cli": "^7.15.7",
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.6",
-    "autoprefixer": "^10.3.4",
+    "autoprefixer": "^10.3.5",
     "clean-css": "^5.1.5",
     "clean-css-cli": "^5.3.3",
     "patch-package": "^6.4.7",
-    "postcss": "^8.3.6",
-    "postcss-cli": "^8.3.1",
-    "sass": "^1.41.1",
+    "postcss": "^8.3.7",
+    "postcss-cli": "^9.0.0",
+    "sass": "^1.42.1",
     "semistandard": "^16.0.1",
     "stylelint": "^13.13.1",
     "stylelint-config-recommended": "^5.0.0",
     "uglify-js": "^3.14.2",
-    "updates": "^12.2.0"
+    "updates": "^12.2.1"
   },
   "scripts": {
     "postinstall": "patch-package --patch-dir=patches"
