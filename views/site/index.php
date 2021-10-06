@@ -437,6 +437,18 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
   <h2>更新履歴</h2>
   <ul>
     <li>
+      2021-10-07
+      <ul>
+        <li>
+          フォントを更新しました。
+          <ul>
+            <li>にゃしぃフォント改二: Version 2.084</li>
+            <li>にゃしぃフレンズ: Version 2.084</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
       2021-06-19
       <ul>
         <li>
