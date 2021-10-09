@@ -8,7 +8,6 @@ use Yii;
 use app\models\DestPreset;
 use app\models\JpBankHtml;
 use app\models\JpGienkin;
-use stdClass;
 use yii\console\Controller;
 use yii\helpers\Json;
 

@@ -596,7 +596,7 @@ final class Pdf extends Model
                 $kanaMaxHeight + 0.8
             );
             $this->pdf->SetFont('', '', static::mm2pt($fontSize));
-            list($textWidth, $textHeight) = $this->calcTextSize($kana);
+            list($textWidth, ) = $this->calcTextSize($kana);
             $this->drawAccountName(
                 static::MAIN_NAME_LEFT,
                 static::MAIN_NAME_TOP,
@@ -614,7 +614,7 @@ final class Pdf extends Model
             $this->pdf->SetFont('robotomono', '', 0);
             $fontSize = $this->calcFontSize($email, (static::MAIN_NAME_RIGHT - $left), 3.5);
             $this->pdf->SetFont('', '', static::mm2pt($fontSize));
-            list($textWidth, $textHeight) = $this->calcTextSize($email);
+            list($textWidth, ) = $this->calcTextSize($email);
             $this->drawTextToBox(
                 $left,
                 $top + 1.8,

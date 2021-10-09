@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace app\widgets;
 
-use Yii;
 use yii\base\Widget;
 use yii\bootstrap4\BootstrapAsset;
 use yii\helpers\Html;

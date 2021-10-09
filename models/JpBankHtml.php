@@ -10,7 +10,6 @@ use DateTimeZone;
 use Masterminds\HTML5;
 use Normalizer;
 use Symfony\Component\CssSelector\CssSelectorConverter;
-use Yii;
 use yii\base\Model;
 
 final class JpBankHtml extends Model
