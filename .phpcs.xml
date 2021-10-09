@@ -7,7 +7,6 @@
   <arg value="p" />
   <arg value="s" />
 
-  <config name="installed_paths" value="vendor/phpcompatibility/php-compatibility" />
   <runtime-set name="testVersion" value="8.0" />
 
   <rule ref="PSR12" />
@@ -19,7 +18,15 @@
   <rule ref="Generic.PHP.BacktickOperator" />
   <rule ref="Generic.PHP.RequireStrictTypes" />
   <rule ref="Generic.PHP.Syntax" />
+  <rule ref="ImportDetection" />
+  <rule ref="ImportDetection.Imports.RequireImports.Symbol"><severity>0</severity></rule>
   <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace" />
+  <rule ref="VariableAnalysis">
+    <properties>
+      <property name="allowUnusedFunctionParameters" value="true" />
+      <property name="allowUndefinedVariablesInFileScope" value="true" />
+    </properties>
+  </rule>
 
   <file>.</file>
   <exclude-pattern>*/bin/*</exclude-pattern>

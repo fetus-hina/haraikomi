@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace tests\unit\models;
 
 use Codeception\Test\Unit;
-use DateTimeImmutable;
 use UnitTester;
 use Yii;
 use app\models\DestPreset;

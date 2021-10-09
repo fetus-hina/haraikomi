@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace app\widgets;
 
-use Yii;
 use yii\helpers\Html;
 
 final class GienkinHelpModal extends Modal

@@ -11,7 +11,6 @@ use app\models\PostalCodeApiForm;
 use yii\base\Action;
 use yii\base\InvalidArgumentException;
 use yii\base\Model;
-use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\httpclient\Client as HttpClient;
 use yii\web\Response;
@@ -25,7 +24,6 @@ final class PostalCodeAction extends Action
 
     public function run(): Response
     {
-        $req = Yii::$app->request;
         $model = Yii::createObject(PostalCodeApiForm::class);
         $model->attributes = $_POST;
         if (!$model->validate()) {

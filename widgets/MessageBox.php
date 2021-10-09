@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace app\widgets;
 
-use Yii;
 use app\assets\MessageBoxAsset;
 use yii\helpers\Html;
 
