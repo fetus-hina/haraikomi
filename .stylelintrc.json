@@ -1,4 +1,5 @@
 {
+  "customSyntax": "postcss-scss",
   "extends": "stylelint-config-recommended",
   "rules": {
     "block-closing-brace-empty-line-before": "never",
@@ -17,7 +18,6 @@
     "declaration-empty-line-before": "never",
     "font-family-name-quotes": "always-where-recommended",
     "font-weight-notation": "named-where-possible",
-    "function-calc-no-invalid": true,
     "function-comma-newline-after": "never-multi-line",
     "function-comma-newline-before": "never-multi-line",
     "function-comma-space-after": "always",
