@@ -26,7 +26,7 @@
     "semistandard": "^16.0.1",
     "stylelint": "^14.0.1",
     "stylelint-config-recommended": "^6.0.0",
-    "uglify-js": "^3.14.2",
+    "uglify-js": "^3.14.3",
     "updates": "^12.2.2"
   },
   "scripts": {
