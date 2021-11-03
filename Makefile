@@ -57,9 +57,7 @@ node_modules: package-lock.json
 	@touch $@
 
 web/css/%.css: resources/css/%.scss node_modules .browserslistrc
-	npx sass $< \
-		| npx postcss --no-map --use autoprefixer \
-		| npx cleancss --output $@ -O 1 --format "breaks:afterRuleEnds=on"
+	npx sass $< | npx postcss --no-map --use autoprefixer --use cssnano --output=$@
 
 web/js/%.js: resources/js/%.js node_modules .browserslistrc
 	npx babel -s false $< | npx uglifyjs -c -m -b beautify=false,ascii_only=true --comments '/license|copyright/i' -o $@
