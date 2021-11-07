@@ -16,7 +16,7 @@ use app\widgets\LoadModal;
 use app\widgets\MessageBox;
 use app\widgets\SaveHelpModal;
 use app\widgets\SaveModal;
-use yii\bootstrap4\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;

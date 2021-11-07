@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use yii\bootstrap4\BootstrapAsset;
-use yii\bootstrap4\BootstrapPluginAsset;
+use yii\bootstrap5\BootstrapAsset;
+use yii\bootstrap5\BootstrapPluginAsset;
 use yii\validators\PunycodeAsset;
 use yii\web\JqueryAsset;
 use yii\widgets\MaskedInputAsset;

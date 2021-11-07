@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use yii\bootstrap4\ActiveField;
+use yii\bootstrap5\ActiveField;
 
 define('K_PATH_FONTS', __DIR__ . '/../resources/fonts/_tcpdf/');
 

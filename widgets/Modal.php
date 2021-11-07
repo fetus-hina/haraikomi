@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace app\widgets;
 
 use yii\base\Widget;
-use yii\bootstrap4\BootstrapAsset;
+use yii\bootstrap5\BootstrapAsset;
 use yii\helpers\Html;
 
 abstract class Modal extends Widget
