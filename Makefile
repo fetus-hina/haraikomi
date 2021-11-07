@@ -60,7 +60,7 @@ web/css/%.css: resources/css/%.scss node_modules .browserslistrc
 	npx sass $< | npx postcss --no-map --use autoprefixer --use cssnano --output=$@
 
 web/js/%.js: resources/js/%.js node_modules .browserslistrc
-	npx babel -s false $< | npx uglifyjs -c -m -b beautify=false,ascii_only=true --comments '/license|copyright/i' -o $@
+	npx babel -s false $< | npx terser -c -m -f ascii_only=true --comments '/license|copyright/i' -o $@
 
 .PHONY: test
 test: composer.phar app-config vendor node_modules resources
