@@ -1,5 +1,6 @@
 RESOURCES := \
 	web/css/site.css \
+	web/favicon.ico \
 	web/js/gienkin.js \
 	web/js/messagebox.js \
 	web/js/polyfill.js \
@@ -11,7 +12,14 @@ all: .browserslistrc vendor app-config resources
 
 .PHONY: clean
 clean:
-	rm -rf .browserslistrc composer.phar node_modules vendor web/css/*.css web/js/*.js
+	rm -rf \
+		.browserslistrc \
+		composer.phar \
+		node_modules \
+		vendor \
+		web/css/*.css \
+		web/favicon.ico \
+		web/js/*.js
 
 .PHONY: app-config
 app-config: config/cookie.php
@@ -90,3 +98,6 @@ full-test: composer.phar app-config vendor node_modules resources
 bin/dep:
 	curl -fsSL -o $@ 'https://deployer.org/releases/v6.8.0/deployer.phar'
 	chmod +x $@
+
+web/favicon.ico:
+	curl -o $@ -fsSL https://fetus.jp/favicon.ico
