@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:disable
 
 declare(strict_types=1);
 
@@ -33,7 +33,27 @@ set('writable_mode', 'chmod');
 set('writable_chmod_recursive', false);
 set('softwarecollections', []);
 
+function findLocalBinary(string $name): ?string
+{
+    if (!$home = $_SERVER['HOME'] ?? null) {
+        return null;
+    }
+
+    foreach (['/bin', '/.local/bin'] as $tmpPath) {
+        $path = "{$home}/{$tmpPath}/{$name}";
+        if (file_exists($path) && is_executable($path)) {
+            return $path;
+        }
+    }
+
+    return null;
+}
+
 set('bin/php', function () {
+    if ($path = findLocalBinary('php')) {
+        return $path;
+    }
+
     if ($scl = get('softwarecollections')) {
         return vsprintf('scl enable %s -- php', [
             implode(' ', array_map(
@@ -47,6 +67,10 @@ set('bin/php', function () {
 });
 
 set('bin/npm', function () {
+    if ($path = findLocalBinary('npm')) {
+        return $path;
+    }
+
     if ($scl = get('softwarecollections')) {
         return vsprintf('scl enable %s -- npm', [
             implode(' ', array_map(
