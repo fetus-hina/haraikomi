@@ -21,9 +21,9 @@
     "postcss": "^8.4.5",
     "postcss-cli": "^9.1.0",
     "postcss-scss": "^4.0.2",
-    "sass": "^1.45.0",
+    "sass": "^1.45.1",
     "semistandard": "^16.0.1",
-    "stylelint": "^14.1.0",
+    "stylelint": "^14.2.0",
     "stylelint-config-recommended": "^6.0.0",
     "terser": "^5.10.0",
     "updates": "^12.2.3"
