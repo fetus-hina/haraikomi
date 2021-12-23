@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ae4028ad0aea127eb1c181bd1f770e1",
+    "content-hash": "f63860b1501c686f7688f13f449fddab",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -463,6 +463,45 @@
                 }
             ],
             "time": "2021-07-20T14:43:20+00:00"
+        },
+        {
+            "name": "twbs/bootstrap-icons",
+            "version": "v1.7.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/icons.git",
+                "reference": "b69fe3911e064d1baa772393aa96bb082f420872"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/icons/zipball/b69fe3911e064d1baa772393aa96bb082f420872",
+                "reference": "b69fe3911e064d1baa772393aa96bb082f420872",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Otto",
+                    "email": "markdotto@gmail.com"
+                }
+            ],
+            "description": "Official open source SVG icon library for Bootstrap",
+            "homepage": "https://icons.getbootstrap.com/",
+            "keywords": [
+                "bootstrap",
+                "icon font",
+                "icons",
+                "svg"
+            ],
+            "support": {
+                "issues": "https://github.com/twbs/icons/issues",
+                "source": "https://github.com/twbs/icons/tree/v1.7.2"
+            },
+            "time": "2021-12-03T21:41:47+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -2109,9 +2148,6 @@
             },
             "require": {
                 "php": "^7.1 || ^8.0"
-            },
-            "replace": {
-                "myclabs/deep-copy": "self.version"
             },
             "require-dev": {
                 "doctrine/collections": "^1.0",
@@ -6220,5 +6256,5 @@
     "platform-overrides": {
         "php": "8.0.14"
     },
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }

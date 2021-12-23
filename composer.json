@@ -10,6 +10,7 @@
         "symfony/css-selector": "*",
         "symfony/polyfill-php80": "*",
         "tecnickcom/tcpdf": "^6.4.2",
+        "twbs/bootstrap-icons": "^1.7",
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap5": "*",
         "yiisoft/yii2-httpclient": "*"
@@ -43,10 +44,14 @@
         "npm-asset/bootstrap": "5.*"
     },
     "config": {
-        "process-timeout": 1800,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "yiisoft/yii2-composer": true
+        },
         "platform": {
             "php": "8.0.14"
         },
+        "process-timeout": 1800,
         "sort-packages": true
     },
     "scripts": {
