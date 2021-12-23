@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace app\assets;
 
 use yii\web\AssetBundle;
+use yii\web\JqueryAsset;
 
-final class FontAwesomeAsset extends AssetBundle
+final class SampleImageAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
-    public $css = [];
     public $js = [
-        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js',
+        'js/sample-image.js',
+    ];
+    public $depends = [
+        JqueryAsset::class,
     ];
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace app\widgets;
 
+use app\helpers\Icon;
 use yii\helpers\Html;
 
 final class SaveModal extends Modal
@@ -34,7 +35,7 @@ final class SaveModal extends Modal
     {
         return Html::button(
             implode(' ', [
-                Html::tag('span', '', ['class' => 'fas fa-save']),
+                Icon::save(),
                 Html::encode('保存'),
             ]),
             [

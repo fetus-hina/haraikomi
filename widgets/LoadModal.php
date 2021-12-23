@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace app\widgets;
 
+use app\helpers\Icon;
 use yii\helpers\Html;
 
 final class LoadModal extends Modal
@@ -45,7 +46,7 @@ final class LoadModal extends Modal
     {
         return Html::button(
             implode(' ', [
-                Html::tag('span', '', ['class' => 'fas fa-folder-open']),
+                Icon::load(),
                 Html::encode('読込'),
             ]),
             [

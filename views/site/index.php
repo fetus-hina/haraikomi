@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use app\assets\PostalCodeAsset;
+use app\helpers\Icon;
 use app\models\DestPreset;
 use app\models\Font;
 use app\models\HaraikomiForm;
@@ -14,6 +15,7 @@ use app\widgets\AutoPostalCodeHelpModal;
 use app\widgets\GienkinHelpModal;
 use app\widgets\LoadModal;
 use app\widgets\MessageBox;
+use app\widgets\SampleImageWidget;
 use app\widgets\SaveHelpModal;
 use app\widgets\SaveModal;
 use yii\bootstrap5\ActiveForm;
@@ -35,15 +37,7 @@ $this->title = Yii::$app->name;
   <p>
     ゆうちょ銀行の「払込取扱票」に印刷するためのPDFを作成するサイトです。<br>
     「払込取扱票」はゆうちょ銀行においてあるこんな紙です。ATMとかにあります。わからなければ窓口で聞けばくれるはずです。<br>
-    <?= Html::img('/images/haraikomi.png', [
-      'class' => 'img-fluid',
-      'id' => 'haraikomi-image',
-      'data' => [
-        'original' => '/images/haraikomi.png',
-        'hover' => '/images/haraikomi-sample.png',
-      ],
-    ]) ?><br>
-<?php $this->registerJs('$("#haraikomi-image").hover(function(){$(this).attr("src",$(this).data("hover"))},function(){$(this).attr("src",$(this).data("original"))});') ?>
+    <?= SampleImageWidget::widget() ?><br>
     自分で全部印刷するようなことは禁止されているため、ゆうちょ銀行で紙を取ってきて、そこに「手書きの代わりに」印刷する必要があります。<br>
     画像にマウスを置くと、最終的な（印刷後の）イメージが表示されます。
   </p>
@@ -69,15 +63,33 @@ $this->title = Yii::$app->name;
       <div class="card-body">
         <div class="text-end mb-2">
           <div class="btn-group" role="group">
-            <button type="button" class="btn btn-sm btn-outline-secondary saver saver-save" data-save="to" data-label="払込先" disabled>
-              <span class="far fa-save"></span> Save
-            </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary saver saver-load" data-save="to" data-preset="#dest-preset" data-label="払込先" disabled>
-              <span class="far fa-folder-open"></span> Load
-            </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-save-help">
-              <span class="fas fa-fw fa-info"></span>
-            </button>
+            <?= Html::tag('button', Icon::save() . ' ' . Html::encode('Save'), [
+              'type' => 'button',
+              'class' => 'btn btn-sm btn-outline-secondary saver saver-save',
+              'data' => [
+                'label' => '払込先',
+                'save' => 'to',
+              ],
+              'disabled' => true,
+            ]) . "\n" ?>
+            <?= Html::tag('button', Icon::load() . ' ' . Html::encode('Load'), [
+              'type' => 'button',
+              'class' => 'btn btn-sm btn-outline-secondary saver saver-load',
+              'data' => [
+                'label' => '払込先',
+                'preset' => '#dest-preset',
+                'save' => 'to',
+              ],
+              'disabled' => true,
+            ]) . "\n" ?>
+            <?= Html::tag('button', Icon::help(), [
+              'type' => 'button',
+              'class' => 'btn btn-sm btn-outline-secondary',
+              'data' => [
+                'bs-toggle' => 'modal',
+                'bs-target' => '#modal-save-help',
+              ],
+            ]) . "\n" ?>
           </div>
           <script type="application/json" id="dest-preset"><?= Json::encode(
             array_map(
@@ -104,12 +116,23 @@ $this->title = Yii::$app->name;
             )
           ) ?></script>
           <div class="btn-group" role="group">
-            <button type="button" class="btn btn-sm btn-outline-secondary gienkin gienkin-load" data-preset="#dest-gienkin" data-label="払込先（義援金）" disabled>
-              <span class="fas fa-cloud-showers-heavy"></span> 義援金
-            </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-gienkin-help">
-              <span class="fas fa-fw fa-info"></span>
-            </button>
+            <?= Html::tag('button', Icon::disaster() . ' ' . Html::encode('義援金'), [
+              'type' => 'button',
+              'class' => 'btn btn-sm btn-outline-secondary gienkin gienkin-load',
+              'data' => [
+                'label' => '払込先（義援金）',
+                'preset' => '#dest-gienkin',
+              ],
+              'disabled' => true,
+            ]) . "\n" ?>
+            <?= Html::tag('button', Icon::help(), [
+              'type' => 'button',
+              'class' => 'btn btn-sm btn-outline-secondary',
+              'data' => [
+                'bs-target' => '#modal-gienkin-help',
+                'bs-toggle' => 'modal',
+              ],
+            ]) . "\n" ?>
           </div>
           <script type="application/json" id="dest-gienkin"><?= Json::encode(
             array_values(
@@ -221,15 +244,33 @@ $this->title = Yii::$app->name;
       <div class="card-body">
         <div class="text-end mb-2">
           <div class="btn-group" role="group">
-            <button type="button" class="btn btn-sm btn-outline-secondary saver saver-save" data-save="from" data-label="依頼人" disabled>
-              <span class="far fa-save"></span> Save
-            </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary saver saver-load" data-save="from" data-preset="#from-preset" data-label="依頼人" disabled>
-              <span class="far fa-folder-open"></span> Load
-            </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-save-help">
-              <span class="fas fa-fw fa-info"></span>
-            </button>
+            <?= Html::tag('button', Icon::save() . ' ' . Html::encode('Save'), [
+              'type' => 'button',
+              'class' => 'btn btn-sm btn-outline-secondary saver saver-save',
+              'data' => [
+                'save' => 'from',
+                'label' => '依頼人',
+              ],
+              'disabled' => true,
+            ]) . "\n" ?>
+            <?= Html::tag('button', Icon::load() . ' ' . Html::encode('Load'), [
+              'type' => 'button',
+              'class' => 'btn btn-sm btn-outline-secondary saver saver-load',
+              'data' => [
+                'save' => 'from',
+                'preset' => '#from-preset',
+                'label' => '依頼人',
+              ],
+              'disabled' => true,
+            ]) . "\n" ?>
+            <?= Html::tag('button', Icon::help(), [
+              'type' => 'button',
+              'class' => 'btn btn-sm btn-outline-secondary',
+              'data' => [
+                'bs-target' => '#modal-save-help',
+                'bs-toggle' => 'modal',
+              ],
+            ]) . "\n" ?>
           </div>
           <script type="application/json" id="from-preset"><?= Json::encode([
             [
@@ -292,7 +333,7 @@ $this->title = Yii::$app->name;
                   'id' => Html::getInputId($form, 'postal_code') . '--querybtn',
                   'class' => 'btn btn-outline-secondary',
                 ]),
-                Html::button(Html::tag('span', '', ['class' => 'fas fa-info fa-fw']), [
+                Html::button(Icon::help(), [
                   'class' => 'btn btn-outline-secondary',
                   'data' => [
                     'bs-toggle' => 'modal',
@@ -426,9 +467,10 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
       </div>
     </div>
     <?= Html::submitButton(
-      implode('', [
-        Html::tag('span', '', ['class' => 'fas fa-fw fa-download']),
+      implode(' ', [
+        Icon::filePdf(),
         '作成・ダウンロード',
+        Icon::download(),
       ]),
       ['class' => 'btn btn-primary']
     ) . "\n" ?>

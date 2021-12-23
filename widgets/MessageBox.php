@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\widgets;
 
 use app\assets\MessageBoxAsset;
+use app\helpers\Icon;
 use yii\helpers\Html;
 
 final class MessageBox extends Modal
@@ -56,7 +57,7 @@ final class MessageBox extends Modal
     protected function renderIconInformation(): string
     {
         return $this->renderIcon(
-            Html::tag('span', '', ['class' => 'fas fa-info-circle']),
+            Icon::dialogInfo(),
             'text-info modal-icon-info'
         );
     }
@@ -64,7 +65,7 @@ final class MessageBox extends Modal
     protected function renderIconWarning(): string
     {
         return $this->renderIcon(
-            Html::tag('span', '', ['class' => 'fas fa-exclamation-triangle']),
+            Icon::dialogWarning(),
             'text-warning modal-icon-warning'
         );
     }
@@ -72,7 +73,7 @@ final class MessageBox extends Modal
     protected function renderIconError(): string
     {
         return $this->renderIcon(
-            Html::tag('span', '', ['class' => 'fas fa-exclamation-circle']),
+            Icon::dialogError(),
             'text-danger modal-icon-error'
         );
     }

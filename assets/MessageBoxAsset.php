@@ -21,7 +21,6 @@ final class MessageBoxAsset extends AssetBundle
     public $depends = [
         BootstrapAsset::class,
         BootstrapPluginAsset::class,
-        FontAwesomeAsset::class,
         JqueryAsset::class,
         PolyfillAsset::class,
     ];

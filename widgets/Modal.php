@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace app\widgets;
 
+use app\helpers\Icon;
 use yii\base\Widget;
 use yii\bootstrap5\BootstrapAsset;
 use yii\helpers\Html;
@@ -101,7 +102,7 @@ abstract class Modal extends Widget
     {
         return Html::button(
             implode(' ', [
-                Html::tag('span', '', ['class' => 'fas fa-times']),
+                Icon::dismiss(),
                 Html::encode('閉じる'),
             ]),
             [
