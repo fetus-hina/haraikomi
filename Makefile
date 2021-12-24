@@ -1,6 +1,5 @@
 RESOURCES := \
 	web/css/site.css \
-	web/favicon.ico \
 	web/js/gienkin.js \
 	web/js/messagebox.js \
 	web/js/polyfill.js \
@@ -18,12 +17,14 @@ clean:
 		composer.phar \
 		node_modules \
 		vendor \
+		views/layouts/_favicon.php \
+		web/apple-touch-icon-*.png \
 		web/css/*.css \
-		web/favicon.ico \
+		web/favicon.* \
 		web/js/*.js
 
 .PHONY: app-config
-app-config: config/cookie.php
+app-config: config/cookie.php views/layouts/_favicon.php
 
 .PHONY: check-style
 check-style: check-style-php check-style-js check-style-css
@@ -57,6 +58,11 @@ config/cookie.php: vendor
 	./yii app-config/cookie > runtime/.config.cookie.php
 	cp runtime/.config.cookie.php $@
 	rm -f runtime/.config.cookie.php
+
+views/layouts/_favicon.php: vendor node_modules
+	./yii app-config/favicon > runtime/.config.favicon.php
+	cp runtime/.config.favicon.php $@
+	rm -f runtime/.config.favicon.php
 
 .PHONY: resources
 resources: $(RESOURCES)
@@ -99,6 +105,3 @@ full-test: composer.phar app-config vendor node_modules resources
 bin/dep:
 	curl -fsSL -o $@ 'https://deployer.org/releases/v6.8.0/deployer.phar'
 	chmod +x $@
-
-web/favicon.ico:
-	curl -o $@ -fsSL https://fetus.jp/favicon.ico

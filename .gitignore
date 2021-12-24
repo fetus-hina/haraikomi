@@ -11,8 +11,11 @@
 /tests/_output/*
 /tests/_support/_generated
 /vendor
+/views/layouts/_favicon.php
+/web/apple-touch-icon-*.png
 /web/coverage/
 /web/favicon.ico
+/web/favicon.svg
 Thumbs.db
 composer.phar
 coverage.serialized
