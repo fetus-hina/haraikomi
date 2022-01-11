@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace app\commands;
 
+use Exception;
 use Yii;
 use app\models\DestPreset;
 use app\models\JpBankHtml;
@@ -54,6 +55,9 @@ final class JpBankController extends Controller
             foreach ($parser->parse() as $row) {
                 $tS = strtotime($row->start . 'T00:00:00+09:00');
                 $tE = strtotime($row->end . 'T24:00:00+09:00');
+                if ($tS === false || $tE === false) {
+                    throw new Exception();
+                }
 
                 $jpGienkin = $this->getOrCreateJpGienkinModel($row->disaster, $tS);
                 $preset = $this->getOrCreateDestPreset($row->account[0], $row->account[1], $row->account[2]);
@@ -63,7 +67,7 @@ final class JpBankController extends Controller
                 $preset->valid_to = $tE;
                 $preset->jp_gienkin_id = $jpGienkin->id;
                 if (!$preset->save()) {
-                    throw new \Exception();
+                    throw new Exception();
                 }
                 $availableIds[] = $preset->id;
             }

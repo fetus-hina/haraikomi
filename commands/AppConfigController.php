@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\commands;
 
 use CallbackFilterIterator;
+use Exception;
 use FilesystemIterator;
 use SplFileInfo;
 use Yii;
@@ -14,7 +15,9 @@ final class AppConfigController extends Controller
 {
     public function actionCookie(): int
     {
-        $path = Yii::getAlias('@app/config/cookie.php');
+        if (!$path = Yii::getAlias('@app/config/cookie.php')) {
+            throw new Exception();
+        }
         $value = file_exists($path)
             ? require($path)
             : Yii::$app->security->generateRandomString(32);
@@ -34,7 +37,9 @@ final class AppConfigController extends Controller
 
     public function actionFavicon(): int
     {
-        $srcPath = Yii::getAlias('@app/node_modules/@fetus-hina/fetus.css/dist/favicon');
+        if (!$srcPath = Yii::getAlias('@app/node_modules/@fetus-hina/fetus.css/dist/favicon')) {
+            throw new Exception();
+        }
         if (!file_exists($srcPath)) {
             fwrite(STDERR, "favicon path does not exists. node_modules not installed?\n");
             return 1;
@@ -114,7 +119,12 @@ final class AppConfigController extends Controller
             }
         }
 
-        uksort($data, fn (string $a, string $b): int => strnatcasecmp($a, $b) ?: strcasecmp($a, $b) ?: strcmp($a, $b));
+        uksort(
+            $data,
+            fn ($a, $b): int => strnatcasecmp((string)$a, (string)$b)
+                ?: strcasecmp((string)$a, (string)$b)
+                ?: strcmp((string)$a, (string)$b)
+        );
         return $data;
     }
 

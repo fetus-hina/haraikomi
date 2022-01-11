@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use DOMNodeList;
 use DOMXPath;
 use DateTimeImmutable;
 use DateTimeZone;
+use Exception;
+use Generator;
 use Masterminds\HTML5;
 use Normalizer;
 use Symfony\Component\CssSelector\CssSelectorConverter;
@@ -24,8 +27,7 @@ final class JpBankHtml extends Model
         ];
     }
 
-    /** @return \Generator */
-    public function parse()
+    public function parse(): Generator
     {
         // 同じ災害の 2 つ目以降の <tr> が省略されている糞 HTML が喰わされる
         $htmlContent = preg_replace('#(</tr>)\s*(<td)#s', '\1<tr>\2', $this->html);
@@ -42,8 +44,10 @@ final class JpBankHtml extends Model
 
         $disaster = null;
         $disasterRemains = 0;
-        foreach ($xpath->query($query) as $row) {
-            $tds = iterator_to_array($xpath->query('./td', $row));
+        foreach (self::expectNodeList($xpath->query($query)) as $row) {
+            $tds = iterator_to_array(
+                self::expectNodeList($xpath->query('./td', $row))
+            );
             if (count($tds) === 0) {
                 // たぶんヘッダ行
                 continue;
@@ -51,7 +55,7 @@ final class JpBankHtml extends Model
 
             if (count($tds) === 4) {
                 if ($disasterRemains > 0) {
-                    throw new \Exception('災害名のセル結合の消費が尽きる前に 4 セル現れた');
+                    throw new Exception('災害名のセル結合の消費が尽きる前に 4 セル現れた');
                 }
 
                 $td = array_shift($tds);
@@ -63,11 +67,11 @@ final class JpBankHtml extends Model
             }
 
             if (count($tds) !== 3) {
-                throw new \Exception('セルの数が異常: ' . count($tds));
+                throw new Exception('セルの数が異常: ' . count($tds));
             }
 
             if ($disasterRemains < 1) {
-                throw new \Exception('$disasterRemains < 1');
+                throw new Exception('$disasterRemains < 1');
             }
 
             --$disasterRemains;
@@ -100,16 +104,25 @@ final class JpBankHtml extends Model
                         ->format('Y-m-d'),
                 ];
             } else {
-                throw new \Exception('Unmatch');
+                throw new Exception('Unmatch');
             }
         }
     }
 
     private function normalizeText(string $text): string
     {
-        $text = Normalizer::normalize($text, Normalizer::FORM_C);
+        if (($text = Normalizer::normalize($text, Normalizer::FORM_C)) === false) {
+            throw new Exception('Failed to normalize text');
+        }
         $text = preg_replace('/\s+/s', ' ', $text);
         $text = trim($text);
         return $text;
+    }
+
+    private static function expectNodeList(DOMNodeList|false $list): DOMNodeList
+    {
+        return $list instanceof DOMNodeList
+            ? $list
+            : throw new Exception('Xpath query filed');
     }
 }

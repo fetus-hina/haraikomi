@@ -695,12 +695,13 @@ final class Pdf extends Model
     private function drawLines(): self
     {
         // 通信欄全体に「使用禁止」 // {{{
-        call_user_func_array([$this->pdf, 'SetTextColor'], array_map(
-            function (int $color): int {
-                return (int)floor(($color + 512) / 3);
-            },
-            $this->drawLineColor
-        ));
+        call_user_func_array(
+            fn (int $r, int $g, int $b) => $this->pdf->SetTextColor($r, $g, $b),
+            array_map(
+                fn (int $color): int => (int)floor(($color + 512) / 3),
+                $this->drawLineColor,
+            )
+        );
         $this->pdf->SetFont($this->fontNameForm);
         $size = $this->calcFontSize('使用禁止', 111.76, 57, 30);
         $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt($size));
@@ -709,7 +710,11 @@ final class Pdf extends Model
         $this->pdf->Cell(111.76, $textHeight, '使用禁止', 0, 0, 'C', false, '', 0, false, 'T', 'M');
         // }}}
 
-        call_user_func_array([$this->pdf, 'SetTextColor'], $this->drawLineColor);
+        $this->pdf->SetTextColor(
+            $this->drawLineColor[0],
+            $this->drawLineColor[1],
+            $this->drawLineColor[2],
+        );
         $this->drawDashedLines();
         $this->drawMainLines();
         $this->drawSubLines();
@@ -1066,7 +1071,7 @@ final class Pdf extends Model
             // width
             max(array_map(
                 function (string $text): float {
-                    return $this->pdf->GetStringWidth($text);
+                    return (float)$this->pdf->GetStringWidth($text);
                 },
                 $lines
             )),

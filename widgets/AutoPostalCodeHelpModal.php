@@ -31,7 +31,7 @@ final class AutoPostalCodeHelpModal extends Modal
         $md = trim(str_replace(
             array_keys($map),
             array_values($map),
-            file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__)
+            (string)file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__)
         ));
 
         $mdParser = new class () extends GithubMarkdown {
