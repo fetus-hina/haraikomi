@@ -65,7 +65,7 @@ final class AutoPostalCodeHelpModal extends Modal
             }
         };
         $mdParser->html5 = true;
-        return preg_replace('/\n+/', '', $mdParser->parse($md));
+        return (string)preg_replace('/\n+/', '', (string)$mdParser->parse($md));
     }
 }
 

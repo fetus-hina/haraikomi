@@ -112,6 +112,8 @@ final class Pdf extends Model
 
     public function render(): string
     {
+        assert($this->pdf !== null);
+
         return $this->pdf->Output('', 'S');
     }
 
@@ -216,18 +218,18 @@ final class Pdf extends Model
 
     public function setNote(?string $note): self
     {
-        // {{{
-        $this->drawTextToBox(
-            static::MAIN_NOTE_LEFT,
-            static::MAIN_NOTE_TOP,
-            static::MAIN_NOTE_RIGHT,
-            static::MAIN_NOTE_BOTTOM,
-            $note,
-            'M',
-            static::pt2mm(12),
-            $this->fontNameNote
-        );
-        // }}}
+        if ($note !== null) {
+            $this->drawTextToBox(
+                static::MAIN_NOTE_LEFT,
+                static::MAIN_NOTE_TOP,
+                static::MAIN_NOTE_RIGHT,
+                static::MAIN_NOTE_BOTTOM,
+                $note,
+                'M',
+                static::pt2mm(12),
+                $this->fontNameNote
+            );
+        }
         return $this;
     }
 
@@ -247,7 +249,7 @@ final class Pdf extends Model
         // main {{{
         $address1 = trim($address1);
         $address2 = trim($address2);
-        $address3 = trim($address3);
+        $address3 = trim((string)$address3);
         $address = mb_convert_kana(
             trim(implode("\n", [
                 $prefecture . ' ' . $address1,
@@ -306,7 +308,8 @@ final class Pdf extends Model
         float $fontSize = 4.5,
         float $paddingTop = 2.0
     ): self {
-        // {{{
+        assert($this->pdf !== null);
+
         $left = (float)number_format($left, 2, '.', '');
         $top = (float)number_format($top, 2, '.', '');
         $right = (float)number_format($right, 2, '.', '');
@@ -353,7 +356,6 @@ final class Pdf extends Model
             }
         }
         return $this;
-        // }}}
     }
 
     private function drawTextToBox(
@@ -366,7 +368,8 @@ final class Pdf extends Model
         float $maxFontSize = 0,
         ?string $fontName = null
     ): self {
-        // {{{
+        assert($this->pdf !== null);
+
         if ($maxFontSize <= 0.1) {
             $maxFontSize = static::pt2mm(10.5);
         }
@@ -404,7 +407,6 @@ final class Pdf extends Model
         ];
 
         return $this;
-        // }}}
     }
 
     private function drawAccountName(
@@ -441,7 +443,8 @@ final class Pdf extends Model
         string $name,
         float $minFontSize
     ): bool {
-        // {{{
+        assert($this->pdf !== null);
+
         $left   = (float)number_format($left, 2, '.', '');
         $top    = (float)number_format($top, 2, '.', '');
         $right  = (float)number_format($right, 2, '.', '');
@@ -507,12 +510,12 @@ final class Pdf extends Model
             'M'     // valign
         );
         return true;
-        // }}}
     }
 
     public function drawPostalCode(string $code): self
     {
-        // {{{
+        assert($this->pdf !== null);
+
         $code1 = substr($code, 0, 3);
         $code2 = substr($code, 3, 4);
         $this->pdf->SetFont('ocrb_aizu_1_1', '', 0);
@@ -555,19 +558,21 @@ final class Pdf extends Model
             'M'     // valign
         );
         return $this;
-        // }}}
     }
 
     public function drawName(string $name, ?string $kana, ?string $email): self
     {
-        // name, kana {{{
+        assert($this->pdf !== null);
+        assert(is_array($this->lastRect));
+
+        // name, kana
         $name = mb_convert_kana(
-            trim($name),
+            trim((string)$name),
             $this->normalizeToWide ? 'ASKV' : 'aSKV',
             Yii::$app->charset
         );
         $kana = mb_convert_kana(
-            trim($kana),
+            trim((string)$kana),
             $this->normalizeToWide ? 'ASCKV' : 'aSCKV',
             Yii::$app->charset
         );
@@ -607,9 +612,9 @@ final class Pdf extends Model
             );
             $kanaRight = max($this->lastRect[2], static::MAIN_NAME_LEFT);
         }
-        // }}}
-        // email {{{
-        if (trim((string)$email) !== '') {
+
+        $email = trim((string)$email);
+        if ($email !== '') {
             $left = max($nameRight, $kanaRight, static::MAIN_NAME_LEFT) + 3;
             $this->pdf->SetFont('robotomono', '', 0);
             $fontSize = $this->calcFontSize($email, (static::MAIN_NAME_RIGHT - $left), 3.5);
@@ -626,13 +631,13 @@ final class Pdf extends Model
                 'robotomono'
             );
         }
-        // }}}
         return $this;
     }
 
     public function drawPhone(string $phone1, string $phone2, string $phone3): self
     {
-        // {{{
+        assert($this->pdf !== null);
+
         $this->pdf->SetFont('ocrb_aizu_1_1', '', 0);
         $fontSize = min(
             $this->calcFontSize(
@@ -689,12 +694,13 @@ final class Pdf extends Model
             );
         }
         return $this;
-        // }}}
     }
 
     private function drawLines(): self
     {
-        // 通信欄全体に「使用禁止」 // {{{
+        assert($this->pdf !== null);
+
+        // 通信欄全体に「使用禁止」
         call_user_func_array(
             fn (int $r, int $g, int $b) => $this->pdf->SetTextColor($r, $g, $b),
             array_map(
@@ -708,7 +714,6 @@ final class Pdf extends Model
         list(, $textHeight) = $this->calcTextSize('使用禁止');
         $this->pdf->SetXY(9.08, 33 + 57 / 2 - $textHeight / 2);
         $this->pdf->Cell(111.76, $textHeight, '使用禁止', 0, 0, 'C', false, '', 0, false, 'T', 'M');
-        // }}}
 
         $this->pdf->SetTextColor(
             $this->drawLineColor[0],
@@ -732,7 +737,8 @@ final class Pdf extends Model
 
     private function drawDashedLines(): self
     {
-        // {{{
+        assert($this->pdf !== null);
+
         $this->pdf->SetLineStyle([
             'width' => 0.15875,
             'cap' => 'square',
@@ -774,12 +780,12 @@ final class Pdf extends Model
         }
 
         return $this;
-        // }}}
     }
 
     private function drawMainLines(): self
     {
-        // {{{
+        assert($this->pdf !== null);
+
         // 太線
         $this->pdf->SetLineStyle([
             'width' => 0.3175,
@@ -925,11 +931,12 @@ final class Pdf extends Model
         //TODO: 縦書き: 日附印
 
         return $this;
-        // }}}
     }
 
     private function drawSubLines(): self
     {
+        assert($this->pdf !== null);
+
         // 振替払込請求書兼受領証
         $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(4));
         $text = '振替払込請求書兼受領証';
@@ -1059,18 +1066,19 @@ final class Pdf extends Model
         $this->pdf->Cell(0, 0, $text, 0, 0, 'L', false, '', 0, false, 'T', 'T');
 
         return $this;
-        // }}}
     }
 
     private function calcTextSize(string $text): array
     {
-        // {{{
+        assert($this->pdf !== null);
+
         $lines = explode("\n", $text);
         $this->pdf->SetXY(0, 0);
         return [
             // width
             max(array_map(
                 function (string $text): float {
+                    assert($this->pdf !== null);
                     return (float)$this->pdf->GetStringWidth($text);
                 },
                 $lines
@@ -1079,12 +1087,12 @@ final class Pdf extends Model
             array_reduce(
                 $lines,
                 function (float $carry, string $item): float {
+                    assert($this->pdf !== null);
                     return $carry + $this->pdf->GetStringHeight(0, $item, false, false);
                 },
                 0.0
             ),
         ];
-        // }}}
     }
 
     private function calcFontSize(
@@ -1094,7 +1102,7 @@ final class Pdf extends Model
         float $maxFontSize = 20.0,
         float $minFontSize = 0.1
     ): float {
-        // {{{
+        assert($this->pdf !== null);
         for ($i = 0;; ++$i) {
             $fontSize = (float)number_format($maxFontSize - 0.1 * $i, 2, '.', '');
             if ($fontSize <= $minFontSize || $fontSize <= 0) {
@@ -1107,7 +1115,6 @@ final class Pdf extends Model
             }
         }
         return $minFontSize;
-        // }}}
     }
 
     private static function mm2pt(float $mm): float

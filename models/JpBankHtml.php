@@ -35,7 +35,7 @@ final class JpBankHtml extends Model
         $cssSelConv = new CssSelectorConverter();
 
         $html5 = new HTML5(['disable_html_ns' => true]);
-        $doc = $html5->loadHTML($htmlContent);
+        $doc = $html5->loadHTML((string)$htmlContent);
         $xpath = new DOMXPath($doc);
 
         $query = $cssSelConv->toXPath(implode(', ', [
@@ -114,7 +114,7 @@ final class JpBankHtml extends Model
         if (($text = Normalizer::normalize($text, Normalizer::FORM_C)) === false) {
             throw new Exception('Failed to normalize text');
         }
-        $text = preg_replace('/\s+/s', ' ', $text);
+        $text = (string)preg_replace('/\s+/s', ' ', $text);
         $text = trim($text);
         return $text;
     }
