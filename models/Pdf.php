@@ -34,7 +34,7 @@ final class Pdf extends Model
     private const MAIN_POSTALCODE_1_LEFT    = 14.5;
     private const MAIN_POSTALCODE_1_RIGHT   = 22.0;
     private const MAIN_POSTALCODE_2_LEFT    = 25.5;
-    private const MAIN_POSTALCODE_2_RIGHT   = self::MAIN_AMOUNT_RIGHT;
+    // private const MAIN_POSTALCODE_2_RIGHT   = self::MAIN_AMOUNT_RIGHT;
     private const MAIN_ADDRESS_TOP          = 62.0;
     private const MAIN_ADDRESS_BOTTOM       = 75.0;
     private const MAIN_ADDRESS_LEFT         = 15.5;
