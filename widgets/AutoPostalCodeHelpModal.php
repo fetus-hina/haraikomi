@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace app\widgets;
 
+use Exception;
 use Yii;
 use cebe\markdown\GithubMarkdown;
 use yii\helpers\Html;
@@ -38,6 +39,10 @@ final class AutoPostalCodeHelpModal extends Modal
             /** @param mixed $block */
             protected function renderLink($block): string
             {
+                if (!is_array($block)) {
+                    throw new Exception();
+                }
+
                 if (isset($block['refkey'])) {
                     if (($ref = $this->lookupReference($block['refkey'])) !== false) {
                         $block = array_merge($block, $ref);

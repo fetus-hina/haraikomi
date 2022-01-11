@@ -10,46 +10,26 @@ use yii\helpers\ArrayHelper;
 
 final class HaraikomiForm extends Model
 {
-    /** @var mixed */
-    public $account1;
-    /** @var mixed */
-    public $account2;
-    /** @var mixed */
-    public $account3;
-    /** @var mixed */
-    public $amount;
-    /** @var mixed */
-    public $account_name;
-    /** @var mixed */
-    public $postal_code;
-    /** @var mixed */
-    public $pref_id;
-    /** @var mixed */
-    public $address1;
-    /** @var mixed */
-    public $address2;
-    /** @var mixed */
-    public $address3;
-    /** @var mixed */
-    public $name;
-    /** @var mixed */
-    public $kana;
-    /** @var mixed */
-    public $phone1;
-    /** @var mixed */
-    public $phone2;
-    /** @var mixed */
-    public $phone3;
-    /** @var mixed */
-    public $email;
-    /** @var mixed */
-    public $note;
-    /** @var mixed */
-    public $font_ja;
-    /** @var mixed */
-    public $use_fixed;
-    /** @var mixed */
-    public $draw_form;
+    public string|null $account1 = null;
+    public string|null $account2 = null;
+    public string|null $account3 = null;
+    public string|null $amount = null;
+    public string|null $account_name = null;
+    public string|null $postal_code = null;
+    public string|int|null $pref_id = null;
+    public string|null $address1 = null;
+    public string|null $address2 = null;
+    public string|null $address3 = null;
+    public string|null $name = null;
+    public string|null $kana = null;
+    public string|null $phone1 = null;
+    public string|null $phone2 = null;
+    public string|null $phone3 = null;
+    public string|null $email = null;
+    public string|null $note = null;
+    public string|null $font_ja = null;
+    public string|int|bool|null $use_fixed = null;
+    public string|int|bool|null $draw_form = null;
 
     public function rules()
     {
@@ -143,21 +123,25 @@ final class HaraikomiForm extends Model
                 'normalizeToWide' => strpos($fontNameHumanReadable, '明朝') !== false,
                 'drawLines' => !!$this->draw_form,
             ])
-            ->setAccount($this->account1, $this->account2, $this->account3)
-            ->setAccountName($this->account_name)
-            ->setAmount($this->amount)
+            ->setAccount(
+                (string)$this->account1,
+                (string)$this->account2,
+                (string)$this->account3,
+            )
+            ->setAccountName((string)$this->account_name)
+            ->setAmount((string)$this->amount)
             ->setNote($this->note)
             ->setAddress(
-                $this->postal_code,
+                (string)$this->postal_code,
                 Prefecture::findOne(['id' => $this->pref_id])->name ?? '',
-                $this->address1,
-                $this->address2,
+                (string)$this->address1,
+                (string)$this->address2,
                 $this->address3,
-                $this->name,
+                (string)$this->name,
                 $this->kana,
-                $this->phone1,
-                $this->phone2,
-                $this->phone3,
+                (string)$this->phone1,
+                (string)$this->phone2,
+                (string)$this->phone3,
                 $this->email,
             );
         return $pdf->render();
@@ -178,8 +162,12 @@ final class HaraikomiForm extends Model
         );
     }
 
-    public function getFixedWidthFont(string $fontId): ?string
+    public function getFixedWidthFont(?string $fontId): ?string
     {
+        if ($fontId === null) {
+            return null;
+        }
+
         $orgFont = Font::find()->andWhere(['key' => $fontId])->one();
         if ($orgFont) {
             $fwFont = $orgFont->fixed;

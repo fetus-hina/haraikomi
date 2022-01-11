@@ -108,7 +108,10 @@ final class AppConfigController extends Controller
                     break;
 
                 default:
-                    if (preg_match('/^apple-touch-icon-(\d+)\.png$/', $fileName, $match)) {
+                    if (
+                        is_string($fileName) &&
+                        preg_match('/^apple-touch-icon-(\d+)\.png$/', $fileName, $match)
+                    ) {
                         $data[$fileName] = [
                             'rel' => 'apple-touch-icon',
                             'sizes' => sprintf('%1$dx%1$d', (int)$match[1]),
