@@ -75,6 +75,11 @@ final class SiteController extends Controller
         ]);
     }
 
+    public function actionHistory(): string
+    {
+        return $this->render('history');
+    }
+
     public function actionClearOpcache(): string
     {
         $r = Yii::$app->response;
