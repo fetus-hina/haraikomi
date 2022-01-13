@@ -45,6 +45,8 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '' => 'site/index',
+                '<action:\w+>' => 'site/<action>',
             ],
         ],
         'assetManager' => require(__DIR__ . '/asset-manager.php'),

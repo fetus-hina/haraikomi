@@ -19,7 +19,10 @@ $now = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
+<?= Html::beginTag('html', [
+  'class' => 'h-100',
+  'lang' => Yii::$app->language,
+]) . "\n" ?>
   <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,17 +32,34 @@ $now = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head(); echo "\n" ?>
   </head>
-  <body>
-  <?php $this->beginBody(); echo "\n" ?>
-    <div class="wrap">
+  <body class="h-100">
+<?php $this->beginBody(); echo "\n" ?>
+    <?= Html::beginTag('div', [
+      'class' => [
+        'h-100',
+        'wrap',
+        'd-flex',
+        'flex-column',
+      ],
+    ]) . "\n" ?>
       <header class="mb-3">
         <div class="container">
           <h1><a href="https://fetus.jp/">fetus</a></h1>
         </div>
       </header>
-      <div class="container">
-        <?= $content . "\n" ?>
-      </div>
+      <?= Html::tag(
+        'div',
+        implode('', [
+          $this->render('//layouts/_navbar'),
+          Html::tag('main', $content),
+        ]),
+        [
+          'class' => [
+            'container',
+            'flex-grow-1',
+          ],
+        ],
+      ) . "\n" ?>
       <footer>
         <hr>
         <div class="container text-end pb-3">
@@ -81,7 +101,7 @@ $now = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
         </div>
       </footer>
     </div>
-  <?php $this->endBody(); echo "\n" ?>
+<?php $this->endBody(); echo "\n" ?>
   </body>
 </html>
 <?php $this->endPage() ?>
