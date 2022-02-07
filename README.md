@@ -21,6 +21,10 @@
   - `$ git clone`
   - `$ make`
 
+### 義援金情報の更新
+
+  - `$ curl -f 'https://www.jp-bank.japanpost.jp/aboutus/activity/fukusi/abt_act_fk_gienkin.html' | ./yii jp-bank/parse-and-import`
+
 ライセンス
 ----------
 
@@ -42,7 +46,7 @@ Licensed under the MIT License.
   - [梅明朝・ゴシック](https://ja.osdn.net/projects/ume-font/)
     - [License](resources/fonts/umefont/license.html)
   - [M+ FONTS](http://mplus-fonts.osdn.jp/)
-    - License: [Japanese](resources/fonts/mplus/LICENSE_J) [English](resources/fonts/mplus/LICENSE_E)
+    - License: [Japanese](resources/fonts/mplus/LICENSE_J) / [English](resources/fonts/mplus/LICENSE_E)
     - (C) M+ FONTS PROJECT
   - [にゃしぃフォント改二・にゃしぃフレンズ](http://marusexijaxs.web.fc2.com/)
     - Licensed under the CC BY-ND 4.0
