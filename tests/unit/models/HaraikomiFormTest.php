@@ -104,7 +104,6 @@ final class HaraikomiFormTest extends Unit
         }
     }
 
-    /** @medium */
     public function testMakePdf(): void
     {
         $model = Yii::createObject(array_merge(
@@ -123,14 +122,13 @@ final class HaraikomiFormTest extends Unit
         $this->assertEquals('%PDF-1.', substr($pdf, 0, 7));
     }
 
-    /** @large */
     public function testMakePdfWithVeryLongName(): void
     {
         // どうにもならない程度の恐ろしく長い名前（実際にはあり得なかろう）
         $model = Yii::createObject(array_merge(
             ['class' => HaraikomiForm::class],
             $this->getValidAttributeValues(),
-            ['account_name' => str_repeat('加入者名', 100)],
+            ['account_name' => str_repeat('加入者名', 10)],
         ));
         $pdf = $model->makePdf();
         $this->assertIsString($pdf);

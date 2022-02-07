@@ -55,7 +55,7 @@ final class JpBankHtml extends Model
 
             if (count($tds) === 4) {
                 if ($disasterRemains > 0) {
-                    throw new Exception('災害名のセル結合の消費が尽きる前に 4 セル現れた');
+                    throw new Exception('災害名のセル結合の消費が尽きる前に 4 セル現れた'); // @codeCoverageIgnore
                 }
 
                 $td = array_shift($tds);
@@ -67,11 +67,11 @@ final class JpBankHtml extends Model
             }
 
             if (count($tds) !== 3) {
-                throw new Exception('セルの数が異常: ' . count($tds));
+                throw new Exception('セルの数が異常: ' . count($tds)); // @codeCoverageIgnore
             }
 
             if ($disasterRemains < 1) {
-                throw new Exception('$disasterRemains < 1');
+                throw new Exception('$disasterRemains < 1'); // @codeCoverageIgnore
             }
 
             --$disasterRemains;
@@ -104,7 +104,7 @@ final class JpBankHtml extends Model
                         ->format('Y-m-d'),
                 ];
             } else {
-                throw new Exception('Unmatch');
+                throw new Exception('Unmatch'); // @codeCoverageIgnore
             }
         }
     }
@@ -112,7 +112,7 @@ final class JpBankHtml extends Model
     private function normalizeText(string $text): string
     {
         if (($text = Normalizer::normalize($text, Normalizer::FORM_C)) === false) {
-            throw new Exception('Failed to normalize text');
+            throw new Exception('Failed to normalize text'); // @codeCoverageIgnore
         }
         $text = (string)preg_replace('/\s+/s', ' ', $text);
         $text = trim($text);

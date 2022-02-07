@@ -113,6 +113,8 @@ final class HaraikomiForm extends Model
 
     public function makePdf(): string
     {
+        assert($this->font_ja !== null);
+
         $fontNameHumanReadable = ($this->getJapaneseFonts()[$this->font_ja] ?? '');
         $pdf = Yii::createObject([
                 'class' => Pdf::class,
@@ -162,12 +164,8 @@ final class HaraikomiForm extends Model
         );
     }
 
-    public function getFixedWidthFont(?string $fontId): ?string
+    public function getFixedWidthFont(string $fontId): ?string
     {
-        if ($fontId === null) {
-            return null;
-        }
-
         $orgFont = Font::find()->andWhere(['key' => $fontId])->one();
         if ($orgFont) {
             $fwFont = $orgFont->fixed;

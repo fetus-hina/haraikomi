@@ -1100,7 +1100,7 @@ final class Pdf extends Model
         float $width,
         float $height,
         float $maxFontSize = 20.0,
-        float $minFontSize = 0.1
+        float $minFontSize = 1.0,
     ): float {
         assert($this->pdf !== null);
         for ($i = 0;; ++$i) {
