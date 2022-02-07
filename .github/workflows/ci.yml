@@ -86,7 +86,9 @@ jobs:
           php-version: '8.0'
 
       - name: 'Check Styles'
-        run: 'make check-style-php'
+        run: |
+          make app-config
+          make check-style-php
 
   phpTest:
     name: 'PHP Test (${{ matrix.php.version }})'
