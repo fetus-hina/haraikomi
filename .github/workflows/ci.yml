@@ -133,7 +133,7 @@ jobs:
 
       - name: 'Run Unit Test'
         continue-on-error: '${{ matrix.php.experimental }}'
-        run: 'make full-test'
+        run: 'make test'
 
   jsStyleCheck:
     name: 'JS Coding Style'
