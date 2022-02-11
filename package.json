@@ -23,7 +23,7 @@
     "postcss-scss": "^4.0.3",
     "sass": "^1.49.7",
     "semistandard": "^16.0.1",
-    "stylelint": "^14.4.0",
+    "stylelint": "^14.5.0",
     "stylelint-config-recommended": "^6.0.0",
     "terser": "^5.10.0",
     "updates": "^12.2.3"
