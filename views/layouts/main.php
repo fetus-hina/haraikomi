@@ -61,8 +61,7 @@ $now = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
         ],
       ) . "\n" ?>
       <footer>
-        <hr>
-        <div class="container text-end pb-3">
+        <div class="container">
           <?= implode('<br>', [
             vsprintf('Copyright &copy; 2017-%d %s %s.', [
               (int)$now->format('Y'),

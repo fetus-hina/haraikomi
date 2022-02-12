@@ -33,7 +33,6 @@ final class AppAsset extends AssetBundle
     public $depends = [
         BootstrapAsset::class,
         BootstrapPluginAsset::class,
-        GoogleFontsAsset::class,
         YiiAsset::class,
     ];
 }
