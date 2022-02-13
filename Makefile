@@ -1,5 +1,4 @@
 RESOURCES := \
-	web/css/site.css \
 	web/js/gienkin.js \
 	web/js/messagebox.js \
 	web/js/polyfill.js \
@@ -19,7 +18,6 @@ clean:
 		vendor \
 		views/layouts/_favicon.php \
 		web/apple-touch-icon-*.png \
-		web/css/*.css \
 		web/favicon.* \
 		web/js/*.js
 
@@ -27,7 +25,7 @@ clean:
 app-config: config/cookie.php views/layouts/_favicon.php
 
 .PHONY: check-style
-check-style: check-style-php check-style-js check-style-css
+check-style: check-style-php check-style-js
 
 .PHONY: check-style-php
 check-style-php: check-style-phpcs check-style-phpstan
@@ -42,9 +40,6 @@ check-style-phpstan: vendor
 
 check-style-js: node_modules
 	npx semistandard --global=jQuery --global=bootstrap "./resources/**/*.js"
-
-check-style-css: node_modules
-	npx stylelint "./resources/**/*.scss"
 
 vendor: composer.lock composer.phar
 	./composer.phar install --prefer-dist
@@ -70,9 +65,6 @@ resources: $(RESOURCES)
 node_modules: package-lock.json
 	npm clean-install
 	@touch $@
-
-web/css/%.css: resources/css/%.scss node_modules .browserslistrc
-	npx sass $< | npx postcss --no-map --use autoprefixer --use cssnano --output=$@
 
 web/js/%.js: resources/js/%.js node_modules .browserslistrc
 	npx babel -s false $< | npx terser -c -m -f ascii_only=true --comments '/license|copyright/i' -o $@

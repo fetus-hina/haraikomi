@@ -148,17 +148,3 @@ jobs:
           node-version: 'lts/*'
 
       - run: 'make check-style-js'
-
-  cssStyleCheck:
-    name: 'CSS Coding Style'
-
-    runs-on: 'ubuntu-20.04'
-
-    steps:
-      - uses: 'actions/checkout@v2'
-
-      - uses: 'actions/setup-node@v2'
-        with:
-          node-version: 'lts/*'
-
-      - run: 'make check-style-css'
