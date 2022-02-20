@@ -7,20 +7,15 @@ namespace app\assets;
 use yii\bootstrap5\BootstrapAsset;
 use yii\bootstrap5\BootstrapPluginAsset;
 use yii\web\AssetBundle;
-use yii\web\YiiAsset;
 
-final class AppAsset extends AssetBundle
+final class BackToTopAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
+    public $sourcePath = '@npm/@fetus-hina/fetus.css/dist';
     public $js = [
-        'js/save.js',
-        'js/gienkin.js',
+        'fetus-css.min.js',
     ];
     public $depends = [
-        BackToTopAsset::class,
         BootstrapAsset::class,
         BootstrapPluginAsset::class,
-        YiiAsset::class,
     ];
 }

@@ -32,7 +32,7 @@ $now = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head(); echo "\n" ?>
   </head>
-  <body class="h-100">
+  <body class="h-100 back-to-top-auto">
 <?php $this->beginBody(); echo "\n" ?>
     <?= Html::beginTag('div', [
       'class' => [
