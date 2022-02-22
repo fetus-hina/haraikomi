@@ -12,11 +12,11 @@
     "yii2-pjax": "^2.0.7"
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.3",
+    "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.5",
     "@babel/preset-env": "^7.16.11",
     "semistandard": "^16.0.1",
-    "terser": "^5.10.0",
+    "terser": "^5.11.0",
     "updates": "^12.2.3"
   }
 }
