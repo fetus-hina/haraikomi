@@ -15,6 +15,9 @@ jobs:
             experimental: false
 
           - version: '8.1'
+            experimental: false
+
+          - version: '8.2'
             experimental: true
 
     runs-on: 'ubuntu-20.04'
@@ -61,8 +64,8 @@ jobs:
       - name: 'Install Composer dependencies'
         run: 'composer install --prefer-dist'
 
-  phpStyleCheck:
-    name: 'PHP Coding Style'
+  phpcs:
+    name: 'PHP Coding Style (PHPCS)'
 
     runs-on: 'ubuntu-20.04'
 
@@ -88,7 +91,36 @@ jobs:
       - name: 'Check Styles'
         run: |
           make app-config
-          make check-style-php
+          make check-style-phpcs
+
+  phpstan:
+    name: 'PHP Coding Style (PHPStan)'
+
+    runs-on: 'ubuntu-20.04'
+
+    needs:
+      - 'phpSyntaxCheck'
+      - 'makeComposerCache'
+
+    steps:
+      - uses: 'actions/checkout@v2'
+
+      - uses: 'actions/cache@v2'
+        with:
+          path: |
+            ~/.cache/composer/files
+            vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+
+      - name: 'Set up PHP 8.0'
+        uses: 'shivammathur/setup-php@v2'
+        with:
+          php-version: '8.0'
+
+      - name: 'Check Styles'
+        run: |
+          make app-config
+          make check-style-phpstan
 
   phpTest:
     name: 'PHP Test (${{ matrix.php.version }})'
@@ -100,6 +132,9 @@ jobs:
             experimental: false
 
           - version: '8.1'
+            experimental: false
+
+          - version: '8.2'
             experimental: true
 
     runs-on: 'ubuntu-20.04'
