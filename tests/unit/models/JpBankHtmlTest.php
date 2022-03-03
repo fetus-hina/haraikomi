@@ -8,6 +8,7 @@ use Codeception\Test\Unit;
 use UnitTester;
 use Yii;
 use app\models\JpBankHtml;
+use app\models\JpBankHtmlAccount;
 
 final class JpBankHtmlTest extends Unit
 {
@@ -21,9 +22,15 @@ final class JpBankHtmlTest extends Unit
         ]);
         $this->assertTrue($model->validate());
 
+        // $parsed should be JpBankHtmlAccount[]
+        $parsed = iterator_to_array($model->parse());
+        foreach ($parsed as $item) {
+            $this->assertInstanceOf(JpBankHtmlAccount::class, $item);
+        }
+
         $this->assertEquals(
             [
-                (object)[
+                [
                     'disaster' => '災害名1',
                     'accountName' => '支援団体1-1',
                     'account' => [
@@ -34,7 +41,7 @@ final class JpBankHtmlTest extends Unit
                     'start' => '2021-01-01',
                     'end' => '2022-12-31',
                 ],
-                (object)[
+                [
                     'disaster' => '災害名1',
                     'accountName' => '支援団体1-2',
                     'account' => [
@@ -45,7 +52,7 @@ final class JpBankHtmlTest extends Unit
                     'start' => '2022-01-01',
                     'end' => '2022-12-31',
                 ],
-                (object)[
+                [
                     'disaster' => '災害名2',
                     'accountName' => '支援団体2-1',
                     'account' => [
@@ -57,7 +64,10 @@ final class JpBankHtmlTest extends Unit
                     'end' => '2020-12-31',
                 ],
             ],
-            iterator_to_array($model->parse()),
+            array_map(
+                fn (JpBankHtmlAccount $data) => $data->json,
+                $parsed,
+            ),
         );
     }
 }

@@ -25,7 +25,7 @@ final class JpBankHtmlAccount extends Model
     {
         $props = $this->attributes;
         return array_map(
-            fn ($v) => $v instanceof DateTimeInterface ? $v->format(DateTimeInterface::ATOM) : $v,
+            fn ($v) => $v instanceof DateTimeInterface ? $v->format('Y-m-d') : $v,
             $props,
         );
     }
