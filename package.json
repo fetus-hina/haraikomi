@@ -16,7 +16,7 @@
     "@babel/core": "^7.17.5",
     "@babel/preset-env": "^7.16.11",
     "semistandard": "^16.0.1",
-    "terser": "^5.11.0",
+    "terser": "^5.12.0",
     "updates": "^12.2.3"
   }
 }

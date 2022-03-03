@@ -27,7 +27,7 @@ final class JpBankController extends Controller
 
         $data = [];
         foreach ($model->parse() as $row) {
-            $data[] = $row;
+            $data[] = $row->json;
         }
 
         echo Json::encode(
@@ -53,8 +53,8 @@ final class JpBankController extends Controller
             $availableIds = [];
 
             foreach ($parser->parse() as $row) {
-                $tS = strtotime($row->start . 'T00:00:00+09:00');
-                $tE = strtotime($row->end . 'T24:00:00+09:00');
+                $tS = strtotime($row->start->format('Y-m-d') . 'T00:00:00+09:00');
+                $tE = strtotime($row->end->format('Y-m-d') . 'T24:00:00+09:00');
                 if ($tS === false || $tE === false) {
                     throw new Exception();
                 }
