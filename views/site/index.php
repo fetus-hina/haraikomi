@@ -36,8 +36,10 @@ $this->title = Yii::$app->name;
   <h1><?= Html::encode($this->title) ?></h1>
   <p>
     ゆうちょ銀行の「払込取扱票」に印刷するためのPDFを作成するサイトです。<br>
-    「払込取扱票」はゆうちょ銀行においてあるこんな紙です。ATMとかにあります。わからなければ窓口で聞けばくれるはずです。<br>
-    <?= SampleImageWidget::widget() ?><br>
+    「払込取扱票」はゆうちょ銀行においてあるこんな紙です。ATMとかにあります。わからなければ窓口で聞けばくれるはずです。
+  </p>
+  <?= SampleImageWidget::widget() ?>
+  <p>
     自分で全部印刷するようなことは禁止されているため、ゆうちょ銀行で紙を取ってきて、そこに「手書きの代わりに」印刷する必要があります。<br>
     画像にマウスを置くと、最終的な（印刷後の）イメージが表示されます。
   </p>
@@ -469,7 +471,11 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
     <?= Html::submitButton(
       implode(' ', [
         Icon::filePdf(),
-        '作成・ダウンロード',
+        Html::tag(
+          'span',
+          Html::encode('作成・ダウンロード'),
+          ['class' => 'text-smooth'],
+        ),
         Icon::download(),
       ]),
       ['class' => 'btn btn-primary']
