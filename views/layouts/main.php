@@ -13,6 +13,7 @@ use yii\web\View;
  */
 
 AppAsset::register($this);
+$this->registerCsrfMetaTags();
 
 $now = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
   ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()));
@@ -28,7 +29,6 @@ $now = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= $this->render('//layouts/_favicon') . "\n" ?>
-    <?= Html::csrfMetaTags() . "\n" ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head(); echo "\n" ?>
   </head>
@@ -61,7 +61,7 @@ $now = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
         ],
       ) . "\n" ?>
       <footer>
-        <div class="container">
+        <div class="container smoothing">
           <?= implode('<br>', [
             vsprintf('Copyright &copy; 2017-%d %s %s.', [
               (int)$now->format('Y'),

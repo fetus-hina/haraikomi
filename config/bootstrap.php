@@ -17,10 +17,18 @@ define('K_PATH_FONTS', __DIR__ . '/../resources/fonts/_tcpdf/');
 })();
 
 Yii::$container->set(ActiveField::class, [
+    'errorOptions' => [
+        'class' => 'invalid-feedback smoothing',
+    ],
+    'labelOptions' => [
+        'class' => [
+            'smoothing',
+        ],
+    ],
     'hintOptions' => [
         'class' => [
-            'widget' => 'form-text',
-            'text-muted'
+            'smoothing',
+            'text-muted',
         ],
         'tag' => 'div',
     ],

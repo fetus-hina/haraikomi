@@ -34,25 +34,25 @@ $this->title = Yii::$app->name;
 ?>
 <div class="site-index">
   <h1><?= Html::encode($this->title) ?></h1>
-  <p>
+  <p class="smoothing">
     ゆうちょ銀行の「払込取扱票」に印刷するためのPDFを作成するサイトです。<br>
     「払込取扱票」はゆうちょ銀行においてあるこんな紙です。ATMとかにあります。わからなければ窓口で聞けばくれるはずです。
   </p>
   <?= SampleImageWidget::widget() ?>
-  <p>
+  <p class="smoothing">
     自分で全部印刷するようなことは禁止されているため、ゆうちょ銀行で紙を取ってきて、そこに「手書きの代わりに」印刷する必要があります。<br>
     画像にマウスを置くと、最終的な（印刷後の）イメージが表示されます。
   </p>
-  <p>
+  <p class="smoothing">
     入力されたデータについては一切保存していません。
     （<a href="https://github.com/fetus-hina/haraikomi">ソースコード</a>）
   </p>
-  <p>
+  <p class="smoothing">
     作成されるPDFは、払込取扱票に合わせた特殊な用紙サイズです。(180mm×114mm)<br>
     これをうまく扱えるプリンタをうまく設定して使う必要があります。場合によっては結構難しいです。<br>
     手書きで一文字も書きたくないような人を除いて手書きしたほうが圧倒的にはやくて楽です。
   </p>
-  <p class="small text-muted">
+  <p class="smoothing small text-muted">
     作成されるPDFは、選択したフォントによって字形が異なるかもしれません。<br>
     （例えば、「辻」の<ruby>辶<rp>(<rt>しんにょう<rp>)</ruby>が一点か二点か）<br>
     また、フォントによって利用できる文字が異なります。<br>
@@ -64,8 +64,9 @@ $this->title = Yii::$app->name;
     <div class="card mb-3">
       <div class="card-body">
         <div class="text-end mb-2">
-          <div class="btn-group" role="group">
-            <?= Html::tag('button', Icon::save() . ' ' . Html::encode('Save'), [
+          <div class="btn-group smooting" role="group">
+            <?= Html::tag(
+              'button', Icon::save() . ' ' . Html::encode('Save'), [
               'type' => 'button',
               'class' => 'btn btn-sm btn-outline-secondary saver saver-save',
               'data' => [
@@ -117,7 +118,7 @@ $this->title = Yii::$app->name;
                 ->all(),
             )
           ) ?></script>
-          <div class="btn-group" role="group">
+          <div class="btn-group smoothing" role="group">
             <?= Html::tag('button', Icon::disaster() . ' ' . Html::encode('義援金'), [
               'type' => 'button',
               'class' => 'btn btn-sm btn-outline-secondary gienkin gienkin-load',
@@ -178,7 +179,7 @@ $this->title = Yii::$app->name;
 
         <div class="row">
           <div class="col-12 col-lg-6">
-            <label>記号・番号</label>
+            <label class="smoothing">記号・番号</label>
             <div class="row">
               <div class="col-8 col-md-5">
                 <?= $_->field($form, 'account1')
@@ -245,7 +246,7 @@ $this->title = Yii::$app->name;
     <div class="card mb-3">
       <div class="card-body">
         <div class="text-end mb-2">
-          <div class="btn-group" role="group">
+          <div class="btn-group smoothing" role="group">
             <?= Html::tag('button', Icon::save() . ' ' . Html::encode('Save'), [
               'type' => 'button',
               'class' => 'btn btn-sm btn-outline-secondary saver saver-save',
@@ -331,10 +332,13 @@ $this->title = Yii::$app->name;
               'div',
               implode('', [
                 '{input}',
-                Html::button(Html::encode('住所入力'), [
-                  'id' => Html::getInputId($form, 'postal_code') . '--querybtn',
-                  'class' => 'btn btn-outline-secondary',
-                ]),
+                Html::button(
+                  Html::tag('span', Html::encode('住所入力'), ['class' => 'd-inline-block smoothing']),
+                  [
+                    'id' => Html::getInputId($form, 'postal_code') . '--querybtn',
+                    'class' => 'btn btn-outline-secondary',
+                  ],
+                ),
                 Html::button(Icon::help(), [
                   'class' => 'btn btn-outline-secondary',
                   'data' => [
@@ -474,7 +478,7 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
         Html::tag(
           'span',
           Html::encode('作成・ダウンロード'),
-          ['class' => 'text-smooth'],
+          ['class' => 'd-inline-block smoothing'],
         ),
         Icon::download(),
       ]),

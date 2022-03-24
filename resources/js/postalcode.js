@@ -61,7 +61,9 @@
                   const $choiceList = $('.list-group', $choiceDialog).empty();
                   data.forEach(row => {
                     const $item = $('<a href="#" class="list-group-item list-group-item-action">');
-                    $item.text(`${row.address1} ${row.address2} ${row.address3}`);
+                    $item.append(
+                      $('<span class="d-inline-block smoothing">').text(`${row.address1} ${row.address2} ${row.address3}`)
+                    );
                     $choiceList.append($item);
                     $item.click(() => {
                       update(row, updateMap);
