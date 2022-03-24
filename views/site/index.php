@@ -179,7 +179,7 @@ $this->title = Yii::$app->name;
 
         <div class="row">
           <div class="col-12 col-lg-6">
-            <label class="smoothing">記号・番号</label>
+            <label class="form-label smoothing">記号・番号</label>
             <div class="row">
               <div class="col-8 col-md-5">
                 <?= $_->field($form, 'account1')
