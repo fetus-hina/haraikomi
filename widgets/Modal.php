@@ -78,11 +78,7 @@ abstract class Modal extends Widget
     {
         return Html::tag(
             'h5',
-            Html::tag(
-                'span',
-                Html::encode($this->getTitleText()),
-                ['class' => 'd-inline-block smoothing'],
-            ),
+            Html::encode($this->getTitleText()),
             ['class' => 'modal-title'],
         );
     }
@@ -100,11 +96,7 @@ abstract class Modal extends Widget
     {
         return Html::tag(
             'div',
-            Html::tag(
-                'div',
-                $this->renderBodyData(),
-                ['class' => 'smoothing'],
-            ),
+            $this->renderBodyData(),
             ['class' => 'modal-body'],
         );
     }
@@ -117,14 +109,10 @@ abstract class Modal extends Widget
     protected function renderFooterCloseButton(): string
     {
         return Html::button(
-            Html::tag(
-                'span',
-                implode(' ', [
-                    Icon::dismiss(),
-                    Html::encode('閉じる'),
-                ]),
-                ['class' => 'd-inline-block smoothing'],
-            ),
+            implode(' ', [
+                Icon::dismiss(),
+                Html::encode('閉じる'),
+            ]),
             [
                 'class' => 'btn btn-outline-secondary',
                 'data-bs-dismiss' => 'modal',
