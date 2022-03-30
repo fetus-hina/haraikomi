@@ -1368,16 +1368,16 @@
         },
         {
             "name": "codeception/module-rest",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/module-rest.git",
-                "reference": "0f4f48b894735e91132aa23cb8fe868289dae7ca"
+                "reference": "9cbba128b3793779e7f4ede8c6255d72b1ea60a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/module-rest/zipball/0f4f48b894735e91132aa23cb8fe868289dae7ca",
-                "reference": "0f4f48b894735e91132aa23cb8fe868289dae7ca",
+                "url": "https://api.github.com/repos/Codeception/module-rest/zipball/9cbba128b3793779e7f4ede8c6255d72b1ea60a7",
+                "reference": "9cbba128b3793779e7f4ede8c6255d72b1ea60a7",
                 "shasum": ""
             },
             "require": {
@@ -1419,9 +1419,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/module-rest/issues",
-                "source": "https://github.com/Codeception/module-rest/tree/2.0.1"
+                "source": "https://github.com/Codeception/module-rest/tree/2.0.2"
             },
-            "time": "2021-12-24T14:29:48+00:00"
+            "time": "2022-03-30T05:42:11+00:00"
         },
         {
             "name": "codeception/module-yii2",
