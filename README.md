@@ -40,6 +40,9 @@ Licensed under the MIT License.
   - [IPAex明朝・ゴシック、IPA明朝・ゴシック](https://moji.or.jp/ipafont/)
     - Licensed under the [IPA Font License](https://moji.or.jp/ipafont/license/)
     - (C) Information-technology Promotion Agency, Japan.
+  - [BIZ UD明朝](https://github.com/googlefonts/morisawa-biz-ud-mincho)・[BIZ UDゴシック](https://github.com/googlefonts/morisawa-biz-ud-gothic)
+    - Licensed under the SIL Open Font License 1.1
+    - (C) The BIZ UDMincho Project Authors / The BIZ UDGothic Project Authors
   - [源真ゴシック](http://jikasei.me/font/genshin/)・[源柔ゴシック](http://jikasei.me/font/genjyuu/)
     - Licensed under the SIL Open Font License 1.1
     - (C) Adobe, M+ FONTS PROJECT, 自家製フォント工房

@@ -15,6 +15,20 @@ $this->title = '更新履歴 - ' . Yii::$app->name;
   <h2>更新履歴</h2>
   <ul>
     <li>
+      2022-04-09
+      <ul>
+        <li>
+          フォントを追加しました。
+          <ul>
+            <li>BIZ UDゴシック</li>
+            <li>BIZ UDPゴシック</li>
+            <li>BIZ UD明朝</li>
+            <li>BIZ UDP明朝</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
       2022-01-13
       <ul>
         <li>
