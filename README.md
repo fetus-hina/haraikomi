@@ -54,7 +54,7 @@ Licensed under the MIT License.
   - [にゃしぃフォント改二・にゃしぃフレンズ](http://marusexijaxs.web.fc2.com/)
     - Licensed under the CC BY-ND 4.0
     - (C) マルセ / プロジェクトU-Fo
-  - [Roboto Mono](https://github.com/googlefonts/roboto)
-    - Licensed under the Apache License 2.0
-    - (C) Google Inc.
-
+  - [JetBrains Mono NL](https://www.jetbrains.com/ja-jp/lp/mono/)
+    - Licensed under the SIL Open Font License 1.1
+    - (C) pyright 2020 The JetBrains Mono Project Authors
+    - "0" のグリフを、「ドット0」から「スラッシュ0」に変更し、ASCII外の文字を削除しています。

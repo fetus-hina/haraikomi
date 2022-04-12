@@ -1,0 +1,22 @@
+#!/usr/bin/env fontforge
+
+Open("../original-font/JetBrainsMonoNL-Regular.ttf", 1);
+
+# Remove "dot 0"
+Select(0u30);
+Cut();
+
+# Copy "slash 0"
+Select(0x110003);
+Copy();
+Select(0u30);
+Paste();
+
+# Remove non-ascii
+SelectNone();
+SelectMore(0u20, 0u7e);
+SelectInvert();
+DetachAndRemoveGlyphs();
+
+SetFontNames("JetBeansMonoModified", "JetBeansMonoModified", "JetBeansMonoModified", "Regular", "Copyright 2020 The JetBrains Mono NL Project Authors");
+Generate("../JetBrainsMonoModified.ttf");

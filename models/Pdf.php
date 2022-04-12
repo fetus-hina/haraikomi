@@ -616,7 +616,7 @@ final class Pdf extends Model
         $email = trim((string)$email);
         if ($email !== '') {
             $left = max($nameRight, $kanaRight, static::MAIN_NAME_LEFT) + 3;
-            $this->pdf->SetFont('robotomono', '', 0);
+            $this->pdf->SetFont('jetbrainsmonomodified', '', 0);
             $fontSize = $this->calcFontSize($email, (static::MAIN_NAME_RIGHT - $left), 3.5);
             $this->pdf->SetFont('', '', static::mm2pt($fontSize));
             list($textWidth, ) = $this->calcTextSize($email);
@@ -628,7 +628,7 @@ final class Pdf extends Model
                 $email,
                 'M',
                 $fontSize,
-                'robotomono'
+                'jetbrainsmonomodified'
             );
         }
         return $this;
