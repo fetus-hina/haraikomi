@@ -7,6 +7,7 @@ namespace app\controllers;
 use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
+use app\actions\site\HistoryAction;
 use app\models\HaraikomiForm;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -42,9 +43,8 @@ final class SiteController extends Controller
     public function actions()
     {
         return [
-            'error' => [
-                'class' => ErrorAction::class,
-            ],
+            'error' => ErrorAction::class,
+            'history' => HistoryAction::class,
         ];
     }
 
@@ -73,11 +73,6 @@ final class SiteController extends Controller
         return $this->render('index', [
             'form' => $form,
         ]);
-    }
-
-    public function actionHistory(): string
-    {
-        return $this->render('history');
     }
 
     public function actionClearOpcache(): string

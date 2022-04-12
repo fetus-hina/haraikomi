@@ -1,4 +1,5 @@
 RESOURCES := \
+	web/css/history.css \
 	web/js/gienkin.js \
 	web/js/messagebox.js \
 	web/js/polyfill.js \
@@ -18,6 +19,7 @@ clean:
 		vendor \
 		views/layouts/_favicon.php \
 		web/apple-touch-icon-*.png \
+		web/css/*.css \
 		web/favicon.* \
 		web/js/*.js
 
@@ -25,7 +27,7 @@ clean:
 app-config: config/cookie.php views/layouts/_favicon.php
 
 .PHONY: check-style
-check-style: check-style-php check-style-js
+check-style: check-style-php check-style-js check-style-css
 
 .PHONY: check-style-php
 check-style-php: check-style-phpcs check-style-phpstan
@@ -40,6 +42,9 @@ check-style-phpstan: vendor
 
 check-style-js: node_modules
 	npx semistandard --global=jQuery --global=bootstrap "./resources/**/*.js"
+
+check-style-css: node_modules
+	npx stylelint "./resources/**/*.scss"
 
 vendor: composer.lock composer.phar
 	./composer.phar install --prefer-dist
@@ -68,6 +73,10 @@ node_modules: package-lock.json
 
 web/js/%.js: resources/js/%.js node_modules .browserslistrc
 	npx babel -s false $< | npx terser -c -m -f ascii_only=true --comments '/license|copyright/i' -o $@
+
+web/css/%.css: resources/css/%.scss node_modules .browserslistrc
+	npx sass --charset --no-source-map $< | \
+		npx postcss --no-map -u autoprefixer -u cssnano -o $@
 
 .PHONY: test
 test: composer.phar app-config vendor node_modules resources

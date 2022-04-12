@@ -15,7 +15,13 @@
     "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.9",
     "@babel/preset-env": "^7.16.11",
+    "autoprefixer": "^10.4.4",
+    "cssnano": "^5.1.7",
+    "postcss-cli": "^9.1.0",
+    "sass": "^1.50.0",
     "semistandard": "^16.0.1",
+    "stylelint": "^14.6.1",
+    "stylelint-config-sass-guidelines": "^9.0.1",
     "terser": "^5.12.1",
     "updates": "^13.0.5"
   }
