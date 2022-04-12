@@ -20,6 +20,9 @@ $this->title = '更新履歴 - ' . Yii::$app->name;
         <li>
           メールアドレス出力フォントを、RobotoからJetBrains Mono NL（を改変したもの）に変更しました。
         </li>
+        <li>
+          デフォルトのフォントをBIZ UDP明朝に変更しました。
+        </li>
       </ul>
     </li>
     <li>

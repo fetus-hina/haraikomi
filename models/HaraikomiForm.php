@@ -10,6 +10,8 @@ use yii\helpers\ArrayHelper;
 
 final class HaraikomiForm extends Model
 {
+    public const DEFAULT_JAPANESE_FONT = 'bizudpmincho';
+
     public string|null $account1 = null;
     public string|null $account2 = null;
     public string|null $account3 = null;
@@ -27,7 +29,7 @@ final class HaraikomiForm extends Model
     public string|null $phone3 = null;
     public string|null $email = null;
     public string|null $note = null;
-    public string|null $font_ja = null;
+    public string|null $font_ja = self::DEFAULT_JAPANESE_FONT;
     public string|int|bool|null $use_fixed = null;
     public string|int|bool|null $draw_form = null;
 
