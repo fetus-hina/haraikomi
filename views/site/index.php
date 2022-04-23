@@ -31,6 +31,15 @@ use yii\web\View;
 
 $this->title = Yii::$app->name;
 
+$monospaceInputOptions = [
+    'inputOptions' => [
+        'class' => [
+            'widget' => 'form-control',
+            'font-monospace',
+        ],
+    ],
+];
+
 ?>
 <div class="site-index">
   <h1><?= Html::encode($this->title) ?></h1>
@@ -182,7 +191,7 @@ $this->title = Yii::$app->name;
             <label class="form-label">記号・番号</label>
             <div class="row">
               <div class="col-8 col-md-5">
-                <?= $_->field($form, 'account1')
+                <?= $_->field($form, 'account1', $monospaceInputOptions)
                   ->label(false)
                   ->textInput([
                     'data-save-to' => 'account1',
@@ -191,7 +200,7 @@ $this->title = Yii::$app->name;
                 ?>
               </div>
               <div class="col-4 col-md-2">
-                <?= $_->field($form, 'account2')
+                <?= $_->field($form, 'account2', $monospaceInputOptions)
                   ->label(false)
                   ->textInput([
                     'data-save-to' => 'account2',
@@ -199,7 +208,7 @@ $this->title = Yii::$app->name;
                   ]) . "\n" ?>
               </div>
               <div class="col-12 col-md-5">
-                <?= $_->field($form, 'account3')
+                <?= $_->field($form, 'account3', $monospaceInputOptions)
                   ->label(false)
                   ->textInput([
                     'data-save-to' => 'account3',
@@ -221,8 +230,14 @@ $this->title = Yii::$app->name;
 
     <div class="card mb-3">
       <div class="card-body">
-        <?= $_->field($form, 'amount')
-          ->textInput(['placeholder' => '3000']) . "\n" ?>
+        <?= $_->field($form, 'amount', $monospaceInputOptions)
+          ->textInput([
+            'type' => 'number',
+            'step' => '1',
+            'min' => '1',
+            'max' => '99999999',
+            'placeholder' => '3000',
+          ]) . "\n" ?>
 
         <?= $_->field($form, 'note')->textarea(['rows' => 6]) . "\n" ?>
         <?= $_->field($form, 'use_fixed')
@@ -327,7 +342,7 @@ $this->title = Yii::$app->name;
           ]) ?></script>
         </div>
 
-        <?= $_->field($form, 'postal_code', [
+        <?= $_->field($form, 'postal_code', array_merge($monospaceInputOptions, [
             'inputTemplate' => Html::tag(
               'div',
               implode('', [
@@ -349,7 +364,7 @@ $this->title = Yii::$app->name;
               ]),
               ['class' => 'input-group']
             ),
-          ])
+          ]))
           ->textInput([
             'placeholder' => '1000001',
             'data-save-from' => 'postal_code',
@@ -420,21 +435,21 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
           <label>電話番号</label>
           <div class="row">
             <div class="col-4 col-md-3 col-lg-2">
-              <?= $_->field($form, 'phone1')->label(false)->textInput([
+              <?= $_->field($form, 'phone1', $monospaceInputOptions)->label(false)->textInput([
                 'placeholder' => '090',
                 'size' => 5,
                 'data-save-from' => 'phone1',
               ]) . "\n" ?>
             </div>
             <div class="col-4 col-md-3 col-lg-2">
-              <?= $_->field($form, 'phone2')->label(false)->textInput([
+              <?= $_->field($form, 'phone2', $monospaceInputOptions)->label(false)->textInput([
                 'placeholder' => '1234',
                 'size' => 5,
                 'data-save-from' => 'phone2',
               ]) . "\n" ?>
             </div>
             <div class="col-4 col-md-3 col-lg-2">
-              <?= $_->field($form, 'phone3')->label(false)->textInput([
+              <?= $_->field($form, 'phone3', $monospaceInputOptions)->label(false)->textInput([
                 'placeholder' => '5678',
                 'size' => 5,
                 'data-save-from' => 'phone3',
@@ -442,7 +457,7 @@ $this->registerJs(vsprintf('$(%s).postalcode(%s);', [
             </div>
           </div>
         </div>
-        <?= $_->field($form, 'email')
+        <?= $_->field($form, 'email', $monospaceInputOptions)
           ->textInput([
             'placeholder' => 'yourname@example.com',
             'data-save-from' => 'email',
