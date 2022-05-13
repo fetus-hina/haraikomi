@@ -747,16 +747,16 @@
         },
         {
             "name": "twbs/bootstrap-icons",
-            "version": "v1.8.1",
+            "version": "v1.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/icons.git",
-                "reference": "190eb16e74404d27b1772f094ca7de7b37ca7415"
+                "reference": "3e96eef5cf71207d37608532b5f81290d953dd53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/icons/zipball/190eb16e74404d27b1772f094ca7de7b37ca7415",
-                "reference": "190eb16e74404d27b1772f094ca7de7b37ca7415",
+                "url": "https://api.github.com/repos/twbs/icons/zipball/3e96eef5cf71207d37608532b5f81290d953dd53",
+                "reference": "3e96eef5cf71207d37608532b5f81290d953dd53",
                 "shasum": ""
             },
             "type": "library",
@@ -780,9 +780,9 @@
             ],
             "support": {
                 "issues": "https://github.com/twbs/icons/issues",
-                "source": "https://github.com/twbs/icons/tree/v1.8.1"
+                "source": "https://github.com/twbs/icons/tree/v1.8.2"
             },
-            "time": "2022-02-08T04:54:22+00:00"
+            "time": "2022-05-13T18:12:42+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -6272,5 +6272,5 @@
     "platform-overrides": {
         "php": "8.0.19"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
