@@ -1,199 +1,181 @@
-name: 'CI'
-
-on:
-  - 'push'
-  - 'pull_request'
-
+name: CI
+'on':
+  - push
+  - pull_request
 jobs:
   phpSyntaxCheck:
     name: 'PHP Syntax Check (${{ matrix.php.version }})'
-
     strategy:
       matrix:
         php:
-          - version: '8.0'
+          -
+            version: '8.0'
             experimental: false
-
-          - version: '8.1'
+          -
+            version: '8.1'
             experimental: false
-
-          - version: '8.2'
+          -
+            version: '8.2'
             experimental: true
-
-    runs-on: 'ubuntu-20.04'
-
+    runs-on: ubuntu-20.04
     steps:
-      - uses: 'actions/checkout@v3'
-
-      - name: 'Set up PHP ${{ matrix.php.version }}'
-        uses: 'shivammathur/setup-php@v2'
+      -
+        uses: actions/checkout@v3
+      -
+        name: 'Set up PHP ${{ matrix.php.version }}'
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '${{ matrix.php.version }}'
-
-      - name: 'Syntax Check'
+      -
+        name: 'Syntax Check'
         continue-on-error: '${{ matrix.php.experimental }}'
         env:
-          LANG: 'C'
+          LANG: C
         run: |
           find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'node_modules' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) \
             | sort \
             | xargs -n 1 php -l
-
   makeComposerCache:
     name: 'Make composer cache'
-
-    runs-on: 'ubuntu-20.04'
-
+    runs-on: ubuntu-20.04
     steps:
-      - uses: 'actions/checkout@v3'
-
-      - uses: 'actions/cache@v2'
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions/cache@v2
         with:
           path: |
             ~/.cache/composer/files
             vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+          key: '${{ runner.os }}-composer-${{ hashFiles(''composer.lock'') }}'
           restore-keys: |
             ${{ runner.os }}-composer-
-
-      - name: 'Set up PHP 8.0'
-        uses: 'shivammathur/setup-php@v2'
+      -
+        name: 'Set up PHP 8.0'
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.0'
-
-      - name: 'Install Composer dependencies'
+      -
+        name: 'Install Composer dependencies'
         run: 'composer install --prefer-dist'
-
   phpcs:
     name: 'PHP Coding Style (PHPCS)'
-
-    runs-on: 'ubuntu-20.04'
-
+    runs-on: ubuntu-20.04
     needs:
-      - 'phpSyntaxCheck'
-      - 'makeComposerCache'
-
+      - phpSyntaxCheck
+      - makeComposerCache
     steps:
-      - uses: 'actions/checkout@v3'
-
-      - uses: 'actions/cache@v2'
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions/cache@v2
         with:
           path: |
             ~/.cache/composer/files
             vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
-
-      - name: 'Set up PHP 8.0'
-        uses: 'shivammathur/setup-php@v2'
+          key: '${{ runner.os }}-composer-${{ hashFiles(''composer.lock'') }}'
+      -
+        name: 'Set up PHP 8.0'
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.0'
-
-      - name: 'Check Styles'
+      -
+        name: 'Check Styles'
         run: |
           make app-config
           make check-style-phpcs
-
   phpstan:
     name: 'PHP Coding Style (PHPStan)'
-
-    runs-on: 'ubuntu-20.04'
-
+    runs-on: ubuntu-20.04
     needs:
-      - 'phpSyntaxCheck'
-      - 'makeComposerCache'
-
+      - phpSyntaxCheck
+      - makeComposerCache
     steps:
-      - uses: 'actions/checkout@v3'
-
-      - uses: 'actions/cache@v2'
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions/cache@v2
         with:
           path: |
             ~/.cache/composer/files
             vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
-
-      - name: 'Set up PHP 8.0'
-        uses: 'shivammathur/setup-php@v2'
+          key: '${{ runner.os }}-composer-${{ hashFiles(''composer.lock'') }}'
+      -
+        name: 'Set up PHP 8.0'
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.0'
-
-      - name: 'Check Styles'
+      -
+        name: 'Check Styles'
         run: |
           make app-config
           make check-style-phpstan
-
   phpTest:
     name: 'PHP Test (${{ matrix.php.version }})'
-
     strategy:
       matrix:
         php:
-          - version: '8.0'
+          -
+            version: '8.0'
             experimental: false
-
-          - version: '8.1'
+          -
+            version: '8.1'
             experimental: false
-
-          - version: '8.2'
+          -
+            version: '8.2'
             experimental: true
-
-    runs-on: 'ubuntu-20.04'
-
+    runs-on: ubuntu-20.04
     needs:
-      - 'phpSyntaxCheck'
-      - 'makeComposerCache'
-
+      - phpSyntaxCheck
+      - makeComposerCache
     steps:
-      - uses: 'actions/checkout@v3'
-
-      - uses: 'actions/setup-node@v2'
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions/setup-node@v2
         with:
           node-version: 'lts/*'
-
-      - uses: 'actions/cache@v2'
+      -
+        uses: actions/cache@v2
         with:
           path: |
             ~/.cache/composer/files
             vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
-
-      - name: 'Set up PHP ${{ matrix.php.version }}'
-        uses: 'shivammathur/setup-php@v2'
+          key: '${{ runner.os }}-composer-${{ hashFiles(''composer.lock'') }}'
+      -
+        name: 'Set up PHP ${{ matrix.php.version }}'
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '${{ matrix.php.version }}'
-
-      - name: 'Set Up Environment'
+      -
+        name: 'Set Up Environment'
         continue-on-error: '${{ matrix.php.experimental }}'
         run: 'make -j'
-
-      - name: 'Run Unit Test'
+      -
+        name: 'Run Unit Test'
         continue-on-error: '${{ matrix.php.experimental }}'
         run: 'make test'
-
   jsStyleCheck:
     name: 'JS Coding Style'
-
-    runs-on: 'ubuntu-20.04'
-
+    runs-on: ubuntu-20.04
     steps:
-      - uses: 'actions/checkout@v3'
-
-      - uses: 'actions/setup-node@v2'
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions/setup-node@v2
         with:
           node-version: 'lts/*'
-
-      - run: 'make check-style-js'
-
+      -
+        run: 'make check-style-js'
   cssStyleCheck:
     name: 'CSS Coding Style'
-
-    runs-on: 'ubuntu-20.04'
-
+    runs-on: ubuntu-20.04
     steps:
-      - uses: 'actions/checkout@v3'
-
-      - uses: 'actions/setup-node@v2'
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions/setup-node@v2
         with:
           node-version: 'lts/*'
-
-      - run: 'make check-style-css'
+      -
+        run: 'make check-style-css'
