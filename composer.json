@@ -50,7 +50,7 @@
             "yiisoft/yii2-composer": true
         },
         "platform": {
-            "php": "8.0.19"
+            "php": "8.0.20"
         },
         "process-timeout": 1800,
         "sort-packages": true
