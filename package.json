@@ -20,9 +20,9 @@
     "postcss-cli": "^9.1.0",
     "sass": "^1.52.3",
     "semistandard": "^16.0.1",
-    "stylelint": "^14.9.0",
+    "stylelint": "^14.9.1",
     "stylelint-config-sass-guidelines": "^9.0.1",
-    "terser": "^5.14.0",
+    "terser": "^5.14.1",
     "updates": "^13.1.0"
   }
 }
