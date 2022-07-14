@@ -22,7 +22,7 @@
     "semistandard": "^16.0.1",
     "stylelint": "^14.9.1",
     "stylelint-config-sass-guidelines": "^9.0.1",
-    "terser": "^5.14.1",
+    "terser": "^5.14.2",
     "updates": "^13.1.2"
   }
 }
