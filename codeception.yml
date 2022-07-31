@@ -13,7 +13,7 @@ modules:
 paths:
   data: tests/_data
   helpers: tests/_support
-  log: .
+  output: .
   tests: tests
 settings:
   colors: true
