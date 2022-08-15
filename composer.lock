@@ -4928,16 +4928,16 @@
         },
         {
             "name": "sirbrillig/phpcs-variable-analysis",
-            "version": "v2.11.5",
+            "version": "v2.11.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sirbrillig/phpcs-variable-analysis.git",
-                "reference": "567221efd5d1ab53260fb76f16c77610454a5d6a"
+                "reference": "e0c3d7b7572e351914e1c82abc902e129fe4e587"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sirbrillig/phpcs-variable-analysis/zipball/567221efd5d1ab53260fb76f16c77610454a5d6a",
-                "reference": "567221efd5d1ab53260fb76f16c77610454a5d6a",
+                "url": "https://api.github.com/repos/sirbrillig/phpcs-variable-analysis/zipball/e0c3d7b7572e351914e1c82abc902e129fe4e587",
+                "reference": "e0c3d7b7572e351914e1c82abc902e129fe4e587",
                 "shasum": ""
             },
             "require": {
@@ -4978,7 +4978,7 @@
                 "source": "https://github.com/sirbrillig/phpcs-variable-analysis",
                 "wiki": "https://github.com/sirbrillig/phpcs-variable-analysis/wiki"
             },
-            "time": "2022-08-13T21:40:42+00:00"
+            "time": "2022-08-15T15:38:22+00:00"
         },
         {
             "name": "softcreatr/jsonpath",
