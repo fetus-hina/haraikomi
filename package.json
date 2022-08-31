@@ -7,7 +7,7 @@
     "@fetus-hina/fetus.css": "github:fetus-hina/fetus.css#semver:^5.2.0",
     "bootstrap": "^5.2.0",
     "inputmask": "^5.0.7",
-    "jquery": "^3.6.0",
+    "jquery": "^3.6.1",
     "punycode": "^2.1.1",
     "yii2-pjax": "^2.0.7"
   },
@@ -18,11 +18,11 @@
     "autoprefixer": "^10.4.8",
     "cssnano": "^5.1.13",
     "postcss-cli": "^10.0.0",
-    "sass": "^1.54.5",
+    "sass": "^1.54.7",
     "semistandard": "^16.0.1",
     "stylelint": "^14.11.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
-    "terser": "^5.14.2",
-    "updates": "^13.1.4"
+    "terser": "^5.15.0",
+    "updates": "^13.1.5"
   }
 }
