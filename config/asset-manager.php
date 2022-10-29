@@ -16,7 +16,7 @@ return [
         BootstrapAsset::class => [
             'sourcePath' => '@npm/@fetus-hina/fetus.css/dist',
             'css' => [
-                'bootstrap-bizudpgothic.min.css',
+                'bootstrap-lineseedjp.min.css',
             ],
         ],
         BootstrapPluginAsset::class => [
