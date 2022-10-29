@@ -4,7 +4,7 @@
   "author": "AIZAWA Hina",
   "license": "MIT",
   "dependencies": {
-    "@fetus-hina/fetus.css": "github:fetus-hina/fetus.css#semver:^5.2.0",
+    "@fetus-hina/fetus.css": "github:fetus-hina/fetus.css#semver:^5.2.3",
     "bootstrap": "^5.2.2",
     "inputmask": "^5.0.7",
     "jquery": "^3.6.1",
@@ -13,16 +13,16 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.19.3",
-    "@babel/core": "^7.19.3",
+    "@babel/core": "^7.19.6",
     "@babel/preset-env": "^7.19.4",
-    "autoprefixer": "^10.4.12",
-    "cssnano": "^5.1.13",
+    "autoprefixer": "^10.4.13",
+    "cssnano": "^5.1.14",
     "postcss-cli": "^10.0.0",
     "sass": "^1.55.0",
     "semistandard": "^16.0.1",
-    "stylelint": "^14.13.0",
+    "stylelint": "^14.14.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "terser": "^5.15.1",
-    "updates": "^13.1.8"
+    "updates": "^13.1.13"
   }
 }
