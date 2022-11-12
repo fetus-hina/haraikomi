@@ -23,6 +23,6 @@
     "stylelint": "^14.14.1",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "terser": "^5.15.1",
-    "updates": "^13.1.13"
+    "updates": "^13.2.1"
   }
 }
