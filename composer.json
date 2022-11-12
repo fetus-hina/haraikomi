@@ -12,7 +12,7 @@
         "symfony/polyfill-php80": "*",
         "symfony/yaml": "*",
         "tecnickcom/tcpdf": "^6.4.2",
-        "twbs/bootstrap-icons": "^1.7",
+        "twbs/bootstrap-icons": "^1.10",
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap5": "*",
         "yiisoft/yii2-httpclient": "*"
