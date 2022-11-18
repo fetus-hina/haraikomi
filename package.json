@@ -21,7 +21,7 @@
     "postcss-cli": "^10.0.0",
     "sass": "^1.56.1",
     "semistandard": "^16.0.1",
-    "stylelint": "^14.14.1",
+    "stylelint": "^14.15.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "terser": "^5.15.1",
     "updates": "^13.2.1"
