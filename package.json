@@ -5,7 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "@fetus-hina/fetus.css": "github:fetus-hina/fetus.css#semver:^5.2.3",
-    "bootstrap": "^5.2.2",
+    "bootstrap": "^5.2.3",
     "inputmask": "^5.0.7",
     "jquery": "^3.6.1",
     "punycode": "^2.1.1",
@@ -23,7 +23,7 @@
     "semistandard": "^16.0.1",
     "stylelint": "^14.15.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
-    "terser": "^5.15.1",
-    "updates": "^13.2.1"
+    "terser": "^5.16.0",
+    "updates": "^13.2.2"
   }
 }
