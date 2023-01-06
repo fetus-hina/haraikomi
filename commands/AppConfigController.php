@@ -23,6 +23,7 @@ use function is_string;
 use function join;
 use function preg_match;
 use function sprintf;
+use function str_replace;
 use function strcasecmp;
 use function strcmp;
 use function strnatcasecmp;
@@ -41,14 +42,18 @@ final class AppConfigController extends Controller
             ? require($path)
             : Yii::$app->security->generateRandomString(32);
 
+        $escValue = str_replace(
+            ['\\', "'"],
+            ['\\\\', "\\'"],
+            $value,
+        );
+
         echo implode("\n", [
             '<?php',
             '',
             'declare(strict_types=1);',
             '',
-            'return (function (): string {',
-            '    return "' . addslashes($value) . '";',
-            '})();',
+            "return '{$escValue}';",
         ]) . "\n";
 
         return 0;
