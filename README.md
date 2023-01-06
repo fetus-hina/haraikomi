@@ -51,7 +51,7 @@ Licensed under the MIT License.
   - [M+ FONTS](http://mplus-fonts.osdn.jp/)
     - License: [Japanese](resources/fonts/mplus/LICENSE_J) / [English](resources/fonts/mplus/LICENSE_E)
     - (C) M+ FONTS PROJECT
-  - [にゃしぃフォント改二・にゃしぃフレンズ](http://marusexijaxs.web.fc2.com/)
+  - [にゃしぃフォント改二・にゃしぃフレンズ](http://marusexijaxs2.web.fc2.com/)
     - Licensed under the CC BY-ND 4.0
     - (C) マルセ / プロジェクトU-Fo
   - [JetBrains Mono NL](https://www.jetbrains.com/ja-jp/lp/mono/)
