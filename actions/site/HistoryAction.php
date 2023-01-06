@@ -15,7 +15,7 @@ use yii\base\InvalidConfigException;
 final class HistoryAction extends Action
 {
     public const CACHE_DURATION = 30 * 86400;
-    public const CACHE_VERSION = 1;
+    public const CACHE_VERSION = 2;
     public const CHANGE_LOG_PATH = '@app/changelog.yml';
 
     public function run(): string
@@ -51,7 +51,8 @@ final class HistoryAction extends Action
         $hash = hash_hmac_file(
             'sha256',
             $path,
-            http_build_query([
+            \http_build_query([
+                'anchor-map' => ChangeLog::getAnchorMapId(),
                 'cache-version' => self::CACHE_VERSION,
                 'impl-version' => ChangeLog::IMPL_VERSION,
             ]),

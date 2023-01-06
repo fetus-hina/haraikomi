@@ -13,6 +13,7 @@ use Symfony\Component\Yaml\Yaml;
 use Yii;
 use cebe\markdown\GithubMarkdown;
 use yii\base\InvalidArgumentException;
+use yii\helpers\Json;
 
 use function checkdate;
 use function file_exists;
@@ -29,6 +30,14 @@ use function strcmp;
 final class ChangeLog
 {
     public const IMPL_VERSION = 1;
+
+    public static function getAnchorMapId(): string
+    {
+        return \hash(
+            'sha256',
+            Json::encode(self::getAnchorMap()),
+        );
+    }
 
     private static function getAnchorMap(): array
     {
