@@ -9,6 +9,8 @@ use yii\base\Widget;
 use yii\bootstrap5\BootstrapAsset;
 use yii\helpers\Html;
 
+use function implode;
+
 abstract class Modal extends Widget
 {
     public string $id;
@@ -21,7 +23,9 @@ abstract class Modal extends Widget
     }
 
     abstract protected static function getModalId(): string;
+
     abstract protected function getTitleText(): string;
+
     abstract protected function renderBodyData(): string;
 
     public function run()
@@ -36,7 +40,7 @@ abstract class Modal extends Widget
                 'id' => $this->id,
                 'role' => 'dialog',
                 'tabindex' => '-1',
-            ]
+            ],
         );
     }
 
@@ -58,7 +62,7 @@ abstract class Modal extends Widget
             [
                 'class' => 'modal-dialog',
                 'role' => 'document',
-            ]
+            ],
         );
     }
 
@@ -70,7 +74,7 @@ abstract class Modal extends Widget
                 $this->renderTitle(),
                 $this->renderHeaderCloseButton(),
             ]),
-            ['class' => 'modal-header']
+            ['class' => 'modal-header'],
         );
     }
 
@@ -116,7 +120,7 @@ abstract class Modal extends Widget
             [
                 'class' => 'btn btn-outline-secondary',
                 'data-bs-dismiss' => 'modal',
-            ]
+            ],
         );
     }
 }

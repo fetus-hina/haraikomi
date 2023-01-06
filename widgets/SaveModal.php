@@ -7,6 +7,8 @@ namespace app\widgets;
 use app\helpers\Icon;
 use yii\helpers\Html;
 
+use function implode;
+
 final class SaveModal extends Modal
 {
     protected static function getModalId(): string
@@ -26,7 +28,7 @@ final class SaveModal extends Modal
             Html::tag(
                 'div',
                 Html::textInput('name', '', ['class' => 'form-control']),
-                ['class' => 'form-group']
+                ['class' => 'form-group'],
             ),
         ]);
     }
@@ -40,7 +42,7 @@ final class SaveModal extends Modal
             ]),
             [
                 'class' => 'btn btn-outline-primary btn-save',
-            ]
+            ],
         );
     }
 }

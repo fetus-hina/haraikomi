@@ -8,6 +8,11 @@ use Yii;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
+use function array_keys;
+use function assert;
+use function strpos;
+use function vsprintf;
+
 final class HaraikomiForm extends Model
 {
     public const DEFAULT_JAPANESE_FONT = 'bizudpmincho';
@@ -119,14 +124,14 @@ final class HaraikomiForm extends Model
 
         $fontNameHumanReadable = ($this->getJapaneseFonts()[$this->font_ja] ?? '');
         $pdf = Yii::createObject([
-                'class' => Pdf::class,
-                'fontNameJa' => $this->font_ja,
-                'fontNameNote' => ($this->use_fixed)
+            'class' => Pdf::class,
+            'fontNameJa' => $this->font_ja,
+            'fontNameNote' => $this->use_fixed
                     ? ($this->getFixedWidthFont($this->font_ja) ?? $this->font_ja)
                     : $this->font_ja,
-                'normalizeToWide' => strpos($fontNameHumanReadable, '明朝') !== false,
-                'drawLines' => !!$this->draw_form,
-            ])
+            'normalizeToWide' => strpos($fontNameHumanReadable, '明朝') !== false,
+            'drawLines' => !!$this->draw_form,
+        ])
             ->setAccount(
                 (string)$this->account1,
                 (string)$this->account2,
@@ -156,13 +161,11 @@ final class HaraikomiForm extends Model
         return ArrayHelper::map(
             Font::find()->all(),
             'key',
-            function (Font $font): string {
-                return vsprintf('%s（%s）%s', [
-                    $font->category->name,
-                    $font->name,
-                    $font->is_fixed ? '【等幅】' : '',
-                ]);
-            }
+            fn (Font $font): string => vsprintf('%s（%s）%s', [
+                $font->category->name,
+                $font->name,
+                $font->is_fixed ? '【等幅】' : '',
+            ]),
         );
     }
 

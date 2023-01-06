@@ -6,6 +6,8 @@ namespace app\widgets;
 
 use yii\helpers\Html;
 
+use function implode;
+
 final class GienkinHelpModal extends Modal
 {
     protected static function getModalId(): string
@@ -29,12 +31,12 @@ final class GienkinHelpModal extends Modal
             )),
             Html::tag('p', Html::encode(
                 'ここで設定している内容はあくまで参考情報です。' .
-                '必ずご自身で実際の対象であること及び救援団体があなたの意向に沿うものであることを確認してください。'
+                '必ずご自身で実際の対象であること及び救援団体があなたの意向に沿うものであることを確認してください。',
             )),
             Html::tag('p', Html::a(
                 Html::encode('ゆうちょ銀行の案内ページ'),
                 'https://www.jp-bank.japanpost.jp/aboutus/activity/fukusi/abt_act_fk_gienkin.html',
-                ['target' => '_blank', 'rel' => 'external']
+                ['target' => '_blank', 'rel' => 'external'],
             )),
             Html::tag('p', Html::encode(
                 'この機能を利用したことによって発生したすべての事象について、一切責任を負いません。',

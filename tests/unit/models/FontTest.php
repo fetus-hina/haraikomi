@@ -10,6 +10,9 @@ use Yii;
 use app\models\Font;
 use app\models\FontCategory;
 
+use function array_filter;
+use function count;
+
 final class FontTest extends Unit
 {
     protected UnitTester $tester;
@@ -41,7 +44,7 @@ final class FontTest extends Unit
         $this->assertGreaterThan(0, count($fonts));
 
         // $propKey を含む
-        $tmp = array_filter($fonts, fn($font) => $font->key === $propKey);
+        $tmp = array_filter($fonts, fn ($font) => $font->key === $propKey);
         $this->assertEquals(1, count($tmp));
     }
 
@@ -63,20 +66,20 @@ final class FontTest extends Unit
     public function getFontData(): array
     {
         return [
-            'ipaexm' => ['ipaexm',  'IPAex明朝',     false, 'ipam'],
-            'ipam'   => ['ipam',    'IPA明朝',       true,  null],
-            'ipaexg' => ['ipaexg',  'IPAexゴシック', false, 'ipag'],
-            'ipag'   => ['ipag',    'IPAゴシック',   true,  null],
-            'M+ 1p'  => ['mplus1p', 'M+ 1p',         false, 'mplus1m'],
-            'M+ 1m'  => ['mplus1m', 'M+ 1m',         true,  null],
+            'ipaexm' => ['ipaexm', 'IPAex明朝', false, 'ipam'],
+            'ipam' => ['ipam', 'IPA明朝', true, null],
+            'ipaexg' => ['ipaexg', 'IPAexゴシック', false, 'ipag'],
+            'ipag' => ['ipag', 'IPAゴシック', true, null],
+            'M+ 1p' => ['mplus1p', 'M+ 1p', false, 'mplus1m'],
+            'M+ 1m' => ['mplus1m', 'M+ 1m', true, null],
         ];
     }
 
     public function getFixedToProportionalData(): array
     {
         return [
-            'ipam'  => ['ipam', 'ipaexm'],
-            'ipag'  => ['ipag', 'ipaexg'],
+            'ipam' => ['ipam', 'ipaexm'],
+            'ipag' => ['ipag', 'ipaexg'],
             'M+ 1m' => ['mplus1m', 'mplus1p'],
         ];
     }

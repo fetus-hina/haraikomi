@@ -9,6 +9,14 @@ use UnitTester;
 use Yii;
 use app\models\HaraikomiForm;
 
+use function array_keys;
+use function array_merge;
+use function explode;
+use function in_array;
+use function str_contains;
+use function str_repeat;
+use function substr;
+
 final class HaraikomiFormTest extends Unit
 {
     protected UnitTester $tester;
@@ -29,7 +37,7 @@ final class HaraikomiFormTest extends Unit
     {
         $this->assertEquals(
             $fixedFontKey,
-            Yii::createObject(HaraikomiForm::class)->getFixedWidthFont($fontKey)
+            Yii::createObject(HaraikomiForm::class)->getFixedWidthFont($fontKey),
         );
     }
 
@@ -148,7 +156,7 @@ final class HaraikomiFormTest extends Unit
     private function getRequiredAttributes(): array
     {
         $results = [];
-        foreach ($this->getValidAttributeInformation() as $k => $v) {
+        foreach (array_keys($this->getValidAttributeInformation()) as $k) {
             $kt = explode(':', $k);
             if (in_array('req', $kt, true)) {
                 $results[] = $kt[0];

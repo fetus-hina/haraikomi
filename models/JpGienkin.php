@@ -7,6 +7,8 @@ namespace app\models;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+use const SORT_ASC;
+
 /**
  * This is the model class for table "jp_gienkin".
  *
@@ -48,6 +50,7 @@ final class JpGienkin extends ActiveRecord
      */
     public function getDestPresets(): ActiveQuery
     {
+        // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
         $t = (int)$_SERVER['REQUEST_TIME'];
         return $this->hasMany(DestPreset::class, ['jp_gienkin_id' => 'id'])
             ->andWhere(['and',

@@ -15,6 +15,11 @@ use yii\helpers\Url;
 use yii\httpclient\Client as HttpClient;
 use yii\web\Response;
 
+use function array_values;
+use function implode;
+use function is_array;
+use function vsprintf;
+
 final class PostalCodeAction extends Action
 {
     private const CONTACT_URL_GITHUB = 'https://github.com/fetus-hina/haraikomi';
@@ -25,6 +30,7 @@ final class PostalCodeAction extends Action
     public function run(): Response
     {
         $model = Yii::createObject(PostalCodeApiForm::class);
+        // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
         $model->attributes = $_POST;
         if (!$model->validate()) {
             return $this->makeInputError($model, ['api/postal-code']);
@@ -40,7 +46,7 @@ final class PostalCodeAction extends Action
         $resp->setStatusCode(200, 'OK');
         $resp->headers->set('Content-Type', 'application/json; charset=UTF-8');
         $resp->headers->set('Content-Language', 'ja');
-        $resp->data = ($apiResp['results'] ?? null) ?: [];
+        $resp->data = $apiResp['results'] ?? null ?: [];
         return $resp;
     }
 

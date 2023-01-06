@@ -12,6 +12,10 @@ use app\models\DestPreset;
 use app\models\JpGienkin;
 use app\tests\fixtures\DestPresetFixture;
 
+use function gmmktime;
+
+use const SORT_ASC;
+
 final class DestPresetTest extends Unit
 {
     protected UnitTester $tester;
@@ -77,7 +81,7 @@ final class DestPresetTest extends Unit
             5,
             DestPreset::find()
                 ->andWhere(['not', ['jp_gienkin_id' => null]])
-                ->count()
+                ->count(),
         );
 
         $t = (new DateTimeImmutable('2021-04-01T00:00:00+09:00'))->getTimestamp();

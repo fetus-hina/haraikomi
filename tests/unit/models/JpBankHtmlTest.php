@@ -10,6 +10,10 @@ use Yii;
 use app\models\JpBankHtml;
 use app\models\JpBankHtmlAccount;
 
+use function array_map;
+use function file_get_contents;
+use function iterator_to_array;
+
 final class JpBankHtmlTest extends Unit
 {
     protected UnitTester $tester;

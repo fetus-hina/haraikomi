@@ -9,6 +9,18 @@ use Yii;
 use cebe\markdown\GithubMarkdown;
 use yii\helpers\Html;
 
+use function array_keys;
+use function array_merge;
+use function array_values;
+use function file_get_contents;
+use function is_array;
+use function preg_replace;
+use function str_replace;
+use function strncmp;
+use function substr;
+use function trim;
+use function vsprintf;
+
 final class AutoPostalCodeHelpModal extends Modal
 {
     public static function getModalId(): string
@@ -32,12 +44,11 @@ final class AutoPostalCodeHelpModal extends Modal
         $md = trim(str_replace(
             array_keys($map),
             array_values($map),
-            (string)file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__)
+            (string)file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__),
         ));
 
         $mdParser = new class () extends GithubMarkdown {
-            /** @param mixed $block */
-            protected function renderLink($block): string
+            protected function renderLink(mixed $block): string
             {
                 if (!is_array($block)) {
                     throw new Exception();
@@ -58,14 +69,14 @@ final class AutoPostalCodeHelpModal extends Modal
                 }
 
                 $attrs = [
-                    'title' => !empty($block['title']) ? $block['title'] : null,
+                    'title' => $block['title'] ? $block['title'] : null,
                     'target' => '_blank',
                 ];
 
                 return Html::a(
                     $this->renderAbsy($block['text']),
                     $block['url'],
-                    $attrs
+                    $attrs,
                 );
             }
         };

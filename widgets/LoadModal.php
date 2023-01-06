@@ -7,6 +7,8 @@ namespace app\widgets;
 use app\helpers\Icon;
 use yii\helpers\Html;
 
+use function implode;
+
 final class LoadModal extends Modal
 {
     protected static function getModalId(): string
@@ -29,7 +31,7 @@ final class LoadModal extends Modal
                     'name' => 'target',
                     'class' => 'form-select',
                 ]),
-                ['class' => 'form-group']
+                ['class' => 'form-group'],
             ),
             Html::tag(
                 'p',
@@ -37,7 +39,7 @@ final class LoadModal extends Modal
                     Html::encode('プリセットの内容は参考情報です。'),
                     Html::encode('払込先の記号番号などが正しいことは必ずご自身で確認してください。'),
                 ]),
-                ['class' => 'preset-notice d-none text-muted small']
+                ['class' => 'preset-notice d-none text-muted small'],
             ),
         ]);
     }
@@ -51,7 +53,7 @@ final class LoadModal extends Modal
             ]),
             [
                 'class' => 'btn btn-outline-primary btn-load',
-            ]
+            ],
         );
     }
 }

@@ -8,76 +8,101 @@ use TCPDF;
 use Yii;
 use yii\base\Model;
 
+use function array_filter;
+use function array_map;
+use function array_reduce;
+use function assert;
+use function call_user_func_array;
+use function ceil;
+use function explode;
+use function floor;
+use function implode;
+use function is_array;
+use function is_string;
+use function max;
+use function mb_convert_kana;
+use function mb_strlen;
+use function mb_substr;
+use function min;
+use function number_format;
+use function str_repeat;
+use function strlen;
+use function strpos;
+use function substr;
+use function trim;
+
+use const INF;
+
 final class Pdf extends Model
 {
-    private const MAIN_ACCOUNT_TOP          = 6 + 6 + 3;
-    private const MAIN_ACCOUNT_BOTTOM       = self::MAIN_ACCOUNT_TOP + 8;
-    private const MAIN_ACCOUNT_1_LEFT       = 4;
-    private const MAIN_ACCOUNT_1_RIGHT      = self::MAIN_ACCOUNT_1_LEFT + 5.08 * 5;
-    private const MAIN_ACCOUNT_2_LEFT       = self::MAIN_ACCOUNT_1_RIGHT + 2.54;
-    private const MAIN_ACCOUNT_2_RIGHT      = self::MAIN_ACCOUNT_2_LEFT + 5.08;
-    private const MAIN_ACCOUNT_3_LEFT       = self::MAIN_ACCOUNT_2_RIGHT + 2.54;
-    private const MAIN_ACCOUNT_3_RIGHT      = self::MAIN_ACCOUNT_3_LEFT + 5.08 * 7;
-    private const MAIN_AMOUNT_TOP           = self::MAIN_ACCOUNT_TOP;
-    private const MAIN_AMOUNT_BOTTOM        = self::MAIN_ACCOUNT_BOTTOM;
-    private const MAIN_AMOUNT_LEFT          = self::MAIN_ACCOUNT_3_RIGHT + 5.08;
-    private const MAIN_AMOUNT_RIGHT         = self::MAIN_AMOUNT_LEFT + 5.08 * 8;
-    private const MAIN_ACCOUNT_NAME_TOP     = self::MAIN_ACCOUNT_BOTTOM + 1.75;
-    private const MAIN_ACCOUNT_NAME_BOTTOM  = self::MAIN_ACCOUNT_NAME_TOP - 1.75 + 10 - 1.0;
-    private const MAIN_ACCOUNT_NAME_LEFT    = self::MAIN_ACCOUNT_1_LEFT + 5.08 + 1.0;
-    private const MAIN_ACCOUNT_NAME_RIGHT   = self::MAIN_ACCOUNT_3_RIGHT - 1.0;
-    private const MAIN_NOTE_TOP             = self::MAIN_ACCOUNT_NAME_BOTTOM + 1.0;
-    private const MAIN_NOTE_BOTTOM          = 57.5;
-    private const MAIN_NOTE_LEFT            = self::MAIN_ACCOUNT_NAME_LEFT + 2.0;
-    private const MAIN_NOTE_RIGHT           = self::MAIN_AMOUNT_RIGHT - 1.0;
-    private const MAIN_POSTALCODE_MIDDLE    = 60.1;
-    private const MAIN_POSTALCODE_1_LEFT    = 14.5;
-    private const MAIN_POSTALCODE_1_RIGHT   = 22.0;
-    private const MAIN_POSTALCODE_2_LEFT    = 25.5;
+    private const MAIN_ACCOUNT_TOP = 6 + 6 + 3;
+    private const MAIN_ACCOUNT_BOTTOM = self::MAIN_ACCOUNT_TOP + 8;
+    private const MAIN_ACCOUNT_1_LEFT = 4;
+    private const MAIN_ACCOUNT_1_RIGHT = self::MAIN_ACCOUNT_1_LEFT + 5.08 * 5;
+    private const MAIN_ACCOUNT_2_LEFT = self::MAIN_ACCOUNT_1_RIGHT + 2.54;
+    private const MAIN_ACCOUNT_2_RIGHT = self::MAIN_ACCOUNT_2_LEFT + 5.08;
+    private const MAIN_ACCOUNT_3_LEFT = self::MAIN_ACCOUNT_2_RIGHT + 2.54;
+    private const MAIN_ACCOUNT_3_RIGHT = self::MAIN_ACCOUNT_3_LEFT + 5.08 * 7;
+    private const MAIN_AMOUNT_TOP = self::MAIN_ACCOUNT_TOP;
+    private const MAIN_AMOUNT_BOTTOM = self::MAIN_ACCOUNT_BOTTOM;
+    private const MAIN_AMOUNT_LEFT = self::MAIN_ACCOUNT_3_RIGHT + 5.08;
+    private const MAIN_AMOUNT_RIGHT = self::MAIN_AMOUNT_LEFT + 5.08 * 8;
+    private const MAIN_ACCOUNT_NAME_TOP = self::MAIN_ACCOUNT_BOTTOM + 1.75;
+    private const MAIN_ACCOUNT_NAME_BOTTOM = self::MAIN_ACCOUNT_NAME_TOP - 1.75 + 10 - 1.0;
+    private const MAIN_ACCOUNT_NAME_LEFT = self::MAIN_ACCOUNT_1_LEFT + 5.08 + 1.0;
+    private const MAIN_ACCOUNT_NAME_RIGHT = self::MAIN_ACCOUNT_3_RIGHT - 1.0;
+    private const MAIN_NOTE_TOP = self::MAIN_ACCOUNT_NAME_BOTTOM + 1.0;
+    private const MAIN_NOTE_BOTTOM = 57.5;
+    private const MAIN_NOTE_LEFT = self::MAIN_ACCOUNT_NAME_LEFT + 2.0;
+    private const MAIN_NOTE_RIGHT = self::MAIN_AMOUNT_RIGHT - 1.0;
+    private const MAIN_POSTALCODE_MIDDLE = 60.1;
+    private const MAIN_POSTALCODE_1_LEFT = 14.5;
+    private const MAIN_POSTALCODE_1_RIGHT = 22.0;
+    private const MAIN_POSTALCODE_2_LEFT = 25.5;
     // private const MAIN_POSTALCODE_2_RIGHT   = self::MAIN_AMOUNT_RIGHT;
-    private const MAIN_ADDRESS_TOP          = 62.0;
-    private const MAIN_ADDRESS_BOTTOM       = 75.0;
-    private const MAIN_ADDRESS_LEFT         = 15.5;
-    private const MAIN_ADDRESS_RIGHT        = 85.4;
-    private const MAIN_NAME_TOP             = 75.5;
-    private const MAIN_NAME_BOTTOM          = 85.0;
-    private const MAIN_NAME_LEFT            = self::MAIN_ADDRESS_LEFT;
-    private const MAIN_NAME_RIGHT           = 79.0;
-    private const MAIN_PHONE_MIDDLE         = 87.0;
-    private const MAIN_PHONE_1_LEFT         = 31.0;
-    private const MAIN_PHONE_1_RIGHT        = 39.0;
-    private const MAIN_PHONE_2_LEFT         = 41.5;
-    private const MAIN_PHONE_2_RIGHT        = 50.0;
-    private const MAIN_PHONE_3_LEFT         = 51.5;
-    private const MAIN_PHONE_3_RIGHT        = 60.0;
+    private const MAIN_ADDRESS_TOP = 62.0;
+    private const MAIN_ADDRESS_BOTTOM = 75.0;
+    private const MAIN_ADDRESS_LEFT = 15.5;
+    private const MAIN_ADDRESS_RIGHT = 85.4;
+    private const MAIN_NAME_TOP = 75.5;
+    private const MAIN_NAME_BOTTOM = 85.0;
+    private const MAIN_NAME_LEFT = self::MAIN_ADDRESS_LEFT;
+    private const MAIN_NAME_RIGHT = 79.0;
+    private const MAIN_PHONE_MIDDLE = 87.0;
+    private const MAIN_PHONE_1_LEFT = 31.0;
+    private const MAIN_PHONE_1_RIGHT = 39.0;
+    private const MAIN_PHONE_2_LEFT = 41.5;
+    private const MAIN_PHONE_2_RIGHT = 50.0;
+    private const MAIN_PHONE_3_LEFT = 51.5;
+    private const MAIN_PHONE_3_RIGHT = 60.0;
 
-    private const SUB_LEFT                  = 180 - 55;
-    private const SUB_COMMON_LEFT           = self::SUB_LEFT + 6 + 5.08;
-    private const SUB_COMMON_RIGHT          = self::SUB_COMMON_LEFT + 5.08 * 8;
-    private const SUB_ACCOUNT_1_TOP         = 15;
-    private const SUB_ACCOUNT_1_BOTTOM      = self::SUB_ACCOUNT_1_TOP + 8;
-    private const SUB_ACCOUNT_2_TOP         = self::SUB_ACCOUNT_1_TOP;
-    private const SUB_ACCOUNT_2_BOTTOM      = self::SUB_ACCOUNT_1_BOTTOM;
-    private const SUB_ACCOUNT_3_TOP         = self::SUB_ACCOUNT_1_BOTTOM + 3;
-    private const SUB_ACCOUNT_3_BOTTOM      = self::SUB_ACCOUNT_3_TOP + 8;
-    private const SUB_ACCOUNT_1_LEFT        = self::SUB_COMMON_LEFT;
-    private const SUB_ACCOUNT_1_RIGHT       = self::SUB_COMMON_LEFT + 5.08 * 5;
-    private const SUB_ACCOUNT_2_LEFT        = self::SUB_ACCOUNT_1_RIGHT + 2.54;
-    private const SUB_ACCOUNT_2_RIGHT       = self::SUB_ACCOUNT_2_LEFT + 5.08;
-    private const SUB_ACCOUNT_3_LEFT        = self::SUB_COMMON_LEFT + 5.08;
-    private const SUB_ACCOUNT_3_RIGHT       = self::SUB_COMMON_RIGHT;
-    private const SUB_AMOUNT_TOP            = 15 + 8 + 3 + 8 + 10 + 3;
-    private const SUB_AMOUNT_BOTTOM         = self::SUB_AMOUNT_TOP + 8;
-    private const SUB_AMOUNT_LEFT           = self::SUB_COMMON_LEFT;
-    private const SUB_AMOUNT_RIGHT          = self::SUB_COMMON_RIGHT;
-    private const SUB_ACCOUNT_NAME_TOP      = self::SUB_ACCOUNT_3_BOTTOM + 1.0;
-    private const SUB_ACCOUNT_NAME_BOTTOM   = self::SUB_ACCOUNT_NAME_TOP + 10 - 2.0;
-    private const SUB_ACCOUNT_NAME_LEFT     = self::SUB_COMMON_LEFT + 1.0;
-    private const SUB_ACCOUNT_NAME_RIGHT    = self::SUB_COMMON_RIGHT - 1.0;
-    private const SUB_NAME_TOP              = self::SUB_AMOUNT_BOTTOM + 2;
-    private const SUB_NAME_BOTTOM           = self::SUB_AMOUNT_BOTTOM + 24 - 2;
-    private const SUB_NAME_LEFT             = self::SUB_COMMON_LEFT + 2.5;
-    private const SUB_NAME_RIGHT            = self::SUB_COMMON_RIGHT - 2;
+    private const SUB_LEFT = 180 - 55;
+    private const SUB_COMMON_LEFT = self::SUB_LEFT + 6 + 5.08;
+    private const SUB_COMMON_RIGHT = self::SUB_COMMON_LEFT + 5.08 * 8;
+    private const SUB_ACCOUNT_1_TOP = 15;
+    private const SUB_ACCOUNT_1_BOTTOM = self::SUB_ACCOUNT_1_TOP + 8;
+    private const SUB_ACCOUNT_2_TOP = self::SUB_ACCOUNT_1_TOP;
+    private const SUB_ACCOUNT_2_BOTTOM = self::SUB_ACCOUNT_1_BOTTOM;
+    private const SUB_ACCOUNT_3_TOP = self::SUB_ACCOUNT_1_BOTTOM + 3;
+    private const SUB_ACCOUNT_3_BOTTOM = self::SUB_ACCOUNT_3_TOP + 8;
+    private const SUB_ACCOUNT_1_LEFT = self::SUB_COMMON_LEFT;
+    private const SUB_ACCOUNT_1_RIGHT = self::SUB_COMMON_LEFT + 5.08 * 5;
+    private const SUB_ACCOUNT_2_LEFT = self::SUB_ACCOUNT_1_RIGHT + 2.54;
+    private const SUB_ACCOUNT_2_RIGHT = self::SUB_ACCOUNT_2_LEFT + 5.08;
+    private const SUB_ACCOUNT_3_LEFT = self::SUB_COMMON_LEFT + 5.08;
+    private const SUB_ACCOUNT_3_RIGHT = self::SUB_COMMON_RIGHT;
+    private const SUB_AMOUNT_TOP = 15 + 8 + 3 + 8 + 10 + 3;
+    private const SUB_AMOUNT_BOTTOM = self::SUB_AMOUNT_TOP + 8;
+    private const SUB_AMOUNT_LEFT = self::SUB_COMMON_LEFT;
+    private const SUB_AMOUNT_RIGHT = self::SUB_COMMON_RIGHT;
+    private const SUB_ACCOUNT_NAME_TOP = self::SUB_ACCOUNT_3_BOTTOM + 1.0;
+    private const SUB_ACCOUNT_NAME_BOTTOM = self::SUB_ACCOUNT_NAME_TOP + 10 - 2.0;
+    private const SUB_ACCOUNT_NAME_LEFT = self::SUB_COMMON_LEFT + 1.0;
+    private const SUB_ACCOUNT_NAME_RIGHT = self::SUB_COMMON_RIGHT - 1.0;
+    private const SUB_NAME_TOP = self::SUB_AMOUNT_BOTTOM + 2;
+    private const SUB_NAME_BOTTOM = self::SUB_AMOUNT_BOTTOM + 24 - 2;
+    private const SUB_NAME_LEFT = self::SUB_COMMON_LEFT + 2.5;
+    private const SUB_NAME_RIGHT = self::SUB_COMMON_RIGHT - 2;
 
     public bool $debug = false;
     public bool $drawLines = false;
@@ -119,10 +144,10 @@ final class Pdf extends Model
 
     public function setAccount(string $account1, string $account2, string $account3): self
     {
-        // {{{
-        $pad = function (string $number, string $padChar, int $length): string {
-            return substr(str_repeat($padChar, $length) . $number, -1 * $length);
-        };
+        $pad = fn (string $number, string $padChar, int $length): string => substr(
+            str_repeat($padChar, $length) . $number,
+            -1 * $length,
+        );
         $account1 = $pad($account1, '0', 5);
         $account3 = $pad($account3, ' ', 7);
         $this->drawNumbersToCells(
@@ -130,45 +155,44 @@ final class Pdf extends Model
             self::MAIN_ACCOUNT_TOP,
             self::MAIN_ACCOUNT_1_RIGHT,
             self::MAIN_ACCOUNT_BOTTOM,
-            $account1
+            $account1,
         );
         $this->drawNumbersToCells(
             self::MAIN_ACCOUNT_2_LEFT,
             self::MAIN_ACCOUNT_TOP,
             self::MAIN_ACCOUNT_2_RIGHT,
             self::MAIN_ACCOUNT_BOTTOM,
-            $account2
+            $account2,
         );
         $this->drawNumbersToCells(
             self::MAIN_ACCOUNT_3_LEFT,
             self::MAIN_ACCOUNT_TOP,
             self::MAIN_ACCOUNT_3_RIGHT,
             self::MAIN_ACCOUNT_BOTTOM,
-            $account3
+            $account3,
         );
         $this->drawNumbersToCells(
             self::SUB_ACCOUNT_1_LEFT,
             self::SUB_ACCOUNT_1_TOP,
             self::SUB_ACCOUNT_1_RIGHT,
             self::SUB_ACCOUNT_1_BOTTOM,
-            $account1
+            $account1,
         );
         $this->drawNumbersToCells(
             self::SUB_ACCOUNT_2_LEFT,
             self::SUB_ACCOUNT_2_TOP,
             self::SUB_ACCOUNT_2_RIGHT,
             self::SUB_ACCOUNT_2_BOTTOM,
-            $account2
+            $account2,
         );
         $this->drawNumbersToCells(
             self::SUB_ACCOUNT_3_LEFT,
             self::SUB_ACCOUNT_3_TOP,
             self::SUB_ACCOUNT_3_RIGHT,
             self::SUB_ACCOUNT_3_BOTTOM,
-            $account3
+            $account3,
         );
         return $this;
-        // }}}
     }
 
     public function setAmount(string $amount): self
@@ -180,14 +204,14 @@ final class Pdf extends Model
             self::MAIN_AMOUNT_TOP,
             self::MAIN_AMOUNT_RIGHT,
             self::MAIN_AMOUNT_BOTTOM,
-            $amount
+            $amount,
         );
         $this->drawNumbersToCells(
             self::SUB_AMOUNT_LEFT,
             self::SUB_AMOUNT_TOP,
             self::SUB_AMOUNT_RIGHT,
             self::SUB_AMOUNT_BOTTOM,
-            $amount
+            $amount,
         );
         return $this;
         // }}}
@@ -202,7 +226,7 @@ final class Pdf extends Model
             self::MAIN_ACCOUNT_NAME_RIGHT,
             self::MAIN_ACCOUNT_NAME_BOTTOM,
             $name,
-            false
+            false,
         );
         $this->drawAccountName(
             self::SUB_ACCOUNT_NAME_LEFT,
@@ -210,7 +234,7 @@ final class Pdf extends Model
             self::SUB_ACCOUNT_NAME_RIGHT,
             self::SUB_ACCOUNT_NAME_BOTTOM,
             $name,
-            true
+            true,
         );
         return $this;
         // }}}
@@ -227,7 +251,7 @@ final class Pdf extends Model
                 $note,
                 'M',
                 static::pt2mm(12),
-                $this->fontNameNote
+                $this->fontNameNote,
             );
         }
         return $this;
@@ -257,7 +281,7 @@ final class Pdf extends Model
                 $address3,
             ])),
             $this->normalizeToWide ? 'ASKV' : 'aSKV',
-            Yii::$app->charset
+            Yii::$app->charset,
         );
         $this->drawPostalCode($postalCode);
         $this->drawTextToBox(
@@ -266,7 +290,7 @@ final class Pdf extends Model
             static::MAIN_ADDRESS_RIGHT,
             static::MAIN_ADDRESS_BOTTOM,
             $address,
-            'T'
+            'T',
         );
         $this->drawName($name, $kana, $email);
         $this->drawPhone($phone1, $phone2, $phone3);
@@ -280,12 +304,10 @@ final class Pdf extends Model
                     $address3,
                     $name,
                 ],
-                function (string $text): bool {
-                    return $text !== '';
-                }
+                fn (string $text): bool => $text !== '',
             ))),
             $this->normalizeToWide ? 'ASKV' : 'aSKV',
-            Yii::$app->charset
+            Yii::$app->charset,
         );
         $this->drawTextToBox(
             static::SUB_NAME_LEFT,
@@ -293,7 +315,7 @@ final class Pdf extends Model
             static::SUB_NAME_RIGHT,
             static::SUB_NAME_BOTTOM,
             $text,
-            'M'
+            'M',
         );
         // }}}
         return $this;
@@ -329,7 +351,7 @@ final class Pdf extends Model
         $this->pdf->SetFont('ocrb_aizu_1_1', '', static::mm2pt($fontSize));
         if ($numbers != '') {
             $widthPerChar = $width / strlen($numbers);
-            list(, $numbersHeight) = $this->calcTextSize($numbers);
+            [, $numbersHeight] = $this->calcTextSize($numbers);
             for ($i = 0; $i < strlen($numbers); ++$i) {
                 $char = substr($numbers, $i, 1);
                 if ($char === ' ') {
@@ -337,21 +359,21 @@ final class Pdf extends Model
                 }
                 $this->pdf->SetXY(
                     $left + $widthPerChar * $i,
-                    $top + ($height / 2 - $numbersHeight / 2)
+                    $top + ($height / 2 - $numbersHeight / 2),
                 );
                 $this->pdf->Cell(
                     $widthPerChar,
                     $numbersHeight,
                     $char,
-                    0,      // border
-                    0,      // ln
-                    'C',    // align
-                    false,  // fill
-                    '',     // link
-                    0,      // stretch
-                    false,  // ignore_min_height
-                    'T',    // calign
-                    'M'     // valign
+                    0, // border
+                    0, // ln
+                    'C', // align
+                    false, // fill
+                    '', // link
+                    0, // stretch
+                    false, // ignore_min_height
+                    'T', // calign
+                    'M', // valign
                 );
             }
         }
@@ -386,17 +408,17 @@ final class Pdf extends Model
         $this->pdf->SetFont($fontName, '', 0);
         $fontSize = $this->calcFontSize($text, $width, $height, $maxFontSize);
         $this->pdf->SetFont('', '', static::mm2pt($fontSize));
-        list ($textWidth, $textHeight) = $this->calcTextSize($text);
-        $ypos = $valign === 'T' ? $top : ($top + ($height / 2 - $textHeight / 2));
+        [$textWidth, $textHeight] = $this->calcTextSize($text);
+        $ypos = $valign === 'T' ? $top : $top + ($height / 2 - $textHeight / 2);
         $this->pdf->SetXY($left, $ypos);
         $this->pdf->MultiCell(
             0,
             $textHeight,
             $text,
-            0,      // border
-            'L',    // align
-            false,  // fill
-            0       // ln
+            0, // border
+            'L', // align
+            false, // fill
+            0, // ln
         );
 
         $this->lastRect = [
@@ -445,13 +467,13 @@ final class Pdf extends Model
     ): bool {
         assert($this->pdf !== null);
 
-        $left   = (float)number_format($left, 2, '.', '');
-        $top    = (float)number_format($top, 2, '.', '');
-        $right  = (float)number_format($right, 2, '.', '');
+        $left = (float)number_format($left, 2, '.', '');
+        $top = (float)number_format($top, 2, '.', '');
+        $right = (float)number_format($right, 2, '.', '');
         $bottom = (float)number_format($bottom, 2, '.', '');
-        $width  = (float)number_format($right - $left, 2, '.', '');
+        $width = (float)number_format($right - $left, 2, '.', '');
         $height = (float)number_format($bottom - $top, 2, '.', '');
-        $innerWidth  = $width;
+        $innerWidth = $width;
         $innerHeight = $height;
         if ($this->debug) {
             $this->pdf->Rect($left, $top, $width, $height, 'D'); // @codeCoverageIgnore
@@ -471,7 +493,7 @@ final class Pdf extends Model
         }
 
         $this->pdf->SetFont('', '', static::mm2pt($fontSize));
-        list ($textWidth, $textHeight) = $this->calcTextSize($name);
+        [$textWidth, $textHeight] = $this->calcTextSize($name);
         $stretch = false;
         if ($textWidth > $innerWidth) {
             // 長い文字列だったので横方向が足りていない
@@ -485,8 +507,7 @@ final class Pdf extends Model
                 $stretch = true;
             } else {
                 // 縦長文字で対応できないので普通に縮小する
-                $fontSize = $this->calcFontSize($name, $innerWidth / 0.75, $innerHeight);
-                list ($textWidth, $textHeight) = $this->calcTextSize($name);
+                [$textWidth, $textHeight] = $this->calcTextSize($name);
                 $textWidth *= 0.75;
                 $stretch = true;
             }
@@ -499,15 +520,15 @@ final class Pdf extends Model
             $textWidth,
             $textHeight,
             $name,
-            0,      // border
-            0,      // ln
-            'C',    // align
-            false,  // fill
-            '',     // link
+            0, // border
+            0, // ln
+            'C', // align
+            false, // fill
+            '', // link
             $stretch ? 2 : 0, // stretch
-            false,  // ignore_min_height
-            'T',    // calign
-            'M'     // valign
+            false, // ignore_min_height
+            'T', // calign
+            'M', // valign
         );
         return true;
     }
@@ -522,40 +543,40 @@ final class Pdf extends Model
         $fontSize = $this->calcFontSize(
             $code1,
             static::MAIN_POSTALCODE_1_RIGHT - static::MAIN_POSTALCODE_1_LEFT,
-            INF
+            INF,
         );
         $this->pdf->SetFont('', '', static::mm2pt($fontSize));
-        list(, $textHeight) = $this->calcTextSize($code1);
+        [, $textHeight] = $this->calcTextSize($code1);
         $yPos = static::MAIN_POSTALCODE_MIDDLE - $textHeight / 2;
         $this->pdf->SetXY(static::MAIN_POSTALCODE_1_LEFT, $yPos);
         $this->pdf->Cell(
             static::MAIN_POSTALCODE_1_RIGHT - static::MAIN_POSTALCODE_1_LEFT,
             $textHeight,
             $code1,
-            0,      // border
-            0,      // ln
-            'R',    // align
-            false,  // fill
-            '',     // link
-            0,      // stretch
-            false,  // ignore_min_height
-            'T',    // calign
-            'M'     // valign
+            0, // border
+            0, // ln
+            'R', // align
+            false, // fill
+            '', // link
+            0, // stretch
+            false, // ignore_min_height
+            'T', // calign
+            'M', // valign
         );
         $this->pdf->SetXY(static::MAIN_POSTALCODE_2_LEFT, $yPos);
         $this->pdf->Cell(
             0,
             $textHeight,
             $code2,
-            0,      // border
-            0,      // ln
-            'L',    // align
-            false,  // fill
-            '',     // link
-            0,      // stretch
-            false,  // ignore_min_height
-            'T',    // calign
-            'M'     // valign
+            0, // border
+            0, // ln
+            'L', // align
+            false, // fill
+            '', // link
+            0, // stretch
+            false, // ignore_min_height
+            'T', // calign
+            'M', // valign
         );
         return $this;
     }
@@ -569,19 +590,19 @@ final class Pdf extends Model
         $name = mb_convert_kana(
             trim((string)$name),
             $this->normalizeToWide ? 'ASKV' : 'aSKV',
-            Yii::$app->charset
+            Yii::$app->charset,
         );
         $kana = mb_convert_kana(
             trim((string)$kana),
             $this->normalizeToWide ? 'ASCKV' : 'aSCKV',
-            Yii::$app->charset
+            Yii::$app->charset,
         );
         $boxHeight = static::MAIN_NAME_BOTTOM - static::MAIN_NAME_TOP;
         $nameMaxHeight = (float)number_format($boxHeight * 0.618034, 2, '.', '');
         $kanaMaxHeight = (float)number_format($boxHeight - $nameMaxHeight, 2, '.', '');
-        $top = ($kana === '')
-            ? (static::MAIN_NAME_TOP + ($boxHeight / 2 - $nameMaxHeight / 2))
-            : (static::MAIN_NAME_TOP + $kanaMaxHeight);
+        $top = $kana === ''
+            ? static::MAIN_NAME_TOP + ($boxHeight / 2 - $nameMaxHeight / 2)
+            : static::MAIN_NAME_TOP + $kanaMaxHeight;
         $this->drawTextToBox(
             static::MAIN_NAME_LEFT,
             $top,
@@ -589,7 +610,7 @@ final class Pdf extends Model
             $top + $nameMaxHeight,
             $name,
             'M',
-            20.0
+            20.0,
         );
         $nameRight = max($this->lastRect[2], static::MAIN_NAME_LEFT);
         $kanaRight = static::MAIN_NAME_LEFT;
@@ -598,17 +619,17 @@ final class Pdf extends Model
             $fontSize = $this->calcFontSize(
                 $kana,
                 (static::MAIN_NAME_RIGHT - static::MAIN_NAME_LEFT) / 0.75,
-                $kanaMaxHeight + 0.8
+                $kanaMaxHeight + 0.8,
             );
             $this->pdf->SetFont('', '', static::mm2pt($fontSize));
-            list($textWidth, ) = $this->calcTextSize($kana);
+            [$textWidth,] = $this->calcTextSize($kana);
             $this->drawAccountName(
                 static::MAIN_NAME_LEFT,
                 static::MAIN_NAME_TOP,
                 static::MAIN_NAME_LEFT + $textWidth * 0.75,
                 static::MAIN_NAME_TOP + $kanaMaxHeight + 0.8,
                 $kana,
-                false
+                false,
             );
             $kanaRight = max($this->lastRect[2], static::MAIN_NAME_LEFT);
         }
@@ -617,9 +638,8 @@ final class Pdf extends Model
         if ($email !== '') {
             $left = max($nameRight, $kanaRight, static::MAIN_NAME_LEFT) + 3;
             $this->pdf->SetFont('jetbrainsmonomodified', '', 0);
-            $fontSize = $this->calcFontSize($email, (static::MAIN_NAME_RIGHT - $left), 3.5);
+            $fontSize = $this->calcFontSize($email, static::MAIN_NAME_RIGHT - $left, 3.5);
             $this->pdf->SetFont('', '', static::mm2pt($fontSize));
-            list($textWidth, ) = $this->calcTextSize($email);
             $this->drawTextToBox(
                 $left,
                 $top + 1.8,
@@ -628,7 +648,7 @@ final class Pdf extends Model
                 $email,
                 'M',
                 $fontSize,
-                'jetbrainsmonomodified'
+                'jetbrainsmonomodified',
             );
         }
         return $this;
@@ -643,21 +663,21 @@ final class Pdf extends Model
             $this->calcFontSize(
                 $phone1,
                 static::MAIN_PHONE_1_RIGHT - static::MAIN_PHONE_1_LEFT,
-                INF
+                INF,
             ),
             $this->calcFontSize(
                 $phone2,
                 static::MAIN_PHONE_2_RIGHT - static::MAIN_PHONE_2_LEFT,
-                INF
+                INF,
             ),
             $this->calcFontSize(
                 $phone3,
                 static::MAIN_PHONE_3_RIGHT - static::MAIN_PHONE_3_LEFT,
-                INF
-            )
+                INF,
+            ),
         );
         $this->pdf->SetFont('', '', static::mm2pt($fontSize));
-        list(, $textHeight) = $this->calcTextSize($phone1);
+        [, $textHeight] = $this->calcTextSize($phone1);
         $yPos = static::MAIN_PHONE_MIDDLE - $textHeight / 2;
         $list = [
             [
@@ -682,15 +702,15 @@ final class Pdf extends Model
                 $item['right'] - $item['left'],
                 $textHeight,
                 $item['text'],
-                0,      // border
-                0,      // ln
-                'C',    // align
-                false,  // fill
-                '',     // link
-                0,      // stretch
-                false,  // ignore_min_height
-                'T',    // calign
-                'M'     // valign
+                0, // border
+                0, // ln
+                'C', // align
+                false, // fill
+                '', // link
+                0, // stretch
+                false, // ignore_min_height
+                'T', // calign
+                'M', // valign
             );
         }
         return $this;
@@ -706,12 +726,12 @@ final class Pdf extends Model
             array_map(
                 fn (int $color): int => (int)floor(($color + 512) / 3),
                 $this->drawLineColor,
-            )
+            ),
         );
         $this->pdf->SetFont($this->fontNameForm);
         $size = $this->calcFontSize('使用禁止', 111.76, 57, 30);
         $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt($size));
-        list(, $textHeight) = $this->calcTextSize('使用禁止');
+        [, $textHeight] = $this->calcTextSize('使用禁止');
         $this->pdf->SetXY(9.08, 33 + 57 / 2 - $textHeight / 2);
         $this->pdf->Cell(111.76, $textHeight, '使用禁止', 0, 0, 'C', false, '', 0, false, 'T', 'M');
 
@@ -754,11 +774,11 @@ final class Pdf extends Model
         $this->pdf->Line(0, 94, 85.84, 94);
         $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(2.5));
         $text = '裏面の注意事項をお読みください。（ゆうちょ銀行）（承認番号　第　　　　号）';
-        list(, $textHeight) = $this->calcTextSize($text);
+        [, $textHeight] = $this->calcTextSize($text);
         $this->pdf->SetXY(4, 90 + (4 / 2 - $textHeight / 2));
         $this->pdf->Cell(81.84, $textHeight, $text, 0, 0, 'L', false, '', 2, false, 'T', 'M');
         $text = 'これより下部には何も記入しないでください。';
-        list(, $textHeight) = $this->calcTextSize($text);
+        [, $textHeight] = $this->calcTextSize($text);
         $this->pdf->SetXY(4, 94 + (4 / 2 - $textHeight / 2));
         $this->pdf->Cell(0, $textHeight, $text, 0, 0, 'L', false, '', 0, false, 'T', 'M');
 
@@ -773,7 +793,7 @@ final class Pdf extends Model
         ];
         $y = 98;
         foreach ($lines as $text) {
-            list(, $textHeight) = $this->calcTextSize($text);
+            [, $textHeight] = $this->calcTextSize($text);
             $this->pdf->SetXY(4, $y);
             $this->pdf->Cell(0, 0, $text, 0, 0, 'L', false, '', 0, false, 'T', 'T');
             $y += $textHeight;
@@ -806,20 +826,20 @@ final class Pdf extends Model
 
         // 左上 00
         $this->pdf->SetFont('ocrb_aizu_1_1', '', static::mm2pt(3.5));
-        list(, $textHeight) = $this->calcTextSize('00');
+        [, $textHeight] = $this->calcTextSize('00');
         $this->pdf->SetXY(4, 6 + (6 / 2 - $textHeight / 2));
         $this->pdf->Cell(8.5, $textHeight, '00', 0, 0, 'C', false, '', 0, false, 'T', 'M');
 
         // 左上支社名？
         $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(3.25));
-        list(, $textHeight) = $this->calcTextSize('横浜');
+        [, $textHeight] = $this->calcTextSize('横浜');
         $this->pdf->SetXY(12.5, 6 + (6 / 2 - $textHeight / 2));
         $this->pdf->Cell(16.9, $textHeight, '横浜', 0, 0, 'C', false, '', 0, false, 'T', 'M');
 
         // 払込取扱票
         $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(4.5));
         $text = '払込取扱票';
-        list(, $textHeight) = $this->calcTextSize($text);
+        [, $textHeight] = $this->calcTextSize($text);
         $this->pdf->SetXY(39.56, 4 + (8 / 2 - $textHeight / 2));
         $this->pdf->Cell(55.88, $textHeight, $text, 0, 0, 'J', false, '', 4, false, 'T', 'M');
 
@@ -857,16 +877,14 @@ final class Pdf extends Model
         foreach ([5, 6.5] as $xpos) {
             $x = 4 + 5.08 * $xpos;
             $this->pdf->Rect($x, 15 + 8 / 2 - 1.27 / 2, 2.54, 1.27, 'DF', [], array_map(
-                function (int $color): int {
-                    return (int)floor(($color + 512) / 3);
-                },
-                $this->drawLineColor
+                fn (int $color): int => (int)floor(($color + 512) / 3),
+                $this->drawLineColor,
             ));
         }
         // 払込取扱票
         $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(2.5));
         $text = '口座記号番号';
-        list(, $textHeight) = $this->calcTextSize($text);
+        [, $textHeight] = $this->calcTextSize($text);
         $this->pdf->SetXY(4 + 12.7, 12 + (3 / 2 - $textHeight / 2));
         $this->pdf->Cell(45.72, $textHeight, $text, 0, 0, 'J', false, '', 4, false, 'T', 'M');
 
@@ -894,7 +912,7 @@ final class Pdf extends Model
         ]);
         //TODO: 縦書き: 金額
         $texts = ['千', '百', '十', '万', '千', '百', '十', '円'];
-        list(, $textHeight) = $this->calcTextSize('円');
+        [, $textHeight] = $this->calcTextSize('円');
         foreach ($texts as $i => $text) {
             $this->pdf->SetXY(80.2 + $i * 5.08, 12 + (3 / 2 - $textHeight / 2));
             $this->pdf->Cell(5.08, $textHeight, $text, 0, 0, 'C', false, '', 0, false, 'T', 'M');
@@ -940,7 +958,7 @@ final class Pdf extends Model
         // 振替払込請求書兼受領証
         $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(4));
         $text = '振替払込請求書兼受領証';
-        list(, $textHeight) = $this->calcTextSize($text);
+        [, $textHeight] = $this->calcTextSize($text);
         $this->pdf->SetXY(133.54, 4 + (8 / 2 - $textHeight / 2));
         $this->pdf->Cell(40.64, $textHeight, $text, 0, 0, 'J', false, '', 1, false, 'T', 'M');
 
@@ -995,10 +1013,8 @@ final class Pdf extends Model
             'color' => $this->drawLineColor,
         ]);
         $this->pdf->Rect(161.48, 15 + 8 / 2 - 1.27 / 2, 2.54, 1.27, 'DF', [], array_map(
-            function (int $color): int {
-                return (int)floor(($color + 512) / 3);
-            },
-            $this->drawLineColor
+            fn (int $color): int => (int)floor(($color + 512) / 3),
+            $this->drawLineColor,
         ));
 
         // 加入者名
@@ -1028,7 +1044,7 @@ final class Pdf extends Model
         ]);
         $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(2.5));
         $texts = ['千', '百', '十', '万', '千', '百', '十', '円'];
-        list(, $textHeight) = $this->calcTextSize('円');
+        [, $textHeight] = $this->calcTextSize('円');
         foreach ($texts as $i => $text) {
             $this->pdf->SetXY(136.08 + 5.08 * $i, 44 + (3 / 2 - $textHeight / 2));
             $this->pdf->Cell(5.08, $textHeight, $text, 0, 0, 'C', false, '', 0, false, 'T', 'M');
@@ -1044,7 +1060,7 @@ final class Pdf extends Model
         $this->pdf->Line(131, 94, 146.24, 94); // 料金と備考の間の線
         $this->pdf->SetFont($this->fontNameForm, '', static::mm2pt(3.0));
         $text = '日附印';
-        list(, $textHeight) = $this->calcTextSize($text);
+        [, $textHeight] = $this->calcTextSize($text);
         $this->pdf->SetXY(148.78, 79 + (4 / 2 - $textHeight / 2));
         $this->pdf->Cell(25.44, $textHeight, $text, 0, 0, 'J', false, '', 4, false, 'T', 'M');
 
@@ -1081,7 +1097,7 @@ final class Pdf extends Model
                     assert($this->pdf !== null);
                     return (float)$this->pdf->GetStringWidth($text);
                 },
-                $lines
+                $lines,
             )),
             // height
             array_reduce(
@@ -1090,7 +1106,7 @@ final class Pdf extends Model
                     assert($this->pdf !== null);
                     return $carry + $this->pdf->GetStringHeight(0, $item, false, false);
                 },
-                0.0
+                0.0,
             ),
         ];
     }
@@ -1109,7 +1125,7 @@ final class Pdf extends Model
                 return $minFontSize;
             }
             $this->pdf->SetFont('', '', static::mm2pt($fontSize));
-            list($textWidth, $textHeight) = $this->calcTextSize($text);
+            [$textWidth, $textHeight] = $this->calcTextSize($text);
             if ($textWidth <= $width && $textHeight <= $height) {
                 return $fontSize;
             }

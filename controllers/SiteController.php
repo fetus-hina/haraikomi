@@ -14,6 +14,10 @@ use yii\web\Controller;
 use yii\web\ErrorAction;
 use yii\web\Response;
 
+use function function_exists;
+use function opcache_reset;
+use function sprintf;
+
 final class SiteController extends Controller
 {
     /**
@@ -52,6 +56,7 @@ final class SiteController extends Controller
     public function actionIndex()
     {
         $form = Yii::createObject(HaraikomiForm::class);
+        // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
         if ($form->load($_POST) && $form->validate()) {
             $resp = Yii::$app->response;
             $resp->format = 'raw';
@@ -59,13 +64,13 @@ final class SiteController extends Controller
                 sprintf(
                     'haraikomi-%s.pdf',
                     (new DateTimeImmutable())
-                        ->setTimestamp($_SERVER['REQUEST_TIME'] ?? time())
+                        ->setTimestamp($_SERVER['REQUEST_TIME']) // phpcs:ignore
                         ->setTimeZone(new DateTimeZone('Asia/Tokyo'))
-                        ->format('Ymd\THis')
+                        ->format('Ymd\THis'),
                 ),
                 'application/pdf',
                 false,
-                null
+                null,
             );
             return $form->makePdf();
         }

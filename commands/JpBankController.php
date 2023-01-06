@@ -12,6 +12,19 @@ use app\models\JpGienkin;
 use yii\console\Controller;
 use yii\helpers\Json;
 
+use function fwrite;
+use function mb_convert_kana;
+use function min;
+use function stream_get_contents;
+use function strtotime;
+
+use const JSON_PRETTY_PRINT;
+use const JSON_THROW_ON_ERROR;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+use const STDERR;
+use const STDIN;
+
 final class JpBankController extends Controller
 {
     public function actionParse(): int
@@ -32,7 +45,7 @@ final class JpBankController extends Controller
 
         echo Json::encode(
             $data,
-            JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
+            JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR,
         );
         echo "\n";
         return 0;

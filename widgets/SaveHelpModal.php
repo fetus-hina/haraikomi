@@ -6,6 +6,8 @@ namespace app\widgets;
 
 use yii\helpers\Html;
 
+use function implode;
+
 final class SaveHelpModal extends Modal
 {
     protected static function getModalId(): string
@@ -30,7 +32,7 @@ final class SaveHelpModal extends Modal
             Html::tag(
                 'div',
                 Html::tag('p', Html::encode('※PDFの作成時にはデータをサーバに送信します。')),
-                ['class' => 'small text-muted']
+                ['class' => 'small text-muted'],
             ),
         ]);
     }

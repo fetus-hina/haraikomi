@@ -8,13 +8,31 @@ use yii\web\AssetBundle;
 
 final class PolyfillAsset extends AssetBundle
 {
+    /**
+     * @inheritdoc
+     */
     public $basePath = '@webroot';
+
+    /**
+     * @inheritdoc
+     */
     public $baseUrl = '@web';
-    public $css = [
-    ];
+
+    /**
+     * @inheritdoc
+     */
+    public $css = [];
+
+    /**
+     * @inheritdoc
+     */
     public $js = [
         'js/polyfill.js',
     ];
+
+    /**
+     * @inheritdoc
+     */
     public $depends = [
     ];
 }

@@ -10,6 +10,10 @@ use Yii;
 use app\models\Font;
 use app\models\FontCategory;
 
+use function array_filter;
+use function array_shift;
+use function count;
+
 final class FontCategoryTest extends Unit
 {
     protected UnitTester $tester;
@@ -32,13 +36,13 @@ final class FontCategoryTest extends Unit
         $this->assertGreaterThan(0, count($fonts));
 
         // ipaexm を含む
-        $ipaexmTmp = array_filter($fonts, fn($font) => $font->key === 'ipaexm');
+        $ipaexmTmp = array_filter($fonts, fn ($font) => $font->key === 'ipaexm');
         $this->assertEquals(1, count($ipaexmTmp));
         $ipaexm = array_shift($ipaexmTmp);
         $this->assertInstanceOf(Font::class, $ipaexm);
 
         // ipaexg を含まない（明朝カテゴリを列挙したので）
-        $ipaexgTmp = array_filter($fonts, fn($font) => $font->key === 'ipaexg');
+        $ipaexgTmp = array_filter($fonts, fn ($font) => $font->key === 'ipaexg');
         $this->assertEquals(0, count($ipaexgTmp));
     }
 
@@ -62,10 +66,10 @@ final class FontCategoryTest extends Unit
     public function getFontCategoryData(): array
     {
         return [
-            '明朝'      => [1, '明朝体'],
-            'ゴシック'  => [2, 'ゴシック体'],
-            '丸ゴシ'    => [3, '丸ゴシック体'],
-            '手書き'    => [4, '手書き風'],
+            '明朝' => [1, '明朝体'],
+            'ゴシック' => [2, 'ゴシック体'],
+            '丸ゴシ' => [3, '丸ゴシック体'],
+            '手書き' => [4, '手書き風'],
         ];
     }
 }

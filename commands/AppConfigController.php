@@ -11,6 +11,25 @@ use SplFileInfo;
 use Yii;
 use yii\console\Controller;
 
+use function addslashes;
+use function array_filter;
+use function array_keys;
+use function array_reduce;
+use function copy;
+use function file_exists;
+use function fwrite;
+use function implode;
+use function is_string;
+use function join;
+use function preg_match;
+use function sprintf;
+use function strcasecmp;
+use function strcmp;
+use function strnatcasecmp;
+use function uksort;
+
+use const STDERR;
+
 final class AppConfigController extends Controller
 {
     public function actionCookie(): int
@@ -69,7 +88,6 @@ final class AppConfigController extends Controller
         return 0;
     }
 
-
     private function findFavicons(string $srcPath): array
     {
         $data = [];
@@ -89,7 +107,8 @@ final class AppConfigController extends Controller
             ),
             fn (SplFileInfo $info): bool => $info->isFile(),
         );
-        foreach ($it as $fileName => $info) {
+        foreach ($it as $fileName => $fileInfo) {
+            unset($fileInfo);
             switch ($fileName) {
                 case 'favicon.ico':
                     $data[$fileName] = [
@@ -158,7 +177,6 @@ final class AppConfigController extends Controller
                 'sizes' => $simpleAttrValue($data['sizes'] ?? null),
                 'type' => $simpleAttrValue($data['type']),
             ]);
-
 
             $lines[] = "echo Html::tag('link', '', [";
             foreach ($attrs as $k => $v) {

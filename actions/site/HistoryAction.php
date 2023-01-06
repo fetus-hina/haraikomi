@@ -9,6 +9,12 @@ use app\helpers\ChangeLog;
 use yii\base\Action;
 use yii\base\InvalidConfigException;
 
+use function file_exists;
+use function hash_hmac_file;
+use function http_build_query;
+use function is_readable;
+use function is_string;
+
 /**
  * @phpstan-import-type Entry from ChangeLog as ChangeLogEntry
  */
@@ -51,7 +57,7 @@ final class HistoryAction extends Action
         $hash = hash_hmac_file(
             'sha256',
             $path,
-            \http_build_query([
+            http_build_query([
                 'anchor-map' => ChangeLog::getAnchorMapId(),
                 'cache-version' => self::CACHE_VERSION,
                 'impl-version' => ChangeLog::IMPL_VERSION,

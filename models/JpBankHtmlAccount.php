@@ -7,6 +7,8 @@ namespace app\models;
 use DateTimeInterface;
 use yii\base\Model;
 
+use function array_map;
+
 /**
  * @property-read array $json
  */

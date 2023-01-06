@@ -17,6 +17,15 @@ use Symfony\Component\CssSelector\CssSelectorConverter;
 use Yii;
 use yii\base\Model;
 
+use function array_shift;
+use function count;
+use function implode;
+use function iterator_to_array;
+use function preg_match;
+use function preg_replace;
+use function strlen;
+use function trim;
+
 final class JpBankHtml extends Model
 {
     public string $html;
@@ -53,8 +62,8 @@ final class JpBankHtml extends Model
                     $xpath->query(
                         './td',
                         self::expectXmlElement($row),
-                    )
-                )
+                    ),
+                ),
             );
             if (count($tds) === 0) {
                 // たぶんヘッダ行
@@ -119,7 +128,7 @@ final class JpBankHtml extends Model
                         ->setTimezone(new DateTimeZone('Asia/Tokyo'))
                         ->setDate((int)$tMatch[4], (int)$tMatch[5], (int)$tMatch[6] + 1)
                         ->setTime(0, 0, -1),
-                  ]);
+                ]);
             } else {
                 throw new Exception('Unmatch'); // @codeCoverageIgnore
             }

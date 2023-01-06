@@ -12,6 +12,8 @@ use yii\helpers\Html;
 use yii\web\AssetBundle;
 use yii\web\View;
 
+use function is_string;
+
 final class Icon
 {
     // dialogError

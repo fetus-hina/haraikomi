@@ -7,6 +7,8 @@ namespace app\models;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+use const SORT_ASC;
+
 /**
  * This is the model class for table "font_category".
  *
@@ -21,7 +23,7 @@ final class FontCategory extends ActiveRecord
     public static function find(): ActiveQuery
     {
         return parent::find()
-            ->orderBy([FontCategory::tableName() . '.[[rank]]' => SORT_ASC]);
+            ->orderBy([self::tableName() . '.[[rank]]' => SORT_ASC]);
     }
 
     /**

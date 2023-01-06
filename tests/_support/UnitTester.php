@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Codeception\Actor;
+use Codeception\Lib\Friend;
 use _generated\UnitTesterActions;
 
 /**
@@ -16,7 +17,7 @@ use _generated\UnitTesterActions;
  * @method void am($role)
  * @method void lookForwardTo($achieveValue)
  * @method void comment($description)
- * @method \Codeception\Lib\Friend haveFriend($name, $actorClass = NULL)
+ * @method Friend haveFriend($name, $actorClass = null)
  *
  * @SuppressWarnings(PHPMD)
 */

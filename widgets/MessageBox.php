@@ -8,6 +8,8 @@ use app\assets\MessageBoxAsset;
 use app\helpers\Icon;
 use yii\helpers\Html;
 
+use function implode;
+
 final class MessageBox extends Modal
 {
     public static function getModalId(): string
@@ -35,7 +37,7 @@ final class MessageBox extends Modal
                 $this->renderIcons(),
                 $this->renderContentPlaceholder(),
             ]),
-            ['class' => 'd-flex']
+            ['class' => 'd-flex'],
         );
     }
 
@@ -50,7 +52,7 @@ final class MessageBox extends Modal
             ]),
             [
                 'class' => 'mr-4',
-            ]
+            ],
         );
     }
 
@@ -58,7 +60,7 @@ final class MessageBox extends Modal
     {
         return $this->renderIcon(
             Icon::dialogInfo(),
-            'text-info modal-icon-info'
+            'text-info modal-icon-info',
         );
     }
 
@@ -66,7 +68,7 @@ final class MessageBox extends Modal
     {
         return $this->renderIcon(
             Icon::dialogWarning(),
-            'text-warning modal-icon-warning'
+            'text-warning modal-icon-warning',
         );
     }
 
@@ -74,7 +76,7 @@ final class MessageBox extends Modal
     {
         return $this->renderIcon(
             Icon::dialogError(),
-            'text-danger modal-icon-error'
+            'text-danger modal-icon-error',
         );
     }
 

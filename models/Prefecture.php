@@ -7,6 +7,8 @@ namespace app\models;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+use const SORT_ASC;
+
 /**
  * @property int $id
  * @property string $name

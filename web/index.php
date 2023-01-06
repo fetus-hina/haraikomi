@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 if (!file_exists(__DIR__ . '/../.production')) {
-    defined('YII_DEBUG') or define('YII_DEBUG', true); // phpcs:disable
-    defined('YII_ENV') or define('YII_ENV', 'dev'); // phpcs:disable
+    defined('YII_DEBUG') || define('YII_DEBUG', true); // phpcs:disable
+    defined('YII_ENV') || define('YII_ENV', 'dev'); // phpcs:disable
 }
 
 require(__DIR__ . '/../vendor/autoload.php');

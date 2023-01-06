@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\widgets;
 
 use Yii;
+use app\helpers\ChangeLog;
 use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -14,7 +15,7 @@ use function preg_match;
 use function trim;
 
 /**
- * @phpstan-import-type Entry from \app\helpers\ChangeLog
+ * @phpstan-import-type Entry from ChangeLog
  */
 final class ChangeLogEntry extends Widget
 {

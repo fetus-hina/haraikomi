@@ -8,6 +8,13 @@ use yii\base\Widget;
 use yii\bootstrap5\BootstrapAsset;
 use yii\bootstrap5\Html;
 
+use function array_keys;
+use function array_map;
+use function array_values;
+use function implode;
+use function sprintf;
+use function vsprintf;
+
 final class SampleImageWidget extends Widget
 {
     private const WIDTH = 609;
@@ -50,7 +57,7 @@ final class SampleImageWidget extends Widget
             [
                 'class' => 'ratio',
                 'id' => $id,
-            ]
+            ],
         );
     }
 

@@ -7,25 +7,22 @@ namespace app\models;
 use yii\base\BaseObject;
 use yii\web\IdentityInterface;
 
+use function strcasecmp;
+
 /**
  * @codeCoverageIgnore
  */
 final class User extends BaseObject implements IdentityInterface
 {
-    /** @var string */
-    public $id;
+    public string $id;
 
-    /** @var string */
-    public $username;
+    public string $username;
 
-    /** @var string */
-    public $password;
+    public string $password;
 
-    /** @var string */
-    public $authKey;
+    public string $authKey;
 
-    /** @var string */
-    public $accessToken;
+    public string $accessToken;
 
     private static array $users = [
         '100' => [
@@ -43,7 +40,6 @@ final class User extends BaseObject implements IdentityInterface
             'accessToken' => '101-token',
         ],
     ];
-
 
     /**
      * @inheritdoc
@@ -72,10 +68,9 @@ final class User extends BaseObject implements IdentityInterface
     /**
      * Finds user by username
      *
-     * @param string $username
      * @return ?User
      */
-    public static function findByUsername($username)
+    public static function findByUsername(string $username)
     {
         foreach (self::$users as $user) {
             if (strcasecmp($user['username'], $username) === 0) {
@@ -116,7 +111,7 @@ final class User extends BaseObject implements IdentityInterface
      * @param string $password password to validate
      * @return bool if password provided is valid for current user
      */
-    public function validatePassword($password)
+    public function validatePassword(string $password)
     {
         return $this->password === $password;
     }

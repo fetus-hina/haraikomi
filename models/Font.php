@@ -7,6 +7,8 @@ namespace app\models;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
+use const SORT_ASC;
+
 /**
  * This is the model class for table "font".
  *
@@ -55,7 +57,7 @@ final class Font extends ActiveRecord
             [['key'], 'unique'],
             [['fixed_id'], 'exist',
                 'skipOnError' => true,
-                'targetClass' => Font::class,
+                'targetClass' => self::class,
                 'targetAttribute' => ['fixed_id' => 'id'],
             ],
             [['category_id'], 'exist',
@@ -96,7 +98,7 @@ final class Font extends ActiveRecord
      */
     public function getFixed(): ActiveQuery
     {
-        return $this->hasOne(Font::class, ['id' => 'fixed_id']);
+        return $this->hasOne(self::class, ['id' => 'fixed_id']);
     }
 
     /**
@@ -104,6 +106,6 @@ final class Font extends ActiveRecord
      */
     public function getFonts(): ActiveQuery
     {
-        return $this->hasMany(Font::class, ['fixed_id' => 'id']);
+        return $this->hasMany(self::class, ['fixed_id' => 'id']);
     }
 }

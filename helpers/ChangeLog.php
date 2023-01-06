@@ -18,11 +18,21 @@ use yii\helpers\Json;
 use function checkdate;
 use function file_exists;
 use function file_get_contents;
+use function hash;
+use function implode;
 use function is_array;
 use function is_file;
 use function is_readable;
+use function is_string;
 use function preg_match;
 use function strcmp;
+use function trim;
+use function usort;
+
+use const LIBXML_NOBLANKS;
+use const LIBXML_NOCDATA;
+use const LIBXML_NOERROR;
+use const LIBXML_NSCLEAN;
 
 /**
  * @phpstan-type Entry array{date: non-empty-string, content: non-empty-string}
@@ -33,7 +43,7 @@ final class ChangeLog
 
     public static function getAnchorMapId(): string
     {
-        return \hash(
+        return hash(
             'sha256',
             Json::encode(self::getAnchorMap()),
         );
