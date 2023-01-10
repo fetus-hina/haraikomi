@@ -17,7 +17,7 @@
     "@babel/preset-env": "^7.20.2",
     "autoprefixer": "^10.4.13",
     "cssnano": "^5.1.14",
-    "postcss": "^8.4.20",
+    "postcss": "^8.4.21",
     "postcss-cli": "^10.1.0",
     "sass": "^1.57.1",
     "semistandard": "^16.0.1",
