@@ -8,7 +8,7 @@
     "bootstrap": "^5.2.3",
     "inputmask": "^5.0.7",
     "jquery": "^3.6.3",
-    "punycode": "^2.1.1",
+    "punycode": "^2.2.0",
     "yii2-pjax": "^2.0.8"
   },
   "devDependencies": {
