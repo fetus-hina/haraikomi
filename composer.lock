@@ -315,16 +315,16 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v6.0.17",
+            "version": "v6.0.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "3e526b732295b5d4c16c38d557b74ba8498a92b4"
+                "reference": "f1d00bddb83a4cb2138564b2150001cb6ce272b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/3e526b732295b5d4c16c38d557b74ba8498a92b4",
-                "reference": "3e526b732295b5d4c16c38d557b74ba8498a92b4",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/f1d00bddb83a4cb2138564b2150001cb6ce272b1",
+                "reference": "f1d00bddb83a4cb2138564b2150001cb6ce272b1",
                 "shasum": ""
             },
             "require": {
@@ -360,7 +360,7 @@
             "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/css-selector/tree/v6.0.17"
+                "source": "https://github.com/symfony/css-selector/tree/v6.0.19"
             },
             "funding": [
                 {
@@ -376,7 +376,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-28T14:21:34+00:00"
+            "time": "2023-01-01T08:36:10+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
