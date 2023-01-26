@@ -25,6 +25,9 @@ final class JpGienkin extends ActiveRecord
         return 'jp_gienkin';
     }
 
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
@@ -35,7 +38,10 @@ final class JpGienkin extends ActiveRecord
         ];
     }
 
-    /** @codeCoverageIgnore */
+    /**
+     * @inheritdoc
+     * @codeCoverageIgnore
+     */
     public function attributeLabels()
     {
         return [

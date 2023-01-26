@@ -38,6 +38,9 @@ final class HaraikomiForm extends Model
     public string|int|bool|null $use_fixed = null;
     public string|int|bool|null $draw_form = null;
 
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
@@ -91,7 +94,10 @@ final class HaraikomiForm extends Model
         ];
     }
 
-    /** @codeCoverageIgnore */
+    /**
+     * @inheritdoc
+     * @codeCoverageIgnore
+     */
     public function attributeLabels()
     {
         return [

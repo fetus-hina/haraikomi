@@ -11,7 +11,9 @@ use yii\web\Controller;
 
 final class ApiController extends Controller
 {
-    /** @return void */
+    /**
+     * @return void
+     */
     public function init()
     {
         parent::init();
@@ -19,6 +21,9 @@ final class ApiController extends Controller
         Yii::$app->timeZone = 'Etc/UTC';
     }
 
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
@@ -31,6 +36,9 @@ final class ApiController extends Controller
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function actions()
     {
         return [

@@ -28,7 +28,7 @@ abstract class Modal extends Widget
 
     abstract protected function renderBodyData(): string;
 
-    public function run()
+    public function run(): string
     {
         BootstrapAsset::register($this->view);
 

@@ -106,6 +106,9 @@ final class Pdf extends Model
 
     public bool $debug = false;
     public bool $drawLines = false;
+    /**
+     * @var array{int, int, int}
+     */
     public array $drawLineColor = [0x00, 0xa0, 0xe8];
     public string $fontNameForm = 'ipaexg';
 
@@ -113,11 +116,16 @@ final class Pdf extends Model
     public string $fontNameNote = 'ipaexg';
     public bool $normalizeToWide = true;
 
+    /**
+     * @var array{float, float, float, float}|null
+     */
     private ?array $lastRect = null;
 
     private ?TCPDF $pdf = null;
 
-    /** @return void */
+    /**
+     * @return void
+     */
     public function init()
     {
         parent::init();
@@ -349,7 +357,7 @@ final class Pdf extends Model
             }
         }
         $this->pdf->SetFont('ocrb_aizu_1_1', '', static::mm2pt($fontSize));
-        if ($numbers != '') {
+        if ($numbers !== '') {
             $widthPerChar = $width / strlen($numbers);
             [, $numbersHeight] = $this->calcTextSize($numbers);
             for ($i = 0; $i < strlen($numbers); ++$i) {

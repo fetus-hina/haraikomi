@@ -11,13 +11,26 @@ use yii\web\JqueryAsset;
 
 final class MessageBoxAsset extends AssetBundle
 {
+    /**
+     * @var string
+     */
     public $basePath = '@webroot';
+
+    /**
+     * @var string
+     */
     public $baseUrl = '@web';
-    public $css = [
-    ];
+
+    /**
+     * @var string[]
+     */
     public $js = [
         'js/messagebox.js',
     ];
+
+    /**
+     * @var string[]
+     */
     public $depends = [
         BootstrapAsset::class,
         BootstrapPluginAsset::class,

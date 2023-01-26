@@ -10,6 +10,9 @@ final class PostalCodeApiForm extends Model
 {
     public ?string $code = null;
 
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
@@ -26,6 +29,9 @@ final class PostalCodeApiForm extends Model
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function attributeLabels()
     {
         return [

@@ -29,6 +29,9 @@ final class DestPreset extends ActiveRecord
         return 'dest_preset';
     }
 
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
@@ -43,7 +46,10 @@ final class DestPreset extends ActiveRecord
         ];
     }
 
-    /** @codeCoverageIgnore */
+    /**
+     * @inheritdoc
+     * @codeCoverageIgnore
+     */
     public function attributeLabels()
     {
         return [

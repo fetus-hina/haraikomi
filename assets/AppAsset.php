@@ -11,12 +11,27 @@ use yii\web\YiiAsset;
 
 final class AppAsset extends AssetBundle
 {
+    /**
+     * @var string
+     */
     public $basePath = '@webroot';
+
+    /**
+     * @var string
+     */
     public $baseUrl = '@web';
+
+    /**
+     * @var string[]
+     */
     public $js = [
         'js/save.js',
         'js/gienkin.js',
     ];
+
+    /**
+     * @var string[]
+     */
     public $depends = [
         BackToTopAsset::class,
         BootstrapAsset::class,

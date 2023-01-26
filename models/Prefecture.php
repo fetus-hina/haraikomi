@@ -21,11 +21,17 @@ final class Prefecture extends ActiveRecord
             ->orderBy(['{{prefecture}}.[[id]]' => SORT_ASC]);
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function tableName()
     {
         return 'prefecture';
     }
 
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
@@ -34,6 +40,9 @@ final class Prefecture extends ActiveRecord
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function attributeLabels()
     {
         return [

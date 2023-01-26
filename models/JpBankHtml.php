@@ -30,6 +30,9 @@ final class JpBankHtml extends Model
 {
     public string $html;
 
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [

@@ -14,16 +14,13 @@ use function strcasecmp;
  */
 final class User extends BaseObject implements IdentityInterface
 {
-    public string $id;
+    public string|null $id;
+    public string|null $username;
+    public string|null $password;
+    public string|null $authKey;
+    public string|null $accessToken;
 
-    public string $username;
-
-    public string $password;
-
-    public string $authKey;
-
-    public string $accessToken;
-
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingTraversableTypeHintSpecification
     private static array $users = [
         '100' => [
             'id' => '100',
@@ -86,7 +83,7 @@ final class User extends BaseObject implements IdentityInterface
      */
     public function getId()
     {
-        return $this->id;
+        return $this->id ?? '';
     }
 
     /**
