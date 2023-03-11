@@ -32,6 +32,7 @@ add('writable_dirs', [
 set('writable_mode', 'chmod');
 set('writable_chmod_recursive', false);
 set('softwarecollections', []);
+set('keep_releases', 2);
 set('bin/npm', fn () => locateBinaryPath('npm'));
 set('bin/make', fn () => locateBinaryPath('make'));
 
