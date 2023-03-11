@@ -32,34 +32,10 @@ add('writable_dirs', [
 set('writable_mode', 'chmod');
 set('writable_chmod_recursive', false);
 set('softwarecollections', []);
+set('bin/npm', () => locateBinaryPath('npm'));
+set('bin/make', () => localeBinaryPath('make'));
 
-set('bin/php', function () {
-    if ($scl = get('softwarecollections')) {
-        return vsprintf('scl enable %s -- php', [
-            implode(' ', array_map(
-                'escapeshellarg',
-                $scl
-            )),
-        ]);
-    }
-
-    return locateBinaryPath('php');
-});
-
-set('bin/npm', function () {
-    if ($scl = get('softwarecollections')) {
-        return vsprintf('scl enable %s -- npm', [
-            implode(' ', array_map(
-                'escapeshellarg',
-                $scl
-            )),
-        ]);
-    }
-
-    return locateBinaryPath('npm');
-});
-
-host('2401:2500:102:1206:133:242:147:83')
+host('2403:3a00:202:1127:49:212:205:127')
     ->user('haraikomi')
     ->stage('production')
     ->roles('app')
@@ -90,7 +66,7 @@ task('deploy:git_config', function () {
     run('git config --global advice.detachedHead false');
 });
 
-task('deploy:production', function () {
+after('deploy:update_code', function () {
     within('{{release_path}}', function () {
         run('touch .production');
         run('rm -f web/index.test.php');
@@ -106,16 +82,7 @@ task('deploy:vendors', function () {
 
 task('deploy:build', function () {
     within('{{release_path}}', function () {
-        if ($scl = get('softwarecollections')) {
-            run(vsprintf('scl enable %s -- make', [
-                implode(' ', array_map(
-                    'escapeshellarg',
-                    $scl
-                )),
-            ]));
-        } else {
-            run('make');
-        }
+        run('{{bin/make}}');
     });
 });
 
