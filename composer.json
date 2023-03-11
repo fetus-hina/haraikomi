@@ -8,6 +8,7 @@
         "php": ">= 8.0",
         "masterminds/html5": "^2.7",
         "myclabs/php-enum": "^1.8",
+        "paragonie/constant_time_encoding": "^2.6",
         "symfony/css-selector": "*",
         "symfony/polyfill-php80": "*",
         "symfony/yaml": "*",
