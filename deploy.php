@@ -33,7 +33,7 @@ set('writable_mode', 'chmod');
 set('writable_chmod_recursive', false);
 set('softwarecollections', []);
 set('bin/npm', fn () => locateBinaryPath('npm'));
-set('bin/make', fn () => localeBinaryPath('make'));
+set('bin/make', fn () => locateBinaryPath('make'));
 
 host('2403:3a00:202:1127:49:212:205:127')
     ->user('haraikomi')
