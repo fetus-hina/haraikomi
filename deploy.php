@@ -48,7 +48,6 @@ task('deploy', [
     'deploy:lock',
     'deploy:release',
     'deploy:update_code',
-    'deploy:production',
     'deploy:shared',
     'deploy:vendors',
     'deploy:writable',
@@ -66,7 +65,9 @@ task('deploy:git_config', function () {
     run('git config --global advice.detachedHead false');
 });
 
-after('deploy:update_code', function () {
+after('deploy:update_code', 'deploy:production');
+
+task('deploy:production', function () {
     within('{{release_path}}', function () {
         run('touch .production');
         run('rm -f web/index.test.php');
