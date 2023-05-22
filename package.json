@@ -7,7 +7,7 @@
     "@fetus-hina/fetus.css": "github:fetus-hina/fetus.css#semver:^5.2.3",
     "bootstrap": "^5.2.3",
     "inputmask": "^5.0.8",
-    "jquery": "^3.6.4",
+    "jquery": "^3.7.0",
     "punycode": "^2.3.0",
     "yii2-pjax": "^2.0.8"
   },
