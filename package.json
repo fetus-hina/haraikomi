@@ -4,8 +4,8 @@
   "author": "AIZAWA Hina",
   "license": "MIT",
   "dependencies": {
-    "@fetus-hina/fetus.css": "github:fetus-hina/fetus.css#semver:^5.3.1",
-    "bootstrap": "^5.3.0",
+    "@fetus-hina/fetus.css": "github:fetus-hina/fetus.css#semver:^5.3.3",
+    "bootstrap": "^5.3.1",
     "inputmask": "^5.0.8",
     "jquery": "^3.7.0",
     "punycode": "^2.3.0",
