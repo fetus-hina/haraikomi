@@ -7,23 +7,23 @@
     "@fetus-hina/fetus.css": "github:fetus-hina/fetus.css#semver:^5.3.3",
     "bootstrap": "^5.3.1",
     "inputmask": "^5.0.8",
-    "jquery": "^3.7.0",
+    "jquery": "^3.7.1",
     "punycode": "^2.3.0",
     "yii2-pjax": "^2.0.8"
   },
   "devDependencies": {
-    "@babel/cli": "^7.22.9",
-    "@babel/core": "^7.22.9",
-    "@babel/preset-env": "^7.22.9",
-    "autoprefixer": "^10.4.14",
+    "@babel/cli": "^7.22.15",
+    "@babel/core": "^7.22.15",
+    "@babel/preset-env": "^7.22.15",
+    "autoprefixer": "^10.4.15",
     "cssnano": "^6.0.1",
-    "postcss": "^8.4.27",
+    "postcss": "^8.4.29",
     "postcss-cli": "^10.1.0",
-    "sass": "^1.64.2",
+    "sass": "^1.66.1",
     "semistandard": "^17.0.0",
-    "stylelint": "^15.10.2",
+    "stylelint": "^15.10.3",
     "stylelint-config-sass-guidelines": "^10.0.0",
-    "terser": "^5.19.2",
-    "updates": "^14.3.4"
+    "terser": "^5.19.4",
+    "updates": "^14.5.0"
   }
 }
