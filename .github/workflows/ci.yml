@@ -16,6 +16,12 @@ jobs:
             experimental: false
           -
             version: '8.2'
+            experimental: false
+          -
+            version: '8.3'
+            experimental: true
+          -
+            version: '8.4'
             experimental: true
     runs-on: ubuntu-20.04
     steps:
@@ -123,6 +129,12 @@ jobs:
             experimental: false
           -
             version: '8.2'
+            experimental: false
+          -
+            version: '8.3'
+            experimental: true
+          -
+            version: '8.4'
             experimental: true
     runs-on: ubuntu-20.04
     needs:
