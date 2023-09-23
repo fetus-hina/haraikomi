@@ -5,7 +5,7 @@
     "license": "MIT",
     "minimum-stability": "stable",
     "require": {
-        "php": ">= 8.0",
+        "php": ">= 8.1",
         "masterminds/html5": "^2.7",
         "myclabs/php-enum": "^1.8",
         "paragonie/constant_time_encoding": "^2.6",
@@ -49,7 +49,7 @@
             "yiisoft/yii2-composer": true
         },
         "platform": {
-            "php": "8.0.21"
+            "php": "8.1.23"
         },
         "process-timeout": 1800,
         "sort-packages": true

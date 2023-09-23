@@ -9,9 +9,6 @@ jobs:
       matrix:
         php:
           -
-            version: '8.0'
-            experimental: false
-          -
             version: '8.1'
             experimental: false
           -
@@ -23,7 +20,7 @@ jobs:
           -
             version: '8.4'
             experimental: true
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       -
         uses: actions/checkout@v3
@@ -43,7 +40,7 @@ jobs:
             | xargs -n 1 php -l
   makeComposerCache:
     name: 'Make composer cache'
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       -
         uses: actions/checkout@v3
@@ -57,16 +54,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
       -
-        name: 'Set up PHP 8.0'
+        name: 'Set up PHP 8.1'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: '8.1'
       -
         name: 'Install Composer dependencies'
         run: 'composer install --prefer-dist'
   phpcs:
     name: 'PHP Coding Style (PHPCS)'
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs:
       - phpSyntaxCheck
       - makeComposerCache
@@ -81,10 +78,10 @@ jobs:
             vendor
           key: '${{ runner.os }}-composer-${{ hashFiles(''composer.lock'') }}'
       -
-        name: 'Set up PHP 8.0'
+        name: 'Set up PHP 8.1'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: '8.1'
       -
         name: 'Check Styles'
         run: |
@@ -92,7 +89,7 @@ jobs:
           make check-style-phpcs
   phpstan:
     name: 'PHP Coding Style (PHPStan)'
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs:
       - phpSyntaxCheck
       - makeComposerCache
@@ -107,10 +104,10 @@ jobs:
             vendor
           key: '${{ runner.os }}-composer-${{ hashFiles(''composer.lock'') }}'
       -
-        name: 'Set up PHP 8.0'
+        name: 'Set up PHP 8.1'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: '8.1'
       -
         name: 'Check Styles'
         run: |
@@ -121,9 +118,6 @@ jobs:
     strategy:
       matrix:
         php:
-          -
-            version: '8.0'
-            experimental: false
           -
             version: '8.1'
             experimental: false
@@ -136,7 +130,7 @@ jobs:
           -
             version: '8.4'
             experimental: true
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs:
       - phpSyntaxCheck
       - makeComposerCache
@@ -169,7 +163,7 @@ jobs:
         run: 'make test'
   jsStyleCheck:
     name: 'JS Coding Style'
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       -
         uses: actions/checkout@v3
@@ -181,7 +175,7 @@ jobs:
         run: 'make check-style-js'
   cssStyleCheck:
     name: 'CSS Coding Style'
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       -
         uses: actions/checkout@v3

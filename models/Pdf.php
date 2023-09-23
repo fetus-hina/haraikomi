@@ -276,7 +276,7 @@ final class Pdf extends Model
         string $phone1,
         string $phone2,
         string $phone3,
-        ?string $email
+        ?string $email,
     ): self {
         // main {{{
         $address1 = trim($address1);
@@ -336,7 +336,7 @@ final class Pdf extends Model
         float $bottom,
         string $numbers,
         float $fontSize = 4.5,
-        float $paddingTop = 2.0
+        float $paddingTop = 2.0,
     ): self {
         assert($this->pdf !== null);
 
@@ -396,7 +396,7 @@ final class Pdf extends Model
         string $text,
         string $valign = 'M',
         float $maxFontSize = 0,
-        ?string $fontName = null
+        ?string $fontName = null,
     ): self {
         assert($this->pdf !== null);
 
@@ -445,7 +445,7 @@ final class Pdf extends Model
         float $right,
         float $bottom,
         string $name,
-        bool $acceptFolding
+        bool $acceptFolding,
     ): self {
         // {{{
         if (!$acceptFolding) {
@@ -471,7 +471,7 @@ final class Pdf extends Model
         float $right,
         float $bottom,
         string $name,
-        float $minFontSize
+        float $minFontSize,
     ): bool {
         assert($this->pdf !== null);
 
