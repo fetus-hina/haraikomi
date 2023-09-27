@@ -4,24 +4,32 @@ name: CI
   - pull_request
 env:
   DEFAULT_PHP_VERSION: '8.1'
+  JOB_MATRIX_JSON: |
+    {
+      "php": [
+        {
+          "version": "8.1",
+          "experimental": false
+        },
+        {
+          "version": "8.2",
+          "experimental": false
+        },
+        {
+          "version": "8.3",
+          "experimental": true
+        },
+        {
+          "version": "8.4",
+          "experimental": true
+        }
+      ]
+    }
 jobs:
   phpSyntaxCheck:
     name: 'PHP Syntax Check (${{ matrix.php.version }})'
     strategy:
-      matrix:
-        php:
-          -
-            version: '8.1'
-            experimental: false
-          -
-            version: '8.2'
-            experimental: false
-          -
-            version: '8.3'
-            experimental: true
-          -
-            version: '8.4'
-            experimental: true
+      matrix: '${{ fromJson( env.JOB_MATRIX_JSON ) }}'
     runs-on: ubuntu-22.04
     steps:
       -
@@ -118,7 +126,7 @@ jobs:
   phpTest:
     name: 'PHP Test (${{ matrix.php.version }})'
     strategy:
-      matrix: '${{ jobs.phpSyntaxCheck.strategy.matrix }}'
+      matrix: '${{ fromJson( env.JOB_MATRIX_JSON ) }}'
     runs-on: ubuntu-22.04
     needs:
       - phpSyntaxCheck
