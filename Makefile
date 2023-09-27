@@ -2,7 +2,6 @@ RESOURCES := \
 	web/css/history.css \
 	web/js/gienkin.js \
 	web/js/messagebox.js \
-	web/js/polyfill.js \
 	web/js/postalcode.js \
 	web/js/sample-image.js \
 	web/js/save.js

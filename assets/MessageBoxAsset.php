@@ -35,6 +35,5 @@ final class MessageBoxAsset extends AssetBundle
         BootstrapAsset::class,
         BootstrapPluginAsset::class,
         JqueryAsset::class,
-        PolyfillAsset::class,
     ];
 }
