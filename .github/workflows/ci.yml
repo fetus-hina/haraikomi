@@ -2,6 +2,8 @@ name: CI
 'on':
   - push
   - pull_request
+env:
+  DEFAULT_PHP_VERSION: '8.1'
 jobs:
   phpSyntaxCheck:
     name: 'PHP Syntax Check (${{ matrix.php.version }})'
@@ -54,10 +56,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
       -
-        name: 'Set up PHP 8.1'
+        name: 'Set up PHP ${{ DEFAULT_PHP_VERSION }}'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '${{ DEFAULT_PHP_VERSION }}'
       -
         name: 'Install Composer dependencies'
         run: 'composer install --prefer-dist'
@@ -78,10 +80,10 @@ jobs:
             vendor
           key: '${{ runner.os }}-composer-${{ hashFiles(''composer.lock'') }}'
       -
-        name: 'Set up PHP 8.1'
+        name: 'Set up PHP ${{ DEFAULT_PHP_VERSION }}'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '${{ DEFAULT_PHP_VERSION }}'
       -
         name: 'Check Styles'
         run: |
@@ -104,10 +106,10 @@ jobs:
             vendor
           key: '${{ runner.os }}-composer-${{ hashFiles(''composer.lock'') }}'
       -
-        name: 'Set up PHP 8.1'
+        name: 'Set up PHP ${{ DEFAULT_PHP_VERSION }}'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '${{ DEFAULT_PHP_VERSION }}'
       -
         name: 'Check Styles'
         run: |
@@ -168,7 +170,7 @@ jobs:
       -
         uses: actions/checkout@v4
       -
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 'lts/*'
       -
@@ -180,7 +182,7 @@ jobs:
       -
         uses: actions/checkout@v4
       -
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 'lts/*'
       -
