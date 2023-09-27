@@ -118,20 +118,7 @@ jobs:
   phpTest:
     name: 'PHP Test (${{ matrix.php.version }})'
     strategy:
-      matrix:
-        php:
-          -
-            version: '8.1'
-            experimental: false
-          -
-            version: '8.2'
-            experimental: false
-          -
-            version: '8.3'
-            experimental: true
-          -
-            version: '8.4'
-            experimental: true
+      matrix: '${{ jobs.phpSyntaxCheck.strategy.matrix }}'
     runs-on: ubuntu-22.04
     needs:
       - phpSyntaxCheck
