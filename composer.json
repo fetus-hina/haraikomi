@@ -7,7 +7,6 @@
     "require": {
         "php": ">= 8.1",
         "masterminds/html5": "^2.8.1",
-        "myclabs/php-enum": "^1.8.4",
         "paragonie/constant_time_encoding": "^2.6.3",
         "symfony/css-selector": "^6.3.2",
         "symfony/yaml": "^6.3.3",

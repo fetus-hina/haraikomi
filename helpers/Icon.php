@@ -86,16 +86,16 @@ final class Icon
 
     public static function twitter(): string
     {
-        return self::renderIcon(IconSource::BOOTSTRAP_ICONS, 'bi-twitter');
+        return self::renderIcon(IconSource::BOOTSTRAP_ICONS, 'bi-twitter-x');
     }
 
-    private static function renderIcon(string $source, mixed $data): string
+    private static function renderIcon(IconSource $source, mixed $data): string
     {
         self::registerAsset($source);
         return self::renderIconImpl($source, $data);
     }
 
-    private static function registerAsset(string $source): AssetBundle
+    private static function registerAsset(IconSource $source): AssetBundle
     {
         $view = Yii::$app->view;
         if (!$view instanceof View) {
@@ -104,15 +104,13 @@ final class Icon
 
         return match ($source) {
             IconSource::BOOTSTRAP_ICONS => BootstrapIconsAsset::register($view),
-            default => throw new LogicException(),
         };
     }
 
-    private static function renderIconImpl(string $source, mixed $data): string
+    private static function renderIconImpl(IconSource $source, mixed $data): string
     {
         return match ($source) {
             IconSource::BOOTSTRAP_ICONS => self::renderBootstrapIcon($data),
-            default => throw new LogicException(),
         };
     }
 
