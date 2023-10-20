@@ -12,7 +12,7 @@
         "symfony/yaml": "^6.3.3",
         "tecnickcom/tcpdf": "^6.6.5",
         "twbs/bootstrap-icons": "^1.11.1",
-        "yiisoft/yii2": "^2.0.49.1",
+        "yiisoft/yii2": "^2.0.49.2",
         "yiisoft/yii2-bootstrap5": "^2.0.4",
         "yiisoft/yii2-httpclient": "^2.0.15"
     },
