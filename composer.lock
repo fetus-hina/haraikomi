@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f729d027d0ec5963a77251b0b0fdd81c",
+    "content-hash": "74292d6b78cfe9dfb16bf6746bbc7038",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -1450,16 +1450,16 @@
         },
         {
             "name": "codeception/module-phpbrowser",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/module-phpbrowser.git",
-                "reference": "8e1fdcc85e182e6b61399b35a35a562862c3be62"
+                "reference": "a972411f60cd00d00d5e5e3b35496ba4a23bcffc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/module-phpbrowser/zipball/8e1fdcc85e182e6b61399b35a35a562862c3be62",
-                "reference": "8e1fdcc85e182e6b61399b35a35a562862c3be62",
+                "url": "https://api.github.com/repos/Codeception/module-phpbrowser/zipball/a972411f60cd00d00d5e5e3b35496ba4a23bcffc",
+                "reference": "a972411f60cd00d00d5e5e3b35496ba4a23bcffc",
                 "shasum": ""
             },
             "require": {
@@ -1468,7 +1468,7 @@
                 "ext-json": "*",
                 "guzzlehttp/guzzle": "^7.4",
                 "php": "^8.0",
-                "symfony/browser-kit": "^5.4 || ^6.0"
+                "symfony/browser-kit": "^5.4 || ^6.0 || ^7.0"
             },
             "conflict": {
                 "codeception/codeception": "<5.0",
@@ -1509,9 +1509,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/module-phpbrowser/issues",
-                "source": "https://github.com/Codeception/module-phpbrowser/tree/3.0.0"
+                "source": "https://github.com/Codeception/module-phpbrowser/tree/3.0.1"
             },
-            "time": "2022-02-19T18:22:27+00:00"
+            "time": "2023-12-08T19:41:28+00:00"
         },
         {
             "name": "codeception/module-rest",
