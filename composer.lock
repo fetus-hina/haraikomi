@@ -1291,16 +1291,16 @@
         },
         {
             "name": "codeception/lib-xml",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/lib-xml.git",
-                "reference": "d6e4c094fb83958bcf254a20815cea5ac31e98d0"
+                "reference": "4eabf029ff5e40c7e8a16b6db2fe9bbb9244d162"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/lib-xml/zipball/d6e4c094fb83958bcf254a20815cea5ac31e98d0",
-                "reference": "d6e4c094fb83958bcf254a20815cea5ac31e98d0",
+                "url": "https://api.github.com/repos/Codeception/lib-xml/zipball/4eabf029ff5e40c7e8a16b6db2fe9bbb9244d162",
+                "reference": "4eabf029ff5e40c7e8a16b6db2fe9bbb9244d162",
                 "shasum": ""
             },
             "require": {
@@ -1308,7 +1308,7 @@
                 "ext-dom": "*",
                 "php": "^8.0",
                 "phpunit/phpunit": "^9.5 | ^10.0",
-                "symfony/css-selector": ">=4.4.24 <7.0"
+                "symfony/css-selector": ">=4.4.24 <8.0"
             },
             "conflict": {
                 "codeception/codeception": "<5.0.0-alpha3"
@@ -1335,9 +1335,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/lib-xml/issues",
-                "source": "https://github.com/Codeception/lib-xml/tree/1.0.1"
+                "source": "https://github.com/Codeception/lib-xml/tree/1.0.2"
             },
-            "time": "2022-09-11T14:09:09+00:00"
+            "time": "2023-12-08T19:31:41+00:00"
         },
         {
             "name": "codeception/module-asserts",
