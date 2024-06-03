@@ -150,7 +150,7 @@ final class AppConfigController extends Controller
             $data,
             fn ($a, $b): int => strnatcasecmp((string)$a, (string)$b)
                 ?: strcasecmp((string)$a, (string)$b)
-                ?: strcmp((string)$a, (string)$b)
+                ?: strcmp((string)$a, (string)$b),
         );
         return $data;
     }

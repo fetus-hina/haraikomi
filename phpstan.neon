@@ -2,10 +2,11 @@ includes:
   - vendor/proget-hq/phpstan-yii2/extension.neon
 
 parameters:
-  level: 9
+  level: max
 
-  checkGenericClassInNonGenericObjectType: false
-  checkMissingIterableValueType: false
+  ignoreErrors:
+    - identifier: missingType.generics
+    - identifier: missingType.iterableValue
 
   paths:
     - ./

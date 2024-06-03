@@ -5,25 +5,25 @@
   "license": "MIT",
   "dependencies": {
     "@fetus-hina/fetus.css": "github:fetus-hina/fetus.css#semver:^5.3.5",
-    "bootstrap": "^5.3.2",
-    "inputmask": "^5.0.8",
+    "bootstrap": "^5.3.3",
+    "inputmask": "^5.0.9",
     "jquery": "^3.7.1",
     "punycode": "^2.3.1",
     "yii2-pjax": "^2.0.8"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.4",
-    "@babel/core": "^7.23.7",
-    "@babel/preset-env": "^7.23.8",
-    "autoprefixer": "^10.4.16",
-    "cssnano": "^6.0.3",
-    "postcss": "^8.4.33",
-    "postcss-cli": "^10.1.0",
-    "sass": "^1.69.7",
+    "@babel/cli": "^7.24.6",
+    "@babel/core": "^7.24.6",
+    "@babel/preset-env": "^7.24.6",
+    "autoprefixer": "^10.4.19",
+    "cssnano": "^7.0.1",
+    "postcss": "^8.4.38",
+    "postcss-cli": "^11.0.0",
+    "sass": "^1.77.4",
     "semistandard": "^17.0.0",
-    "stylelint": "^15.11.0",
-    "stylelint-config-sass-guidelines": "^10.0.0",
-    "terser": "^5.26.0",
-    "updates": "^14.5.0"
+    "stylelint": "^16.6.1",
+    "stylelint-config-sass-guidelines": "^11.1.0",
+    "terser": "^5.31.0",
+    "updates": "^16.2.0"
   }
 }
