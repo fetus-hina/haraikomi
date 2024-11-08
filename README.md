@@ -28,7 +28,7 @@
 ライセンス
 ----------
 
-Copyright (C) 2017-2023 AIZAWA Hina  
+Copyright (C) 2017-2024 AIZAWA Hina  
 Licensed under the MIT License.
 
 レポジトリ中に第三者の著作物を含んでいます。  
