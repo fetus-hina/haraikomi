@@ -73,9 +73,9 @@ final class JpBankHtml extends Model
                 continue;
             }
 
-            if (count($tds) === 4) {
+            if (count($tds) === 5) {
                 if ($disasterRemains > 0) {
-                    throw new Exception('災害名のセル結合の消費が尽きる前に 4 セル現れた'); // @codeCoverageIgnore
+                    throw new Exception('災害名のセル結合の消費が尽きる前に 5 セル現れた'); // @codeCoverageIgnore
                 }
 
                 $td = self::expectXmlElement(array_shift($tds));
@@ -86,8 +86,8 @@ final class JpBankHtml extends Model
                 }
             }
 
-            if (count($tds) !== 3) {
-                throw new Exception('セルの数が異常: ' . count($tds)); // @codeCoverageIgnore
+            if (count($tds) !== 4) {
+                throw new Exception('セルの数が異常: ' . count($tds) . ' expect 4'); // @codeCoverageIgnore
             }
 
             if ($disaster === null) {
@@ -100,13 +100,17 @@ final class JpBankHtml extends Model
 
             --$disasterRemains;
             $accountName = $this->normalizeText(
-                self::expectXmlElement($tds[0])->textContent,
+                (string)preg_replace(
+                    '/（使用可能な略称.*?）$/u',
+                    '',
+                    self::expectXmlElement($tds[0])->textContent,
+                ),
             );
             $account = $this->normalizeText(
-                self::expectXmlElement($tds[1])->textContent,
+                self::expectXmlElement($tds[2])->textContent,
             );
             $term = $this->normalizeText(
-                self::expectXmlElement($tds[2])->textContent,
+                self::expectXmlElement($tds[3])->textContent,
             );
 
             if (
