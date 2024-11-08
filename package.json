@@ -12,18 +12,18 @@
     "yii2-pjax": "^2.0.8"
   },
   "devDependencies": {
-    "@babel/cli": "^7.24.7",
-    "@babel/core": "^7.24.7",
-    "@babel/preset-env": "^7.24.7",
-    "autoprefixer": "^10.4.19",
-    "cssnano": "^7.0.3",
-    "postcss": "^8.4.38",
+    "@babel/cli": "^7.25.9",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "autoprefixer": "^10.4.20",
+    "cssnano": "^7.0.6",
+    "postcss": "^8.4.47",
     "postcss-cli": "^11.0.0",
-    "sass": "^1.77.6",
+    "sass": "^1.80.6",
     "semistandard": "^17.0.0",
-    "stylelint": "^16.6.1",
-    "stylelint-config-sass-guidelines": "^11.1.0",
-    "terser": "^5.31.1",
-    "updates": "^16.2.0"
+    "stylelint": "^16.10.0",
+    "stylelint-config-sass-guidelines": "^12.1.0",
+    "terser": "^5.36.0",
+    "updates": "^16.4.0"
   }
 }
