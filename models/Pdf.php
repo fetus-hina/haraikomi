@@ -1138,7 +1138,6 @@ final class Pdf extends Model
                 return $fontSize;
             }
         }
-        return $minFontSize;
     }
 
     private static function mm2pt(float $mm): float
