@@ -21,8 +21,11 @@ jobs:
             experimental: true
           -
             version: '8.4'
+            experimental: false
+          -
+            version: '8.5'
             experimental: true
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       -
         uses: actions/checkout@v4
@@ -42,7 +45,7 @@ jobs:
             | xargs -n 1 php -l
   makeComposerCache:
     name: 'Make composer cache'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       -
         uses: actions/checkout@v4
@@ -65,7 +68,7 @@ jobs:
         run: 'composer install --prefer-dist'
   phpcs:
     name: 'PHP Coding Style (PHPCS)'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - phpSyntaxCheck
       - makeComposerCache
@@ -91,7 +94,7 @@ jobs:
           make check-style-phpcs
   phpstan:
     name: 'PHP Coding Style (PHPStan)'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - phpSyntaxCheck
       - makeComposerCache
@@ -128,11 +131,14 @@ jobs:
             experimental: false
           -
             version: '8.3'
-            experimental: true
+            experimental: false
+          -
+            version: '8.5'
+            experimental: false
           -
             version: '8.4'
             experimental: true
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - phpSyntaxCheck
       - makeComposerCache
@@ -165,7 +171,7 @@ jobs:
         run: 'make test'
   jsStyleCheck:
     name: 'JS Coding Style'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       -
         uses: actions/checkout@v4
@@ -177,7 +183,7 @@ jobs:
         run: 'make check-style-js'
   cssStyleCheck:
     name: 'CSS Coding Style'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       -
         uses: actions/checkout@v4
