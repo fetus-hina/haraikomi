@@ -3,19 +3,13 @@ name: CI
   - push
   - pull_request
 env:
-  DEFAULT_PHP_VERSION: '8.1'
+  DEFAULT_PHP_VERSION: '8.3'
 jobs:
   phpSyntaxCheck:
     name: 'PHP Syntax Check (${{ matrix.php.version }})'
     strategy:
       matrix:
         php:
-          -
-            version: '8.1'
-            experimental: false
-          -
-            version: '8.2'
-            experimental: false
           -
             version: '8.3'
             experimental: true
@@ -124,19 +118,13 @@ jobs:
       matrix:
         php:
           -
-            version: '8.1'
-            experimental: false
-          -
-            version: '8.2'
-            experimental: false
-          -
             version: '8.3'
             experimental: false
           -
-            version: '8.5'
+            version: '8.4'
             experimental: false
           -
-            version: '8.4'
+            version: '8.5'
             experimental: true
     runs-on: ubuntu-24.04
     needs:
