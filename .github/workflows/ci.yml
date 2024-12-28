@@ -36,7 +36,7 @@ jobs:
         run: |
           find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'node_modules' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) \
             | sort \
-            | xargs -n 1 php -l
+            | xargs php -l
   makeComposerCache:
     name: 'Make composer cache'
     runs-on: ubuntu-24.04
