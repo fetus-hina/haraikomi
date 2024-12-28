@@ -1,9 +1,8 @@
 {
     "name": "jp3cki/haraikomi",
     "description": "",
-    "type": "project",
     "license": "MIT",
-    "minimum-stability": "stable",
+    "type": "project",
     "require": {
         "php": ">= 8.1",
         "php-64bit": "*",
@@ -34,6 +33,7 @@
         "codeception/specify": "^2.0.0",
         "codeception/verify": "^3.0.0.",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
+        "ergebnis/composer-normalize": "^2.45",
         "jp3cki/coding-standard": "^1.0.1",
         "proget-hq/phpstan-yii2": "^0.8.0",
         "squizlabs/php_codesniffer": "^3.11.2",
@@ -42,7 +42,7 @@
         "yiisoft/yii2-gii": "^2.2.6"
     },
     "replace": {
-        "bower-asset/bootstrap": "5.*",
+        "bower-asset/bootstrap": "^5.0",
         "bower-asset/inputmask": "*",
         "bower-asset/jquery": "*",
         "bower-asset/punycode": "*",
@@ -54,9 +54,11 @@
         "symfony/polyfill-intl-normalizer": "*",
         "symfony/polyfill-mbstring": "*"
     },
+    "minimum-stability": "stable",
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
+            "ergebnis/composer-normalize": true,
             "yiisoft/yii2-composer": true
         },
         "platform": {
