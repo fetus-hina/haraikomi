@@ -4,7 +4,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">= 8.3",
+        "php": ">= 8.4",
         "php-64bit": "*",
         "php-ipv6": "*",
         "ext-ctype": "*",
@@ -62,7 +62,7 @@
             "yiisoft/yii2-composer": true
         },
         "platform": {
-            "php": "8.3.15"
+            "php": "8.4.3"
         },
         "process-timeout": 1800,
         "sort-packages": true

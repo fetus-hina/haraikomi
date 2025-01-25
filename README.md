@@ -12,7 +12,7 @@
 ### 要求環境
 
   - OS: Linux以外では確認していません
-  - PHP: PHP 8.3 以上
+  - PHP: PHP 8.4 以上
   - NodeJS: 最新のLTSまたは安定版
   - 適当なウェブサーバと、PHPへのつなぎ込み(Apache Module or PHP-FPM)
 
@@ -28,7 +28,7 @@
 ライセンス
 ----------
 
-Copyright (C) 2017-2024 AIZAWA Hina  
+Copyright (C) 2017-2025 AIZAWA Hina  
 Licensed under the MIT License.
 
 レポジトリ中に第三者の著作物を含んでいます。  
