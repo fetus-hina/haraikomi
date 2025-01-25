@@ -61,7 +61,7 @@ final class AppConfigController extends Controller
 
     public function actionFavicon(): int
     {
-        if (!$srcPath = Yii::getAlias('@app/node_modules/@fetus-hina/fetus.css/dist/favicon')) {
+        if (!$srcPath = Yii::getAlias('@app/node_modules/@jp3cki/fetus.css/dist/favicon')) {
             throw new Exception();
         }
         if (!file_exists($srcPath)) {
