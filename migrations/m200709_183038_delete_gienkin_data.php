@@ -15,9 +15,9 @@ final class m200709_183038_delete_gienkin_data extends Migration
                 $db->quoteColumnName('account1'),
                 $db->quoteColumnName('account2'),
                 $db->quoteColumnName('account3'),
-                $db->quoteValue($a1),
-                $db->quoteValue($a2),
-                $db->quoteValue($a3),
+                $db->quoteValue((string)$a1),
+                $db->quoteValue((string)$a2),
+                $db->quoteValue((string)$a3),
             ]);
         };
 
