@@ -101,7 +101,7 @@ final class JpBankHtml extends Model
             --$disasterRemains;
             $accountName = $this->normalizeText(
                 (string)preg_replace(
-                    '/（使用可能な略称.*?）$/u',
+                    '/[（(]使用可能な略称.*?[）)]\s*$/u',
                     '',
                     self::expectXmlElement($tds[0])->textContent,
                 ),
