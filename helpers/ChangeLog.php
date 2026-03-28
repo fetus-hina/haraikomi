@@ -54,7 +54,7 @@ final class ChangeLog
             '#jetbrainsmono' => 'https://www.jetbrains.com/ja-jp/lp/mono/',
             '#mikachan' => 'http://mikachan-font.com/',
             '#mplus1p' => 'https://mplusfonts.github.io/',
-            '#nyashi' => 'http://marusexijaxs2.web.fc2.com/',
+            '#nyashi' => 'https://yokutobanaitori.web.fc2.com/',
             '#roboto' => 'https://fonts.google.com/specimen/Roboto',
             '#umefont' => 'https://ja.osdn.net/projects/ume-font/wiki/FrontPage',
         ];
