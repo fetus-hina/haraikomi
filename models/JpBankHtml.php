@@ -4,22 +4,20 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use DOMElement;
-use DOMNodeList;
-use DOMXPath;
 use DateTimeImmutable;
 use DateTimeZone;
+use Dom\Element;
+use Dom\HTMLDocument;
 use Exception;
 use Generator;
-use Masterminds\HTML5;
 use Normalizer;
-use Symfony\Component\CssSelector\CssSelectorConverter;
 use Yii;
 use yii\base\Model;
 
+use function array_filter;
 use function array_shift;
+use function array_values;
 use function count;
-use function implode;
 use function iterator_to_array;
 use function preg_match;
 use function preg_replace;
@@ -47,27 +45,18 @@ final class JpBankHtml extends Model
         // 同じ災害の 2 つ目以降の <tr> が省略されている糞 HTML が喰わされる
         $htmlContent = preg_replace('#(</tr>)\s*(<td)#s', '\1<tr>\2', $this->html);
 
-        $cssSelConv = new CssSelectorConverter();
-
-        $html5 = new HTML5(['disable_html_ns' => true]);
-        $doc = $html5->loadHTML((string)$htmlContent);
-        $xpath = new DOMXPath($doc);
-
-        $query = $cssSelConv->toXPath(implode(', ', [
-            'tr',
-        ]));
+        $doc = HTMLDocument::createFromString(
+            (string)$htmlContent,
+            LIBXML_NOERROR,
+        );
 
         $disaster = null;
         $disasterRemains = 0;
-        foreach (self::expectNodeList($xpath->query($query)) as $row) {
-            $tds = iterator_to_array(
-                self::expectNodeList(
-                    $xpath->query(
-                        './td',
-                        self::expectXmlElement($row),
-                    ),
-                ),
-            );
+        foreach ($doc->querySelectorAll('tr') as $row) {
+            $tds = array_values(array_filter(
+                iterator_to_array($row->childNodes),
+                fn (mixed $node): bool => $node instanceof Element && $node->localName === 'td',
+            ));
             if (count($tds) === 0) {
                 // たぶんヘッダ行
                 continue;
@@ -78,7 +67,7 @@ final class JpBankHtml extends Model
                     throw new Exception('災害名のセル結合の消費が尽きる前に 5 セル現れた'); // @codeCoverageIgnore
                 }
 
-                $td = self::expectXmlElement(array_shift($tds));
+                $td = self::expectElement(array_shift($tds));
                 $disaster = $this->normalizeText($td->textContent);
                 $disasterRemains = (int)$td->getAttribute('rowspan');
                 if ($disasterRemains === 0) {
@@ -103,14 +92,14 @@ final class JpBankHtml extends Model
                 (string)preg_replace(
                     '/[（(]使用可能な略称.*?[）)]\s*$/u',
                     '',
-                    self::expectXmlElement($tds[0])->textContent,
+                    self::expectElement($tds[0])->textContent,
                 ),
             );
             $account = $this->normalizeText(
-                self::expectXmlElement($tds[2])->textContent,
+                self::expectElement($tds[2])->textContent,
             );
             $term = $this->normalizeText(
-                self::expectXmlElement($tds[3])->textContent,
+                self::expectElement($tds[3])->textContent,
             );
 
             if (
@@ -152,16 +141,9 @@ final class JpBankHtml extends Model
         return $text;
     }
 
-    private static function expectNodeList(DOMNodeList|false $list): DOMNodeList
+    private static function expectElement(mixed $node): Element
     {
-        return $list instanceof DOMNodeList
-            ? $list
-            : throw new Exception('Xpath query filed');
-    }
-
-    private static function expectXmlElement(mixed $node): DOMElement
-    {
-        return $node instanceof DOMElement
+        return $node instanceof Element
             ? $node
             : throw new Exception('The node is not an element');
     }

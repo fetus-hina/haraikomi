@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace app\helpers;
 
-use DOMDocument;
-use DOMElement;
-use DOMXPath;
+use Dom\HTMLDocument;
 use RuntimeException;
-use Symfony\Component\CssSelector\CssSelectorConverter;
 use Symfony\Component\Yaml\Yaml;
 use Yii;
 use cebe\markdown\GithubMarkdown;
@@ -19,7 +16,6 @@ use function checkdate;
 use function file_exists;
 use function file_get_contents;
 use function hash;
-use function implode;
 use function is_array;
 use function is_file;
 use function is_readable;
@@ -28,11 +24,6 @@ use function preg_match;
 use function strcmp;
 use function trim;
 use function usort;
-
-use const LIBXML_NOBLANKS;
-use const LIBXML_NOCDATA;
-use const LIBXML_NOERROR;
-use const LIBXML_NSCLEAN;
 
 /**
  * @phpstan-type Entry array{date: non-empty-string, content: non-empty-string}
@@ -158,68 +149,35 @@ final class ChangeLog
 
     private static function parseAndRewriteAnchors(string $html): string
     {
-        $dummyHtml = implode('', [
-            '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">',
-            '<html lang="ja">',
-            '<head>',
-            '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">',
-            '<title></title>',
-            '</head>',
-            '<body>',
-            '<div>',
-            $html,
-            '</div>',
-            '</body>',
-            '</html>',
-        ]);
-
-        $doc = new DOMDocument();
-        $doc->preserveWhiteSpace = false;
-        $doc->recover = true;
-        $doc->strictErrorChecking = false;
-        if (!@$doc->loadHTML($dummyHtml, LIBXML_NOBLANKS | LIBXML_NOCDATA | LIBXML_NOERROR | LIBXML_NSCLEAN)) {
-            throw new RuntimeException();
-        }
+        $doc = HTMLDocument::createFromString(
+            "<div>{$html}</div>",
+            LIBXML_NOERROR,
+        );
         self::rewriteAnchors($doc);
 
-        $xpath = new DOMXpath($doc);
-        $nodeList = $xpath->query('//body/div[1]');
-        if (
-            !$nodeList ||
-            $nodeList->length !== 1 ||
-            !$generated = $doc->saveHTML($nodeList->item(0))
-        ) {
+        $div = $doc->querySelector('body > div');
+        if (!$div || !$generated = $doc->saveHtml($div)) {
             throw new RuntimeException();
         }
         return $generated;
     }
 
-    private static function rewriteAnchors(DOMDocument $doc): void
+    private static function rewriteAnchors(HTMLDocument $doc): void
     {
-        $xpath = new DOMXPath($doc);
-        $list = $xpath->query((new CssSelectorConverter())->toXPath('a[href^="#"]'));
-        if ($list && $list->length) {
-            $map = self::getAnchorMap();
-            foreach ($list as $anchor) {
-                if ($anchor instanceof DOMElement) {
-                    $href = $anchor->getAttribute('href');
-                    if (!isset($map[$href])) {
-                        throw new RuntimeException("{$href} is not known");
-                    }
-                    $anchor->setAttribute('href', $map[$href]);
-                }
+        $map = self::getAnchorMap();
+        foreach ($doc->querySelectorAll('a[href^="#"]') as $anchor) {
+            $href = $anchor->getAttribute('href');
+            if (!isset($map[$href])) {
+                throw new RuntimeException("{$href} is not known");
             }
+            $anchor->setAttribute('href', $map[$href]);
         }
 
-        if ($list = $xpath->query((new CssSelectorConverter())->toXPath('a[href]'))) {
-            foreach ($list as $anchor) {
-                if ($anchor instanceof DOMElement) {
-                    $href = $anchor->getAttribute('href');
-                    if (preg_match('#^https?://#i', $href)) {
-                        $anchor->setAttribute('rel', 'noreferrer noopener');
-                        $anchor->setAttribute('target', '_blank');
-                    }
-                }
+        foreach ($doc->querySelectorAll('a[href]') as $anchor) {
+            $href = $anchor->getAttribute('href');
+            if (preg_match('#^https?://#i', $href)) {
+                $anchor->setAttribute('rel', 'noreferrer noopener');
+                $anchor->setAttribute('target', '_blank');
             }
         }
     }
