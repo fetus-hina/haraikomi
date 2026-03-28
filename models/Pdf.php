@@ -515,8 +515,7 @@ final class Pdf extends Model
                 $stretch = true;
             } else {
                 // 縦長文字で対応できないので普通に縮小する
-                [$textWidth, $textHeight] = $this->calcTextSize($name);
-                $textWidth *= 0.75;
+                $textWidth = $innerWidth;
                 $stretch = true;
             }
         }
