@@ -25,6 +25,8 @@ use function strcmp;
 use function trim;
 use function usort;
 
+use const LIBXML_NOERROR;
+
 /**
  * @phpstan-type Entry array{date: non-empty-string, content: non-empty-string}
  */
@@ -174,7 +176,7 @@ final class ChangeLog
         }
 
         foreach ($doc->querySelectorAll('a[href]') as $anchor) {
-            $href = $anchor->getAttribute('href');
+            $href = (string)$anchor->getAttribute('href');
             if (preg_match('#^https?://#i', $href)) {
                 $anchor->setAttribute('rel', 'noreferrer noopener');
                 $anchor->setAttribute('target', '_blank');

@@ -19,6 +19,9 @@ parameters:
     - tests
     - vendor
 
+  stubFiles:
+    - phpstan/stubs/dom.php
+
   scanFiles:
     - vendor/yiisoft/yii2/Yii.php
 

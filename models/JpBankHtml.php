@@ -24,6 +24,8 @@ use function preg_replace;
 use function strlen;
 use function trim;
 
+use const LIBXML_NOERROR;
+
 final class JpBankHtml extends Model
 {
     public string $html;
