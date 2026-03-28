@@ -23,7 +23,7 @@ final class BackToTopAsset extends AssetBundle
     ];
 
     /**
-     * @var string[]
+     * @var class-string<AssetBundle>[]
      */
     public $depends = [
         BootstrapAsset::class,

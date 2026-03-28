@@ -26,7 +26,7 @@ final class PostalCodeAsset extends AssetBundle
     ];
 
     /**
-     * @var string[]
+     * @var class-string<AssetBundle>[]
      */
     public $depends = [
         AppAsset::class,

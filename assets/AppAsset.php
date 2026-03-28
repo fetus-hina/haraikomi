@@ -30,7 +30,7 @@ final class AppAsset extends AssetBundle
     ];
 
     /**
-     * @var string[]
+     * @var class-string<AssetBundle>[]
      */
     public $depends = [
         BackToTopAsset::class,

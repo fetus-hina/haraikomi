@@ -23,7 +23,7 @@ final class HistoryAsset extends AssetBundle
         'css/history.css',
     ];
     /**
-     * @var string[]
+     * @var class-string<AssetBundle>[]
      */
     public $depends = [
         AppAsset::class,

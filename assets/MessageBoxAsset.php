@@ -29,7 +29,7 @@ final class MessageBoxAsset extends AssetBundle
     ];
 
     /**
-     * @var string[]
+     * @var class-string<AssetBundle>[]
      */
     public $depends = [
         BootstrapAsset::class,
