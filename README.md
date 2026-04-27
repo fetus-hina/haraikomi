@@ -34,9 +34,9 @@ Licensed under the MIT License.
 レポジトリ中に第三者の著作物を含んでいます。  
 それらのライセンスはオリジナルのライセンスに従います。
 
-  - [OCRB代替フォント](https://www.city.aizuwakamatsu.fukushima.jp/docs/2008021400265/)
-    - Licensed under the SIL Open Font License
-    - (C) Aizuwakamatsu City
+  - [OCR B](https://tsukurimashou.org/ocr.php.en)
+    - Public Domain
+    - Tsukurimashou Project
   - [IPAex明朝・ゴシック、IPA明朝・ゴシック](https://moji.or.jp/ipafont/)
     - Licensed under the [IPA Font License](https://moji.or.jp/ipafont/license/)
     - (C) Information-technology Promotion Agency, Japan.

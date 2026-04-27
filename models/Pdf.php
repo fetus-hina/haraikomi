@@ -356,7 +356,7 @@ final class Pdf extends Model
                 $this->pdf->Rect($left, $top, $width, $height, 'D'); // @codeCoverageIgnore
             }
         }
-        $this->pdf->SetFont('ocrb_aizu_1_1', '', static::mm2pt($fontSize));
+        $this->pdf->SetFont('ocrb', '', static::mm2pt($fontSize));
         if ($numbers !== '') {
             $widthPerChar = $width / strlen($numbers);
             [, $numbersHeight] = $this->calcTextSize($numbers);
@@ -546,7 +546,7 @@ final class Pdf extends Model
 
         $code1 = substr($code, 0, 3);
         $code2 = substr($code, 3, 4);
-        $this->pdf->SetFont('ocrb_aizu_1_1', '', 0);
+        $this->pdf->SetFont('ocrb', '', 0);
         $fontSize = $this->calcFontSize(
             $code1,
             static::MAIN_POSTALCODE_1_RIGHT - static::MAIN_POSTALCODE_1_LEFT,
@@ -665,7 +665,7 @@ final class Pdf extends Model
     {
         assert($this->pdf !== null);
 
-        $this->pdf->SetFont('ocrb_aizu_1_1', '', 0);
+        $this->pdf->SetFont('ocrb', '', 0);
         $fontSize = min(
             $this->calcFontSize(
                 $phone1,
@@ -832,7 +832,7 @@ final class Pdf extends Model
         $this->pdf->Line(75.12, 33, 120.84, 33);
 
         // 左上 00
-        $this->pdf->SetFont('ocrb_aizu_1_1', '', static::mm2pt(3.5));
+        $this->pdf->SetFont('ocrb', '', static::mm2pt(3.5));
         [, $textHeight] = $this->calcTextSize('00');
         $this->pdf->SetXY(4, 6 + (6 / 2 - $textHeight / 2));
         $this->pdf->Cell(8.5, $textHeight, '00', 0, 0, 'C', false, '', 0, false, 'T', 'M');

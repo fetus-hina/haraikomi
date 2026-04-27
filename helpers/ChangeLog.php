@@ -57,6 +57,7 @@ final class ChangeLog
             '#mikachan' => 'http://mikachan-font.com/',
             '#mplus1p' => 'https://mplusfonts.github.io/',
             '#nyashi' => 'https://yokutobanaitori.web.fc2.com/',
+            '#ocrb-tsukurimashou' => 'https://tsukurimashou.org/ocr.php.en',
             '#roboto' => 'https://fonts.google.com/specimen/Roboto',
             '#umefont' => 'https://ja.osdn.net/projects/ume-font/wiki/FrontPage',
         ];
