@@ -70,8 +70,8 @@ node_modules: package-lock.json
 	npm clean-install
 	@touch $@
 
-web/js/%.js: resources/js/%.js node_modules .browserslistrc
-	npx babel -s false $< | npx terser -c -m -f ascii_only=true --comments '/license|copyright/i' -o $@
+web/js/%.js: resources/js/%.js node_modules
+	npx terser -c -m -f ascii_only=true --comments '/license|copyright/i' -o $@ -- $<
 
 web/css/%.css: resources/css/%.scss node_modules .browserslistrc
 	npx sass --charset --no-source-map $< | \
