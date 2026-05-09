@@ -14,8 +14,8 @@ $config = [
     'language' => 'ja-JP',
     'bootstrap' => ['log'],
     'aliases' => [
-        // '@bower' => '@vendor/bower-asset',
         '@npm' => '@app/node_modules',
+        '@bower' => '@npm',
     ],
     'components' => [
         'request' => [
