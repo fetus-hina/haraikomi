@@ -6,7 +6,9 @@ namespace app\widgets;
 
 use Exception;
 use Yii;
+use app\helpers\TypeHelper;
 use cebe\markdown\GithubMarkdown;
+use yii\base\Application;
 use yii\helpers\Html;
 
 use function array_keys;
@@ -38,7 +40,7 @@ final class AutoPostalCodeHelpModal extends Modal
         $map = [
             '{apiCompany}' => '株式会社アイビス',
             '{appAuthor}' => '相沢陽菜',
-            '{appName}' => Yii::$app->name,
+            '{appName}' => TypeHelper::instanceOf(Yii::$app, Application::class)->name,
         ];
 
         $md = trim(str_replace(

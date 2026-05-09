@@ -9,6 +9,8 @@ use Exception;
 use FilesystemIterator;
 use SplFileInfo;
 use Yii;
+use app\helpers\TypeHelper;
+use yii\console\Application;
 use yii\console\Controller;
 
 use function addslashes;
@@ -40,7 +42,7 @@ final class AppConfigController extends Controller
         }
         $value = file_exists($path)
             ? require($path)
-            : Yii::$app->security->generateRandomString(32);
+            : TypeHelper::instanceOf(Yii::$app, Application::class)->security->generateRandomString(32);
 
         $escValue = str_replace(
             ['\\', "'"],

@@ -8,8 +8,10 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Yii;
 use app\actions\site\HistoryAction;
+use app\helpers\TypeHelper;
 use app\models\HaraikomiForm;
 use yii\filters\AccessControl;
+use yii\web\Application;
 use yii\web\Controller;
 use yii\web\ErrorAction;
 use yii\web\Response;
@@ -61,7 +63,7 @@ final class SiteController extends Controller
         $form = Yii::createObject(HaraikomiForm::class);
         // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
         if ($form->load($_POST) && $form->validate()) {
-            $resp = Yii::$app->response;
+            $resp = TypeHelper::instanceOf(Yii::$app, Application::class)->response;
             $resp->format = 'raw';
             $resp->setDownloadHeaders(
                 sprintf(
@@ -85,7 +87,7 @@ final class SiteController extends Controller
 
     public function actionClearOpcache(): string
     {
-        $r = Yii::$app->response;
+        $r = TypeHelper::instanceOf(Yii::$app, Application::class)->response;
         $r->format = Response::FORMAT_RAW;
         $r->headers->set('Content-Type', 'text/plain; charset=UTF-8');
 

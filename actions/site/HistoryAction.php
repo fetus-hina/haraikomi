@@ -6,8 +6,10 @@ namespace app\actions\site;
 
 use Yii;
 use app\helpers\ChangeLog;
+use app\helpers\TypeHelper;
 use yii\base\Action;
 use yii\base\InvalidConfigException;
+use yii\web\Application;
 
 use function file_exists;
 use function hash_hmac_file;
@@ -40,7 +42,7 @@ final class HistoryAction extends Action
             return ChangeLog::loadFile(self::CHANGE_LOG_PATH);
         }
 
-        return Yii::$app->cache->getOrSet(
+        return TypeHelper::instanceOf(Yii::$app, Application::class)->cache->getOrSet(
             $this->getCacheId(),
             fn () => ChangeLog::loadFile(self::CHANGE_LOG_PATH),
             self::CACHE_DURATION,

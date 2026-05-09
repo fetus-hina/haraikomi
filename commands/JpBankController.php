@@ -6,9 +6,11 @@ namespace app\commands;
 
 use Exception;
 use Yii;
+use app\helpers\TypeHelper;
 use app\models\DestPreset;
 use app\models\JpBankHtml;
 use app\models\JpGienkin;
+use yii\console\Application;
 use yii\console\Controller;
 use yii\helpers\Json;
 
@@ -62,7 +64,7 @@ final class JpBankController extends Controller
             return 1;
         }
 
-        return Yii::$app->db->transaction(function () use ($parser): int {
+        return TypeHelper::instanceOf(Yii::$app, Application::class)->db->transaction(function () use ($parser): int {
             $availableIds = [];
 
             foreach ($parser->parse() as $row) {

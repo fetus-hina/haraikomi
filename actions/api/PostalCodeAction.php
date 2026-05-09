@@ -7,12 +7,14 @@ namespace app\actions\api;
 use JsonException;
 use Throwable;
 use Yii;
+use app\helpers\TypeHelper;
 use app\models\PostalCodeApiForm;
 use yii\base\Action;
 use yii\base\InvalidArgumentException;
 use yii\base\Model;
 use yii\helpers\Url;
 use yii\httpclient\Client as HttpClient;
+use yii\web\Application;
 use yii\web\Response;
 
 use function array_values;
@@ -41,7 +43,7 @@ final class PostalCodeAction extends Action
             return $this->makeResponseError($apiResp, ['api/postal-code']);
         }
 
-        $resp = Yii::$app->response;
+        $resp = TypeHelper::instanceOf(Yii::$app, Application::class)->response;
         $resp->format = Response::FORMAT_JSON;
         $resp->setStatusCode(200, 'OK');
         $resp->headers->set('Content-Type', 'application/json; charset=UTF-8');
@@ -144,7 +146,7 @@ final class PostalCodeAction extends Action
             }
         }
 
-        $resp = Yii::$app->response;
+        $resp = TypeHelper::instanceOf(Yii::$app, Application::class)->response;
         $resp->format = Response::FORMAT_JSON;
         $resp->setStatusCode(400, 'Bad Request');
         $resp->headers->set('Content-Type', 'application/problem+json; charset=UTF-8');
@@ -162,7 +164,7 @@ final class PostalCodeAction extends Action
 
     private function makeResponseError(array $apiResp, array $url): Response
     {
-        $resp = Yii::$app->response;
+        $resp = TypeHelper::instanceOf(Yii::$app, Application::class)->response;
         $resp->format = Response::FORMAT_JSON;
         $resp->setStatusCode(503, 'Service Unavailable');
         $resp->headers->set('Content-Type', 'application/problem+json; charset=UTF-8');

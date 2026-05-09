@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\assets\PostalCodeAsset;
 use app\helpers\Icon;
+use app\helpers\TypeHelper;
 use app\models\DestPreset;
 use app\models\Font;
 use app\models\HaraikomiForm;
@@ -18,6 +19,7 @@ use app\widgets\MessageBox;
 use app\widgets\SampleImageWidget;
 use app\widgets\SaveHelpModal;
 use app\widgets\SaveModal;
+use yii\base\Application;
 use yii\bootstrap5\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -29,7 +31,7 @@ use yii\web\View;
  * @var HaraikomiForm $form
  */
 
-$this->title = Yii::$app->name;
+$this->title = TypeHelper::instanceOf(Yii::$app, Application::class)->name;
 
 $monospaceInputOptions = [
     'inputOptions' => [

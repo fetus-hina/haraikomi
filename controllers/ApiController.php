@@ -6,7 +6,9 @@ namespace app\controllers;
 
 use Yii;
 use app\actions\api\PostalCodeAction;
+use app\helpers\TypeHelper;
 use yii\filters\VerbFilter;
+use yii\web\Application;
 use yii\web\Controller;
 
 final class ApiController extends Controller
@@ -17,8 +19,9 @@ final class ApiController extends Controller
     public function init()
     {
         parent::init();
-        Yii::$app->language = 'en-US';
-        Yii::$app->timeZone = 'Etc/UTC';
+        $app = TypeHelper::instanceOf(Yii::$app, Application::class);
+        $app->language = 'en-US';
+        $app->timeZone = 'Etc/UTC';
     }
 
     /**

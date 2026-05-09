@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
+use app\helpers\TypeHelper;
+use yii\base\Application;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 
 NavBar::begin([
-  'brandLabel' => Yii::$app->name,
+  'brandLabel' => TypeHelper::instanceOf(Yii::$app, Application::class)->name,
   'options' => [
     'class' => [
       'widget' => 'navbar',

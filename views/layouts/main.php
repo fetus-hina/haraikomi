@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use app\assets\AppAsset;
 use app\helpers\Icon;
+use app\helpers\TypeHelper;
+use yii\base\Application;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -15,6 +17,7 @@ use yii\web\View;
 AppAsset::register($this);
 $this->registerCsrfMetaTags();
 
+$app = TypeHelper::instanceOf(Yii::$app, Application::class);
 $now = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
   ->setTimestamp((int)($_SERVER['REQUEST_TIME'] ?? time()));
 ?>
@@ -22,10 +25,10 @@ $now = (new DateTimeImmutable('now', new DateTimeZone('Asia/Tokyo')))
 <!DOCTYPE html>
 <?= Html::beginTag('html', [
   'class' => 'h-100',
-  'lang' => Yii::$app->language,
+  'lang' => $app->language,
 ]) . "\n" ?>
   <head>
-    <meta charset="<?= Yii::$app->charset ?>">
+    <meta charset="<?= $app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= $this->render('//layouts/_favicon') . "\n" ?>

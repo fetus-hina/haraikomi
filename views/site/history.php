@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 use app\assets\HistoryAsset;
+use app\helpers\TypeHelper;
 use app\widgets\ChangeLogEntry;
+use yii\base\Application;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -12,7 +14,7 @@ use yii\web\View;
  * @var View $this
  */
 
-$this->title = '更新履歴 - ' . Yii::$app->name;
+$this->title = '更新履歴 - ' . TypeHelper::instanceOf(Yii::$app, Application::class)->name;
 
 HistoryAsset::register($this);
 

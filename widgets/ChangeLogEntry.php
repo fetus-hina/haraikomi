@@ -6,6 +6,8 @@ namespace app\widgets;
 
 use Yii;
 use app\helpers\ChangeLog;
+use app\helpers\TypeHelper;
+use yii\base\Application;
 use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -43,7 +45,7 @@ final class ChangeLogEntry extends Widget
         return Html::tag(
             'time',
             Html::encode(
-                Yii::$app->formatter->asDate($dateStr, 'long'),
+                TypeHelper::instanceOf(Yii::$app, Application::class)->formatter->asDate($dateStr, 'long'),
             ),
             [
                 'datetime' => $dateStr,

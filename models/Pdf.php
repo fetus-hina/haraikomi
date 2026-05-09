@@ -6,6 +6,8 @@ namespace app\models;
 
 use TCPDF;
 use Yii;
+use app\helpers\TypeHelper;
+use yii\base\Application;
 use yii\base\Model;
 
 use function array_filter;
@@ -289,7 +291,7 @@ final class Pdf extends Model
                 $address3,
             ])),
             $this->normalizeToWide ? 'ASKV' : 'aSKV',
-            Yii::$app->charset,
+            TypeHelper::instanceOf(Yii::$app, Application::class)->charset,
         );
         $this->drawPostalCode($postalCode);
         $this->drawTextToBox(
@@ -315,7 +317,7 @@ final class Pdf extends Model
                 fn (string $text): bool => $text !== '',
             ))),
             $this->normalizeToWide ? 'ASKV' : 'aSKV',
-            Yii::$app->charset,
+            TypeHelper::instanceOf(Yii::$app, Application::class)->charset,
         );
         $this->drawTextToBox(
             static::SUB_NAME_LEFT,
@@ -597,12 +599,12 @@ final class Pdf extends Model
         $name = mb_convert_kana(
             trim((string)$name),
             $this->normalizeToWide ? 'ASKV' : 'aSKV',
-            Yii::$app->charset,
+            TypeHelper::instanceOf(Yii::$app, Application::class)->charset,
         );
         $kana = mb_convert_kana(
             trim((string)$kana),
             $this->normalizeToWide ? 'ASCKV' : 'aSCKV',
-            Yii::$app->charset,
+            TypeHelper::instanceOf(Yii::$app, Application::class)->charset,
         );
         $boxHeight = static::MAIN_NAME_BOTTOM - static::MAIN_NAME_TOP;
         $nameMaxHeight = (float)number_format($boxHeight * 0.618034, 2, '.', '');
