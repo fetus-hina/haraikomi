@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
         name: 'Set up PHP ${{ matrix.php.version }}'
         uses: shivammathur/setup-php@v2
@@ -39,9 +39,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cache/composer/files
@@ -65,13 +65,13 @@ jobs:
       - makeComposerCache
     steps:
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 'lts/*'
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cache/composer/files
@@ -95,13 +95,13 @@ jobs:
       - makeComposerCache
     steps:
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 'lts/*'
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cache/composer/files
@@ -134,13 +134,13 @@ jobs:
       - makeComposerCache
     steps:
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 'lts/*'
       -
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cache/composer/files
@@ -164,9 +164,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 'lts/*'
       -
@@ -176,9 +176,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       -
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       -
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 'lts/*'
       -
