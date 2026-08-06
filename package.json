@@ -6,21 +6,21 @@
   "dependencies": {
     "@jp3cki/fetus.css": "^5.3.11",
     "bootstrap": "^5.3.8",
-    "inputmask": "^5.0.9",
+    "inputmask": "^5.0.10",
     "jquery": "^3.7.1",
     "punycode": "^2.3.1",
     "yii2-pjax": "^2.0.8"
   },
   "devDependencies": {
     "autoprefixer": "^10.5.4",
-    "cssnano": "^8.0.2",
-    "postcss": "^8.5.24",
+    "cssnano": "^8.0.4",
+    "postcss": "^8.5.26",
     "postcss-cli": "^11.0.1",
     "sass": "^1.102.0",
     "semistandard": "^17.0.0",
     "stylelint": "^17.14.1",
     "stylelint-config-sass-guidelines": "^13.0.0",
-    "terser": "^5.49.0",
-    "updates": "^17.19.2"
+    "terser": "^5.49.2",
+    "updates": "^18.0.0"
   }
 }
